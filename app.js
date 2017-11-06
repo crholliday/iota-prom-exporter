@@ -6,12 +6,7 @@ let Gauge = promclient.Gauge
 
 /* 
 TODO:
-- Number of transactions over time
-- Number sent over time by neighbor
-- Number random over time by neighbor
-- Number new over time by neighbor
 - Time between milestones
-- Total Tips
 - Milestone, milestone counts, etc
 */
 
