@@ -7,6 +7,7 @@ let Gauge = promclient.Gauge
 /* 
 TODO:
 - Time between milestones
+- nothing here
 - Milestone, milestone counts, etc
 */
 
