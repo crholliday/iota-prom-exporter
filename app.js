@@ -16,6 +16,8 @@ let app = express()
 
 let nodeInfo = require ('./nodeInfo')
 let neighborInfo = require ('./neighborInfo')
+let tangleInfo = require ('./tangleInfo')
+let marketInfo = require ('./marketInfo')
 
 let totalTransactions = new Gauge({ name: 'iota_node_info_total_transactions_queued', help: 'Total open txs at the interval' })
 let totalTips = new Gauge({ name: 'iota_node_info_total_tips', help: 'Total tips at the interval' })
@@ -27,6 +29,9 @@ let randomTransactions = new Gauge({ name: 'iota_neighbors_random_transactions',
 let allTransactions = new Gauge({ name: 'iota_neighbors_all_transactions', help: 'All transactions by neighbor', labelNames: ['id'] })
 let invalidTransactions = new Gauge({ name: 'iota_neighbors_invalid_transactions', help: 'Invalid transactions by neighbor', labelNames: ['id'] })
 let activeNeighbors = new Gauge({ name: 'iota_neighbors_active_neighbors', help: 'Number of neighbors who are active'})
+let totalTx = new Gauge({ name: 'iota_tangle_total_txs', help: 'Number of total transaction from the whole tangle'})
+let confirmedTx = new Gauge({ name: 'iota_tangle_confirmed_txs', help: 'Number of confirmed transactions from the whole tangle'})
+let tradePrice = new Gauge({ name: 'iota_market_trade_price', help: 'Latest price from Bitfinex'})
 
 app.get('/metrics', (req, res) => {
     console.log('.')
@@ -41,8 +46,18 @@ app.get('/metrics', (req, res) => {
             totalTips.set(results.tips)
             totalNeighbors.set(results.neighbors)
             latestMilestone.set(results.latestMilestoneIndex)
-            latestSolidSubtangleMilestone.set(results.latestSolidSubtangleMilestoneIndex)           
+            latestSolidSubtangleMilestone.set(results.latestSolidSubtangleMilestoneIndex)        
         }
+
+        marketInfo((marketError, marketResults) => {
+            if (marketError) {
+                console.log('there was an error in marketInfo')
+                console.log(marketError)
+            } else {
+                // console.log(marketResults)
+                tradePrice.set(marketResults[6])
+            }
+        })
 
         neighborInfo( (error, neighborResults) => {
             let connectedNeighbors = 0
@@ -55,8 +70,21 @@ app.get('/metrics', (req, res) => {
                     connectedNeighbors += 1
                 }  
             })
-            activeNeighbors.set(connectedNeighbors)  
-            res.end(promclient.register.metrics())      
+
+            activeNeighbors.set(connectedNeighbors) 
+
+            tangleInfo( (tangleResults) => {
+                if (tangleResults) {
+                    // console.log(tangleResults.field2)
+                    totalTx.set(parseInt(tangleResults.field3))
+                    confirmedTx.set(parseInt(tangleResults.field4))
+                } else {
+                    console.log('No results...')
+                }  
+                
+                res.end(promclient.register.metrics())   
+            })
+  
         })         
     })
 })
