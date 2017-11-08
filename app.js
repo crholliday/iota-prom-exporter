@@ -31,7 +31,7 @@ let invalidTransactions = new Gauge({ name: 'iota_neighbors_invalid_transactions
 let activeNeighbors = new Gauge({ name: 'iota_neighbors_active_neighbors', help: 'Number of neighbors who are active'})
 let totalTx = new Gauge({ name: 'iota_tangle_total_txs', help: 'Number of total transaction from the whole tangle'})
 let confirmedTx = new Gauge({ name: 'iota_tangle_confirmed_txs', help: 'Number of confirmed transactions from the whole tangle'})
-let tradePrice = new Gauge({ name: 'iota_market_trade_price', help: 'Latest price from Bitfinex'})
+let tradePrice = new Gauge({ name: 'iota_market_trade_price', help: 'Latest price from Bitfinex', labelNames: ['pair'] })
 
 app.get('/metrics', (req, res) => {
     console.log('.')
@@ -48,16 +48,6 @@ app.get('/metrics', (req, res) => {
             latestMilestone.set(results.latestMilestoneIndex)
             latestSolidSubtangleMilestone.set(results.latestSolidSubtangleMilestoneIndex)        
         }
-
-        marketInfo((marketError, marketResults) => {
-            if (marketError) {
-                console.log('there was an error in marketInfo')
-                console.log(marketError)
-            } else {
-                // console.log(marketResults)
-                tradePrice.set(marketResults[6])
-            }
-        })
 
         neighborInfo( (error, neighborResults) => {
             let connectedNeighbors = 0
@@ -78,11 +68,25 @@ app.get('/metrics', (req, res) => {
                     // console.log(tangleResults.field2)
                     totalTx.set(parseInt(tangleResults.field3))
                     confirmedTx.set(parseInt(tangleResults.field4))
+
+                    marketInfo((marketError, marketResults) => {
+                        if (marketError) {
+                            console.log('there was an error in marketInfo')
+                            console.log(marketError)
+                        } else {
+                            // console.log(marketResults.IOTUSD)
+                            tradePrice.set({pair: 'IOTUSD'}, marketResults.IOTUSD)
+                            tradePrice.set({pair: 'IOTBTC'}, marketResults.IOTBTC)
+                            tradePrice.set({pair: 'IOTETH'}, marketResults.IOTETH)
+
+                            res.end(promclient.register.metrics())   
+                        }
+                    })
+
                 } else {
                     console.log('No results...')
                 }  
                 
-                res.end(promclient.register.metrics())   
             })
   
         })         
