@@ -32,6 +32,7 @@ let activeNeighbors = new Gauge({ name: 'iota_neighbors_active_neighbors', help:
 let totalTx = new Gauge({ name: 'iota_tangle_total_txs', help: 'Number of total transaction from the whole tangle'})
 let confirmedTx = new Gauge({ name: 'iota_tangle_confirmed_txs', help: 'Number of confirmed transactions from the whole tangle'})
 let tradePrice = new Gauge({ name: 'iota_market_trade_price', help: 'Latest price from Bitfinex', labelNames: ['pair'] })
+let tradeVolume = new Gauge({ name: 'iota_market_trade_volume', help: 'Latest volume from Bitfinex', labelNames: ['pair'] })
 
 app.get('/metrics', (req, res) => {
     console.log('.')
@@ -74,10 +75,13 @@ app.get('/metrics', (req, res) => {
                             console.log('there was an error in marketInfo')
                             console.log(marketError)
                         } else {
-                            // console.log(marketResults.IOTUSD)
+                            // console.log(marketResults)
                             tradePrice.set({pair: 'IOTUSD'}, marketResults.IOTUSD)
+                            tradeVolume.set({pair: 'IOTUSD'}, Number(marketResults.IOTUSD_Volume))
                             tradePrice.set({pair: 'IOTBTC'}, marketResults.IOTBTC)
+                            tradeVolume.set({pair: 'IOTBTC'}, Number(marketResults.IOTBTC_Volume))
                             tradePrice.set({pair: 'IOTETH'}, marketResults.IOTETH)
+                            tradeVolume.set({pair: 'IOTETH'}, Number(marketResults.IOTETH_Volume))
 
                             res.end(promclient.register.metrics())   
                         }
