@@ -7,8 +7,19 @@
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crholliday/iota-prom-exporter.git"
+  },
+  "keywords": [
+    "prometheus",
+    "IOTA",
+    "exporter",
+    "metrics"
+  ],
+  "author": "crholliday",
+  "license": "MIT",
+  "homepage": "https://github.com/crholliday/iota-prom-exporter",
   "dependencies": {
     "axios": "^0.17.0",
     "csvtojson": "^1.1.9",

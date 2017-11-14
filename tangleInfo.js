@@ -2,6 +2,7 @@
 
 const request = require('request')
 const csv = require('csvtojson')
+const config = require('./config')
 
 let tangleInfo = async () => {
 
@@ -11,7 +12,7 @@ let tangleInfo = async () => {
             trim: true,
             delimiter: '|'
         })
-            .fromStream(request.get('http://analytics.iotaledger.net/stresstest.table'))
+            .fromStream(request.get(config.stresstest_table_url))
             .on('end_parsed', (jsonObj) => {
                 resolve(jsonObj[jsonObj.length - 2])
             })

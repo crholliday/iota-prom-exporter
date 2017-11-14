@@ -79,10 +79,9 @@ app.get('/metrics', (req, res) => {
             res.end()
         }
     }
-
     getResults()
 })
 
-app.listen(process.env.port || 9011, () => {
-    console.log('Listening on:', process.env.port || 9011)
+app.listen(9311, () => {
+    console.log('Listening on:', 9311)
 })
