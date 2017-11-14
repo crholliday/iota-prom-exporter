@@ -3,20 +3,16 @@
 let IOTA = require('iota.lib.js')
 let config = require('./config')
 const iota = new IOTA({'provider': config.iota_node_url})
+const i = require('iotap').create(iota)
 
-let neighbhorInfo = (done) => {
+let neighbhorInfo = async () => {
 
-    let results = {}
-
-    iota.api.getNeighbors(function (error, success) {
-        if (error) {
-            console.log('error in getNodeInfo api call... ')
-            console.log(error)
-        } else {
-            results = success
-        }
-        done(error, results)
-    })   
+    try {
+        const info = await i.getNeighbors()
+        return info
+    } catch (error) {
+        return error
+    }
 }
 
 module.exports = neighbhorInfo

@@ -1,23 +1,24 @@
 'use strict'
 
-const request=require('request')
-const csv=require('csvtojson')
+const request = require('request')
+const csv = require('csvtojson')
 
-let tangleInfo = (done) => {
+let tangleInfo = async () => {
 
-    let results = {}
-
-    csv({
-        noheader:true,
-        trim:true,
-        delimiter: '|'
+    return new Promise(function (resolve, reject) {
+        csv({
+            noheader: true,
+            trim: true,
+            delimiter: '|'
+        })
+            .fromStream(request.get('http://analytics.iotaledger.net/stresstest.table'))
+            .on('end_parsed', (jsonObj) => {
+                resolve(jsonObj[jsonObj.length - 2])
+            })
+            .on('done',(error)=>{
+                reject(error)
+            })
     })
-    .fromStream(request.get('http://analytics.iotaledger.net/stresstest.table'))
-    .on('end_parsed',(jsonObj)=>{
-        results = jsonObj[jsonObj.length - 2]
-        // console.log(results)  
-        done(results)
-    })    
 }
 
 module.exports = tangleInfo
