@@ -1,21 +1,14 @@
 'use strict'
 
-let promclient = require('prom-client')
+const express = require('express')
+const app = express()
+const promclient = require('prom-client')
 let Gauge = promclient.Gauge
-// let Histogram = promclient.Histogram
 
-/* 
-TODO:
-- Milestone, milestone counts, etc
-*/
-
-let express = require('express')
-let app = express()
-
-let nodeInfo = require('./nodeInfo')
-let neighborInfo = require('./neighborInfo')
-let tangleInfo = require('./tangleInfo')
-let marketInfo = require('./marketInfo')
+const nodeInfo = require('./nodeInfo')
+const neighborInfo = require('./neighborInfo')
+const tangleInfo = require('./tangleInfo')
+const marketInfo = require('./marketInfo')
 
 let totalTransactions = new Gauge({ name: 'iota_node_info_total_transactions_queued', help: 'Total open txs at the interval' })
 let totalTips = new Gauge({ name: 'iota_node_info_total_tips', help: 'Total tips at the interval' })
@@ -36,6 +29,14 @@ app.get('/metrics', (req, res) => {
     console.log('.')
 
     async function getResults() {
+
+        // needed to clear out neighbors that hung around after they were removed
+        // Might be related to the prometheus JS client library and labels
+        // Todo: Figure out why this happens
+        newTransactions.reset()
+        invalidTransactions.reset()
+        allTransactions.reset()
+        randomTransactions.reset()
 
         try {
             const [nodeResults, neighborResults, tangleResults, marketResults] = await Promise.all([nodeInfo(), neighborInfo(), tangleInfo(), marketInfo()])
@@ -71,6 +72,10 @@ app.get('/metrics', (req, res) => {
             tradeVolume.set({ pair: 'IOTBTC' }, Number(marketResults.IOTBTC_Volume))
             tradePrice.set({ pair: 'IOTETH' }, marketResults.IOTETH)
             tradeVolume.set({ pair: 'IOTETH' }, Number(marketResults.IOTETH_Volume))
+            tradePrice.set({ pair: 'BTCUSD' }, marketResults.BTCUSD)
+            tradeVolume.set({ pair: 'BTCUSD' }, Number(marketResults.BTCUSD_Volume))
+            tradePrice.set({ pair: 'ETHUSD' }, marketResults.ETHUSD)
+            tradeVolume.set({ pair: 'ETHUSD' }, Number(marketResults.ETHUSD_Volume))
 
             res.end(promclient.register.metrics())
 
