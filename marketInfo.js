@@ -11,8 +11,7 @@ let marketInfo = async () => {
             axios.request('https://api.bitfinex.com/v2/ticker/tIOTUSD'), 
             axios.request('https://api.bitfinex.com/v2/ticker/tIOTBTC'),
             axios.request('https://api.bitfinex.com/v2/ticker/tIOTETH'),
-            axios.request('https://api.bitfinex.com/v2/ticker/tBTCUSD'),
-            axios.request('https://api.bitfinex.com/v2/ticker/tETHUSD')
+            axios.request('https://api.bitfinex.com/v2/ticker/tBTCUSD')
         ])
 
         results.IOTUSD = usdData.data[6]
@@ -26,9 +25,6 @@ let marketInfo = async () => {
 
         results.BTCUSD = btcUsdData.data[6]
         results.BTCUSD_Volume = btcUsdData.data[7]
-
-        results.ETHUSD = ethUsdData.data[6]
-        results.ETHUSD_Volume = ethUsdData.data[7]        
 
         return results
     }

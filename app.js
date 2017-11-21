@@ -74,8 +74,6 @@ app.get('/metrics', (req, res) => {
             tradeVolume.set({ pair: 'IOTETH' }, Number(marketResults.IOTETH_Volume))
             tradePrice.set({ pair: 'BTCUSD' }, marketResults.BTCUSD)
             tradeVolume.set({ pair: 'BTCUSD' }, Number(marketResults.BTCUSD_Volume))
-            tradePrice.set({ pair: 'ETHUSD' }, marketResults.ETHUSD)
-            tradeVolume.set({ pair: 'ETHUSD' }, Number(marketResults.ETHUSD_Volume))
 
             res.end(promclient.register.metrics())
 
