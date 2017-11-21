@@ -30,8 +30,6 @@ let tradeVolume = new Gauge({ name: 'iota_market_trade_volume', help: 'Latest vo
 app.get('/metrics', (req, res) => {
     console.log('.')
 
-    console.log(trades)
-
     async function getResults() {
 
         // needed to clear out neighbors that hung around after they were removed
