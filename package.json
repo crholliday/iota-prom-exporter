@@ -21,12 +21,13 @@
   "license": "MIT",
   "homepage": "https://github.com/crholliday/iota-prom-exporter",
   "dependencies": {
-    "axios": "^0.17.0",
     "csvtojson": "^1.1.9",
     "express": "^4.16.2",
     "iota.lib.js": "^0.4.0",
     "iotap": "^2.0.0",
+    "lodash.set": "^4.3.2",
     "prom-client": "^10.2.1",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "ws": "^3.3.1"
   }
 }

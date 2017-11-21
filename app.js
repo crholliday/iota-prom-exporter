@@ -5,10 +5,12 @@ const app = express()
 const promclient = require('prom-client')
 let Gauge = promclient.Gauge
 
+let trades = {}
+
 const nodeInfo = require('./nodeInfo')
 const neighborInfo = require('./neighborInfo')
 const tangleInfo = require('./tangleInfo')
-const marketInfo = require('./marketInfo')
+const marketInfoSocket = require('./marketInfoSocket')(trades) 
 
 let totalTransactions = new Gauge({ name: 'iota_node_info_total_transactions_queued', help: 'Total open txs at the interval' })
 let totalTips = new Gauge({ name: 'iota_node_info_total_tips', help: 'Total tips at the interval' })
@@ -28,6 +30,8 @@ let tradeVolume = new Gauge({ name: 'iota_market_trade_volume', help: 'Latest vo
 app.get('/metrics', (req, res) => {
     console.log('.')
 
+    console.log(trades)
+
     async function getResults() {
 
         // needed to clear out neighbors that hung around after they were removed
@@ -39,7 +43,7 @@ app.get('/metrics', (req, res) => {
         randomTransactions.reset()
 
         try {
-            const [nodeResults, neighborResults, tangleResults, marketResults] = await Promise.all([nodeInfo(), neighborInfo(), tangleInfo(), marketInfo()])
+            const [nodeResults, neighborResults, tangleResults] = await Promise.all([nodeInfo(), neighborInfo(), tangleInfo()])
 
             // node info
             totalTransactions.set(nodeResults.transactionsToRequest)
@@ -66,14 +70,16 @@ app.get('/metrics', (req, res) => {
             confirmedTx.set(parseInt(tangleResults.field4))
 
             // market info
-            tradePrice.set({ pair: 'IOTUSD' }, marketResults.IOTUSD)
-            tradeVolume.set({ pair: 'IOTUSD' }, Number(marketResults.IOTUSD_Volume))
-            tradePrice.set({ pair: 'IOTBTC' }, marketResults.IOTBTC)
-            tradeVolume.set({ pair: 'IOTBTC' }, Number(marketResults.IOTBTC_Volume))
-            tradePrice.set({ pair: 'IOTETH' }, marketResults.IOTETH)
-            tradeVolume.set({ pair: 'IOTETH' }, Number(marketResults.IOTETH_Volume))
-            tradePrice.set({ pair: 'BTCUSD' }, marketResults.BTCUSD)
-            tradeVolume.set({ pair: 'BTCUSD' }, Number(marketResults.BTCUSD_Volume))
+            tradePrice.set({ pair: 'IOTUSD' }, trades.IOTUSD.price)
+            tradeVolume.set({ pair: 'IOTUSD' }, Number(trades.IOTUSD.volume))
+            tradePrice.set({ pair: 'IOTBTC' }, trades.IOTBTC.price)
+            tradeVolume.set({ pair: 'IOTBTC' }, Number(trades.IOTBTC.volume))
+            tradePrice.set({ pair: 'IOTETH' }, trades.IOTETH.price)
+            tradeVolume.set({ pair: 'IOTETH' }, Number(trades.IOTETH.volume))
+            tradePrice.set({ pair: 'BTCUSD' }, trades.BTCUSD.price)
+            tradeVolume.set({ pair: 'BTCUSD' }, Number(trades.BTCUSD.volume))
+            tradePrice.set({ pair: 'ETHUSD' }, trades.ETHUSD.price)
+            tradeVolume.set({ pair: 'ETHUSD' }, Number(trades.ETHUSD.volume))
 
             res.end(promclient.register.metrics())
 
