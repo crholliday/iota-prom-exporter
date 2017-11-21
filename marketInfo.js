@@ -7,7 +7,7 @@ let marketInfo = async () => {
     let results = {}
     
     try {
-        const [usdData, btcData, ethData, btcUsdData, ethUsdData] = await Promise.all([
+        const [usdData, btcData, ethData, btcUsdData] = await Promise.all([
             axios.request('https://api.bitfinex.com/v2/ticker/tIOTUSD'), 
             axios.request('https://api.bitfinex.com/v2/ticker/tIOTBTC'),
             axios.request('https://api.bitfinex.com/v2/ticker/tIOTETH'),
@@ -29,6 +29,8 @@ let marketInfo = async () => {
         return results
     }
     catch (err) {
+        console.log('Market Info error...')
+        console.log(err)
         return err
     }    
 }
