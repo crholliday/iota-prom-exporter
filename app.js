@@ -6,6 +6,8 @@ const promclient = require('prom-client')
 let Gauge = promclient.Gauge
 
 let trades = {}
+let before = 0
+let after = 0
 
 const nodeInfo = require('./nodeInfo')
 const neighborInfo = require('./neighborInfo')
@@ -30,6 +32,17 @@ let tradeVolume = new Gauge({ name: 'iota_market_trade_volume', help: 'Latest vo
 app.get('/metrics', (req, res) => {
     console.log('.')
 
+    // nastly little dance to make sure the 
+    // websocket connection stays alive
+    after = trades.BTCUSD.volume
+
+    if (after === before) {
+        marketInfoSocket
+        before = trades.BTCUSD.volume
+    } else {
+        before = after
+    }   
+        
     async function getResults() {
 
         // needed to clear out neighbors that hung around after they were removed
