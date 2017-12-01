@@ -11,11 +11,11 @@ The following images are from my IOTA dashboard. The top looks like this:
 
 The next section contains market pricing data and data from all neighbors:
 
-![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/top.png)
+![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/market_all_neighbors.png)
 
 Finally, I have a template section for all my neighbors:
 
-![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/top.png)
+![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/neighbors.png)
 
 
 ## Current Metrics
