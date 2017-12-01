@@ -5,6 +5,19 @@ Prometheus Exporter for IOTA fullnode metrics
 
 Works with [Prometheus](https://github.com/prometheus/prometheus) and (optionally) [Grafana](https://grafana.com/) to export instrumentation metrics from an [IOTA full node](https://github.com/iotaledger/iri) as well as pulls metrics from [Bitfinex's webservice API](https://docs.bitfinex.com/v2/docs) for market data and the [IOTA stress table](https://github.com/alon-e/iota-ctps) for TPS statistics.
 
+The following images are from my IOTA dashboard. The top looks like this:
+
+![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/top.png)
+
+The next section contains market pricing data and data from all neighbors:
+
+![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/top.png)
+
+Finally, I have a template section for all my neighbors:
+
+![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/top.png)
+
+
 ## Current Metrics
 
 * totalTransactions
