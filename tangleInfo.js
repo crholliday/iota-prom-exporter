@@ -34,8 +34,6 @@ let tangleInfo = async () => {
     tangleStuff.totalTx = txs.field3
     tangleStuff.confirmedTx = txs.field4
 
-    console.log(tangleStuff)
-
     return tangleStuff
 }
 
