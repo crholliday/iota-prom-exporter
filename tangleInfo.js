@@ -3,10 +3,20 @@
 const request = require('request')
 const csv = require('csvtojson')
 const config = require('./config')
+const axios = require('axios')
+
+let tangleStuff = {}
 
 let tangleInfo = async () => {
 
-    return new Promise(function (resolve, reject) {
+    let totalTransactions = await axios.post(config.iota_node_url, 
+        {command: 'tangleStuff.getTotalTransactions'},
+        {headers: {'X-IOTA-API-Version': '1.4.1'}}
+    )
+
+    tangleStuff.totalTransactions = totalTransactions.data.ixi.totalTransactions
+
+    let txs = await new Promise(function (resolve, reject) {
         csv({
             noheader: true,
             trim: true,
@@ -20,6 +30,13 @@ let tangleInfo = async () => {
                 reject(error)
             })
     })
+
+    tangleStuff.totalTx = txs.field3
+    tangleStuff.confirmedTx = txs.field4
+
+    console.log(tangleStuff)
+
+    return tangleStuff
 }
 
 module.exports = tangleInfo
