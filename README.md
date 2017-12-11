@@ -7,15 +7,15 @@ Works with [Prometheus](https://github.com/prometheus/prometheus) and (optionall
 
 The following images are from my IOTA dashboard. The top looks like this:
 
-![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/top.png)
+![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/images/top.png)
 
 The next section contains market pricing data and data from all neighbors:
 
-![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/market_all_neighbors.png)
+![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/images/market_all_neighbors.png)
 
 Finally, I have a template section for all my neighbors:
 
-![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/neighbors.png)
+![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/images/neighbors.png)
 
 
 ## Current Metrics
