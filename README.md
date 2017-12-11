@@ -51,6 +51,8 @@ npm install
 node app.js
 ```
 
+Rename `config-template.js` to `config.js` and update the settings inside (change the port of your IRI installation)
+
 The exporter is configured to run on port `9311` so as to comply with the list of [export default ports](https://github.com/prometheus/prometheus/wiki/Default-port-allocations)
 
 Once installed and working you will then need to edit the Prometheus config file - `/etc/prometheus/prometheus.yml` and add a section like the below:
