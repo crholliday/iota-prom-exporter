@@ -2,6 +2,7 @@
 
 const express = require('express')
 const app = express()
+const config = require('./config')
 const promclient = require('prom-client')
 let Gauge = promclient.Gauge
 
@@ -106,6 +107,6 @@ app.get('/metrics', (req, res) => {
     getResults()
 })
 
-app.listen(9311, () => {
-    console.log('Listening on:', 9311)
+app.listen(config.bind_port, config.bind_address, () => {
+    console.log('Listening on:', config.bind_port)
 })
