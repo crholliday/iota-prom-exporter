@@ -2993,8 +2993,8 @@
       {
         "allValue": null,
         "current": {
-          "text": "localhost:9100",
-          "value": "localhost:9100"
+          "text": "localhost:9311",
+          "value": "localhost:9311"
         },
         "datasource": "Prometheus",
         "hide": 2,
