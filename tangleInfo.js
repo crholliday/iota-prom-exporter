@@ -9,12 +9,12 @@ let tangleStuff = {}
 
 let tangleInfo = async () => {
 
-    let totalTransactions = await axios.post(config.iota_node_url, 
-        {command: 'tangleStuff.getTotalTransactions'},
-        {headers: {'X-IOTA-API-Version': '1.4.1'}}
-    )
+    // let totalTransactions = await axios.post(config.iota_node_url, 
+    //    {command: 'tangleStuff.getTotalTransactions'},
+    //    {headers: {'X-IOTA-API-Version': '1.4.1'}}
+    // )
 
-    tangleStuff.totalTransactions = totalTransactions.data.ixi.totalTransactions
+    // tangleStuff.totalTransactions = totalTransactions.data.ixi.totalTransactions
 
     let txs = await new Promise(function (resolve, reject) {
         csv({
