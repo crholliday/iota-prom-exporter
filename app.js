@@ -32,7 +32,9 @@ let tradePrice = new Gauge({ name: 'iota_market_trade_price', help: 'Latest pric
 let tradeVolume = new Gauge({ name: 'iota_market_trade_volume', help: 'Latest volume from Bitfinex', labelNames: ['pair'] })
 
 app.get('/metrics', (req, res) => {
-    console.log('.')
+    // If unsure about whether Prometheus is calling the app
+    // Uncomment the below line and look for a dot in the logs. 
+    // console.log('.')
 
     // nastly little dance to make sure the 
     // websocket connection stays alive
