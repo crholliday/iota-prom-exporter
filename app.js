@@ -13,7 +13,7 @@ let after = 0
 const nodeInfo = require('./nodeInfo')
 const neighborInfo = require('./neighborInfo')
 const tangleInfo = require('./tangleInfo')
-const marketInfoSocket = require('./marketInfoSocket')(trades) 
+const marketInfoSocket = require('./marketInfoSocketRC')(trades) 
 
 let totalTransactions = new Gauge({ name: 'iota_node_info_total_transactions_queued', help: 'Total open txs at the interval' })
 let totalTips = new Gauge({ name: 'iota_node_info_total_tips', help: 'Total tips at the interval' })
@@ -38,14 +38,14 @@ app.get('/metrics', (req, res) => {
 
     // nastly little dance to make sure the 
     // websocket connection stays alive
-    after = trades.BTCUSD.volume
+    // after = trades.BTCUSD.volume
 
-    if (after === before) {
-        marketInfoSocket
-        before = trades.BTCUSD.volume
-    } else {
-        before = after
-    }   
+    // if (after === before) {
+    //     marketInfoSocket
+    //     before = trades.BTCUSD.volume
+    // } else {
+    //     before = after
+    // }   
         
     async function getResults() {
 

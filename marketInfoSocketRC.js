@@ -1,5 +1,7 @@
-const ws = require('ws')
-const w = new ws('wss://api.bitfinex.com/ws/2', { restart: true })
+const Html5WebSocket = require('html5-websocket')
+const ReconnectingWebSocket = require('reconnecting-websocket')
+const options = {connectionTimeout: 1000, constructor: Html5WebSocket}
+const w = new ReconnectingWebSocket('wss://api.bitfinex.com/ws/2', undefined, options)
 const set = require('lodash.set')
 
 module.exports = (trades) => {
@@ -34,7 +36,7 @@ module.exports = (trades) => {
         symbol: 'tETHUSD'
     })
 
-    w.on('open', () => {
+    w.addEventListener('open', () => {
 
         console.log('Connected to Bitfinex websocket')
 
@@ -46,8 +48,8 @@ module.exports = (trades) => {
 
     })
 
-    w.on('message', (msg) => {
-        let data = JSON.parse(msg)
+    w.addEventListener('message', (msg) => {
+        let data = JSON.parse(msg.data)
         if (data.event === 'subscribed') {
             if (data.pair === 'BTCUSD') {
                 set(trades, 'BTCUSD.channelID', data.chanId)
@@ -81,22 +83,13 @@ module.exports = (trades) => {
         }
     })
 
-    w.on('error', (err) => {
+    w.addEventListener('error', (err) => {
         console.log('Error from Bitfinex websocket: ', err)
 
     })
 
-    w.on('close', (event) => {
+    w.addEventListener('close', (event) => {
         console.log('Disconnected from Bitfinex websocket ...')
         console.log(event)
-
-        setTimeout(function () {
-            try {
-                console.log('Connection died, dumping process so PM2 restarts... ')
-                process.exit()
-            } catch (err) {
-                console.error('Socket reconnect failed...', err)
-            }
-        }, 3000)
     })
 }
