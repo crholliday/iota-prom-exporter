@@ -959,7 +959,7 @@
                         "renderer": "flot",
                         "seriesOverrides": [],
                         "spaceLength": 10,
-                        "span": 6,
+                        "span": 4,
                         "stack": false,
                         "steppedLine": false,
                         "targets": [
@@ -1037,7 +1037,7 @@
                         "renderer": "flot",
                         "seriesOverrides": [],
                         "spaceLength": 10,
-                        "span": 6,
+                        "span": 4,
                         "stack": true,
                         "steppedLine": false,
                         "targets": [
@@ -2060,7 +2060,7 @@
                         "points": false,
                         "renderer": "flot",
                         "repeat": null,
-                        "repeatIteration": 1513607768887,
+                        "repeatIteration": 1513607768888,
                         "repeatPanelId": 10,
                         "scopedVars": {
                             "neighbor": {
@@ -2169,7 +2169,7 @@
                         "points": false,
                         "renderer": "flot",
                         "repeat": null,
-                        "repeatIteration": 1513607768887,
+                        "repeatIteration": 1513607768888,
                         "repeatPanelId": 10,
                         "scopedVars": {
                             "neighbor": {
@@ -2278,7 +2278,7 @@
                         "points": false,
                         "renderer": "flot",
                         "repeat": null,
-                        "repeatIteration": 1513607768887,
+                        "repeatIteration": 1513607768888,
                         "repeatPanelId": 10,
                         "scopedVars": {
                             "neighbor": {
@@ -2387,7 +2387,7 @@
                         "points": false,
                         "renderer": "flot",
                         "repeat": null,
-                        "repeatIteration": 1513607768887,
+                        "repeatIteration": 1513607768888,
                         "repeatPanelId": 10,
                         "scopedVars": {
                             "neighbor": {
@@ -2476,6 +2476,487 @@
                 "showTitle": true,
                 "title": "Stats By Neighbors",
                 "titleSize": "h4"
+            },
+            {
+                "collapse": true,
+                "height": 254,
+                "panels": [
+                    {
+                        "alert": {
+                            "conditions": [
+                                {
+                                    "evaluator": {
+                                        "params": [
+                                            15
+                                        ],
+                                        "type": "gt"
+                                    },
+                                    "operator": {
+                                        "type": "and"
+                                    },
+                                    "query": {
+                                        "params": [
+                                            "A",
+                                            "1m",
+                                            "now"
+                                        ]
+                                    },
+                                    "reducer": {
+                                        "params": [],
+                                        "type": "avg"
+                                    },
+                                    "type": "query"
+                                }
+                            ],
+                            "executionErrorState": "alerting",
+                            "frequency": "60s",
+                            "handler": 1,
+                            "name": "Neighbor Count alert",
+                            "noDataState": "no_data",
+                            "notifications": []
+                        },
+                        "aliasColors": {},
+                        "bars": false,
+                        "dashLength": 10,
+                        "dashes": false,
+                        "datasource": null,
+                        "description": "Used for alerting only",
+                        "fill": 1,
+                        "id": 70,
+                        "legend": {
+                            "avg": false,
+                            "current": false,
+                            "max": false,
+                            "min": false,
+                            "show": true,
+                            "total": false,
+                            "values": false
+                        },
+                        "lines": true,
+                        "linewidth": 1,
+                        "links": [],
+                        "nullPointMode": "null",
+                        "percentage": false,
+                        "pointradius": 5,
+                        "points": false,
+                        "renderer": "flot",
+                        "seriesOverrides": [],
+                        "spaceLength": 10,
+                        "span": 3,
+                        "stack": false,
+                        "steppedLine": false,
+                        "targets": [
+                            {
+                                "expr": "iota_node_info_total_neighbors",
+                                "format": "time_series",
+                                "interval": "",
+                                "intervalFactor": 2,
+                                "legendFormat": "Neighbors",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": [
+                            {
+                                "colorMode": "critical",
+                                "fill": true,
+                                "line": true,
+                                "op": "gt",
+                                "value": 15
+                            }
+                        ],
+                        "timeFrom": null,
+                        "timeShift": null,
+                        "title": "Neighbor Count",
+                        "tooltip": {
+                            "shared": true,
+                            "sort": 0,
+                            "value_type": "individual"
+                        },
+                        "type": "graph",
+                        "xaxis": {
+                            "buckets": null,
+                            "mode": "time",
+                            "name": null,
+                            "show": true,
+                            "values": []
+                        },
+                        "yaxes": [
+                            {
+                                "format": "short",
+                                "label": null,
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            },
+                            {
+                                "format": "short",
+                                "label": null,
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            }
+                        ]
+                    },
+                    {
+                        "alert": {
+                            "conditions": [
+                                {
+                                    "evaluator": {
+                                        "params": [
+                                            1
+                                        ],
+                                        "type": "gt"
+                                    },
+                                    "operator": {
+                                        "type": "and"
+                                    },
+                                    "query": {
+                                        "params": [
+                                            "A",
+                                            "1h",
+                                            "now"
+                                        ]
+                                    },
+                                    "reducer": {
+                                        "params": [],
+                                        "type": "avg"
+                                    },
+                                    "type": "query"
+                                }
+                            ],
+                            "executionErrorState": "alerting",
+                            "frequency": "60s",
+                            "handler": 1,
+                            "name": "Dead Neighbor Count alert",
+                            "noDataState": "no_data",
+                            "notifications": []
+                        },
+                        "aliasColors": {},
+                        "bars": false,
+                        "dashLength": 10,
+                        "dashes": false,
+                        "datasource": null,
+                        "description": "For alerting purposes",
+                        "fill": 1,
+                        "id": 71,
+                        "legend": {
+                            "avg": false,
+                            "current": false,
+                            "max": false,
+                            "min": false,
+                            "show": true,
+                            "total": false,
+                            "values": false
+                        },
+                        "lines": true,
+                        "linewidth": 1,
+                        "links": [],
+                        "nullPointMode": "null",
+                        "percentage": false,
+                        "pointradius": 5,
+                        "points": false,
+                        "renderer": "flot",
+                        "seriesOverrides": [],
+                        "spaceLength": 10,
+                        "span": 3,
+                        "stack": false,
+                        "steppedLine": false,
+                        "targets": [
+                            {
+                                "expr": "(iota_node_info_total_neighbors - iota_neighbors_active_neighbors)  ",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Dead neighbors",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": [
+                            {
+                                "colorMode": "critical",
+                                "fill": true,
+                                "line": true,
+                                "op": "gt",
+                                "value": 1
+                            }
+                        ],
+                        "timeFrom": null,
+                        "timeShift": null,
+                        "title": "Dead Neighbor Count",
+                        "tooltip": {
+                            "shared": true,
+                            "sort": 0,
+                            "value_type": "individual"
+                        },
+                        "type": "graph",
+                        "xaxis": {
+                            "buckets": null,
+                            "mode": "time",
+                            "name": null,
+                            "show": true,
+                            "values": []
+                        },
+                        "yaxes": [
+                            {
+                                "format": "short",
+                                "label": null,
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            },
+                            {
+                                "format": "short",
+                                "label": null,
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            }
+                        ]
+                    },
+                    {
+                        "alert": {
+                            "conditions": [
+                                {
+                                    "evaluator": {
+                                        "params": [
+                                            2
+                                        ],
+                                        "type": "gt"
+                                    },
+                                    "operator": {
+                                        "type": "and"
+                                    },
+                                    "query": {
+                                        "params": [
+                                            "A",
+                                            "5m",
+                                            "now"
+                                        ]
+                                    },
+                                    "reducer": {
+                                        "params": [],
+                                        "type": "count"
+                                    },
+                                    "type": "query"
+                                }
+                            ],
+                            "executionErrorState": "alerting",
+                            "frequency": "60s",
+                            "handler": 1,
+                            "name": "Milestone alert",
+                            "noDataState": "no_data",
+                            "notifications": []
+                        },
+                        "aliasColors": {},
+                        "bars": true,
+                        "dashLength": 10,
+                        "dashes": false,
+                        "datasource": null,
+                        "fill": 1,
+                        "id": 72,
+                        "legend": {
+                            "avg": false,
+                            "current": false,
+                            "max": false,
+                            "min": false,
+                            "show": true,
+                            "total": false,
+                            "values": false
+                        },
+                        "lines": false,
+                        "linewidth": 1,
+                        "links": [],
+                        "nullPointMode": "null",
+                        "percentage": false,
+                        "pointradius": 5,
+                        "points": false,
+                        "renderer": "flot",
+                        "seriesOverrides": [],
+                        "spaceLength": 10,
+                        "span": 3,
+                        "stack": false,
+                        "steppedLine": false,
+                        "targets": [
+                            {
+                                "expr": "iota_node_info_latest_milestone - iota_node_info_latest_subtangle_milestone",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Milestone Delta",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": [
+                            {
+                                "colorMode": "critical",
+                                "fill": true,
+                                "line": true,
+                                "op": "gt",
+                                "value": 2
+                            }
+                        ],
+                        "timeFrom": null,
+                        "timeShift": null,
+                        "title": "Milestone",
+                        "tooltip": {
+                            "shared": true,
+                            "sort": 0,
+                            "value_type": "individual"
+                        },
+                        "type": "graph",
+                        "xaxis": {
+                            "buckets": null,
+                            "mode": "time",
+                            "name": null,
+                            "show": true,
+                            "values": []
+                        },
+                        "yaxes": [
+                            {
+                                "format": "short",
+                                "label": null,
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            },
+                            {
+                                "format": "short",
+                                "label": null,
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            }
+                        ]
+                    },
+                    {
+                        "alert": {
+                            "conditions": [
+                                {
+                                    "evaluator": {
+                                        "params": [
+                                            0.2
+                                        ],
+                                        "type": "lt"
+                                    },
+                                    "operator": {
+                                        "type": "and"
+                                    },
+                                    "query": {
+                                        "params": [
+                                            "A",
+                                            "1m",
+                                            "now"
+                                        ]
+                                    },
+                                    "reducer": {
+                                        "params": [],
+                                        "type": "avg"
+                                    },
+                                    "type": "query"
+                                }
+                            ],
+                            "executionErrorState": "alerting",
+                            "frequency": "60s",
+                            "handler": 1,
+                            "name": "Panel Title alert",
+                            "noDataState": "no_data",
+                            "notifications": []
+                        },
+                        "aliasColors": {},
+                        "bars": false,
+                        "dashLength": 10,
+                        "dashes": false,
+                        "datasource": null,
+                        "fill": 1,
+                        "id": 73,
+                        "legend": {
+                            "avg": false,
+                            "current": false,
+                            "max": false,
+                            "min": false,
+                            "show": true,
+                            "total": false,
+                            "values": false
+                        },
+                        "lines": true,
+                        "linewidth": 1,
+                        "links": [],
+                        "nullPointMode": "null",
+                        "percentage": false,
+                        "pointradius": 5,
+                        "points": false,
+                        "renderer": "flot",
+                        "seriesOverrides": [],
+                        "spaceLength": 10,
+                        "span": 3,
+                        "stack": false,
+                        "steppedLine": false,
+                        "targets": [
+                            {
+                                "expr": "(node_filesystem_free{fstype=~\"xfs|ext4\"} / node_filesystem_size{fstype=~\"xfs|ext4\"})",
+                                "format": "time_series",
+                                "interval": "",
+                                "intervalFactor": 2,
+                                "legendFormat": "Free Filesystem",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": [
+                            {
+                                "colorMode": "critical",
+                                "fill": true,
+                                "line": true,
+                                "op": "lt",
+                                "value": 0.2
+                            }
+                        ],
+                        "timeFrom": null,
+                        "timeShift": null,
+                        "title": "Free Filesystem Space",
+                        "tooltip": {
+                            "shared": true,
+                            "sort": 0,
+                            "value_type": "individual"
+                        },
+                        "type": "graph",
+                        "xaxis": {
+                            "buckets": null,
+                            "mode": "time",
+                            "name": null,
+                            "show": true,
+                            "values": []
+                        },
+                        "yaxes": [
+                            {
+                                "decimals": 2,
+                                "format": "percentunit",
+                                "label": "",
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            },
+                            {
+                                "format": "short",
+                                "label": null,
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            }
+                        ]
+                    }
+                ],
+                "repeat": null,
+                "repeatIteration": null,
+                "repeatRowId": null,
+                "showTitle": false,
+                "title": "Alerting",
+                "titleSize": "h6"
             }
         ],
         "schemaVersion": 14,
@@ -2590,6 +3071,6 @@
         },
         "timezone": "browser",
         "title": "IOTA",
-        "version": 45
+        "version": 47
     }
 }
