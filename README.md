@@ -17,6 +17,7 @@ Finally, I have a template section for all my neighbors:
 
 ![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/images/neighbors.png)
 
+Nuriel Shem-Tov has a great installer which deploys, among other things, IOTA IRI, [IOTA PM](https://github.com/akashgoswami/ipm), Grafana, Prometheus and this Exporter. Please visit his docs if your intent is to get the whole stack up and running as easily as possible: [IRI-Playbook](http://iri-playbook.readthedocs.io/en/master/introduction.html) 
 
 ## Current Metrics
 
