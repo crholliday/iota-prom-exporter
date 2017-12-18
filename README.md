@@ -67,6 +67,8 @@ Once installed and working you will then need to edit the Prometheus config file
 ```
 I find I need to restart the Prometheus service `sudo service prometheus restart` after adding an exporter. 
 
+Test by navigating to http://localhost:9311/metrics
+
 ## Grafana
 
 Once the above is done, the metrics will be available to be consume in a Grafana dashboard. 
