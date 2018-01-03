@@ -34,8 +34,8 @@ Nuriel Shem-Tov has a great installer which deploys, among other things, IOTA IR
 * newTransactions by neighbor
 * totalTx
 * confirmedTx
-* tradePrice by trading pair (IOTUSD, IOTBTC, IOTETH)
-* tradeVolume by trading pair (IOTUSD, IOTBTC, IOTETH)
+* tradePrice by trading pair (IOTUSD, IOTBTC, IOTETH, BTCEUR, IOTEUR)
+* tradeVolume by trading pair (IOTUSD, IOTBTC, IOTETH, BTCEUR, IOTEUR)
 
 ## Dependencies
 
