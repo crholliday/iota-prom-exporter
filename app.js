@@ -90,12 +90,16 @@ app.get('/metrics', (req, res) => {
             // market info
             tradePrice.set({ pair: 'IOTUSD' }, trades.IOTUSD.price)
             tradeVolume.set({ pair: 'IOTUSD' }, Number(trades.IOTUSD.volume))
+            tradePrice.set({ pair: 'IOTEUR' }, trades.IOTEUR.price)
+            tradeVolume.set({ pair: 'IOTEUR' }, Number(trades.IOTEUR.volume))
             tradePrice.set({ pair: 'IOTBTC' }, trades.IOTBTC.price)
             tradeVolume.set({ pair: 'IOTBTC' }, Number(trades.IOTBTC.volume))
             tradePrice.set({ pair: 'IOTETH' }, trades.IOTETH.price)
             tradeVolume.set({ pair: 'IOTETH' }, Number(trades.IOTETH.volume))
             tradePrice.set({ pair: 'BTCUSD' }, trades.BTCUSD.price)
             tradeVolume.set({ pair: 'BTCUSD' }, Number(trades.BTCUSD.volume))
+            tradePrice.set({ pair: 'BTCEUR' }, trades.BTCEUR.price)
+            tradeVolume.set({ pair: 'BTCEUR' }, Number(trades.BTCEUR.volume))
             tradePrice.set({ pair: 'ETHUSD' }, trades.ETHUSD.price)
             tradeVolume.set({ pair: 'ETHUSD' }, Number(trades.ETHUSD.volume))
 
