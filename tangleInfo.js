@@ -3,7 +3,6 @@
 const request = require('request')
 const csv = require('csvtojson')
 const config = require('./config')
-const axios = require('axios')
 
 let tangleStuff = {}
 

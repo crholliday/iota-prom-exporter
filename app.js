@@ -7,8 +7,6 @@ const promclient = require('prom-client')
 let Gauge = promclient.Gauge
 
 let trades = {}
-let before = 0
-let after = 0
 
 const nodeInfo = require('./nodeInfo')
 const neighborInfo = require('./neighborInfo')
@@ -35,23 +33,9 @@ app.get('/metrics', (req, res) => {
     // If unsure about whether Prometheus is calling the app
     // Uncomment the below line and look for a dot in the logs. 
     // console.log('.')
-
-    // nastly little dance to make sure the 
-    // websocket connection stays alive
-    // after = trades.BTCUSD.volume
-
-    // if (after === before) {
-    //     marketInfoSocket
-    //     before = trades.BTCUSD.volume
-    // } else {
-    //     before = after
-    // }   
         
     async function getResults() {
 
-        // needed to clear out neighbors that hung around after they were removed
-        // Might be related to the prometheus JS client library and labels
-        // Todo: Figure out why this happens
         newTransactions.reset()
         invalidTransactions.reset()
         allTransactions.reset()
