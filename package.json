@@ -30,6 +30,7 @@
     "lodash.set": "^4.3.2",
     "prom-client": "^10.2.1",
     "reconnecting-websocket": "^3.2.2",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "zeromq": "^4.6.0"
   }
 }

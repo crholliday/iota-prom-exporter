@@ -7,11 +7,13 @@ const promclient = require('prom-client')
 let Gauge = promclient.Gauge
 
 let trades = {}
+let zmqStats = {}
 
 const nodeInfo = require('./nodeInfo')
 const neighborInfo = require('./neighborInfo')
 const tangleInfo = require('./tangleInfo')
 const marketInfoSocket = require('./marketInfoSocketRC')(trades) 
+const zmqInfo = require('./zmq')(zmqStats)
 
 let totalTransactions = new Gauge({ name: 'iota_node_info_total_transactions_queued', help: 'Total open txs at the interval' })
 let totalTips = new Gauge({ name: 'iota_node_info_total_tips', help: 'Total tips at the interval' })
@@ -28,6 +30,10 @@ let confirmedTx = new Gauge({ name: 'iota_tangle_confirmed_txs', help: 'Number o
 // let logTotalTransactions = new Gauge({ name: 'iota_tangle_logged_total_txs', help: 'Number of totalTransactions from the java process output' })
 let tradePrice = new Gauge({ name: 'iota_market_trade_price', help: 'Latest price from Bitfinex', labelNames: ['pair'] })
 let tradeVolume = new Gauge({ name: 'iota_market_trade_volume', help: 'Latest volume from Bitfinex', labelNames: ['pair'] })
+// zmq stuff
+let seenTxs = new Gauge({name: 'iota_zmq_seen_tx_count', help: 'Count of transactions seen by zeroMQ'})
+let txsWithValue = new Gauge({name: 'iota_zmq_txs_with_value_count', help: 'Count of transactions seen by zeroMQ that have a non-zero value'})
+let confirmedTxs = new Gauge({name: 'iota_zmq_confirmed_tx_count', help: 'Count of transactions confirmed by zeroMQ'})
 
 app.get('/metrics', (req, res) => {
     // If unsure about whether Prometheus is calling the app
@@ -86,6 +92,11 @@ app.get('/metrics', (req, res) => {
             tradeVolume.set({ pair: 'BTCEUR' }, Number(trades.BTCEUR.volume))
             tradePrice.set({ pair: 'ETHUSD' }, trades.ETHUSD.price)
             tradeVolume.set({ pair: 'ETHUSD' }, Number(trades.ETHUSD.volume))
+
+            // zmq info
+            seenTxs.set(zmqStats.seenTxs || 0)
+            txsWithValue.set(zmqStats.txsWithValue || 0)
+            confirmedTxs.set(zmqStats.confirmedTxs || 0)
 
             res.end(promclient.register.metrics())
 
