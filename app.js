@@ -27,7 +27,6 @@ let invalidTransactions = new Gauge({ name: 'iota_neighbors_invalid_transactions
 let activeNeighbors = new Gauge({ name: 'iota_neighbors_active_neighbors', help: 'Number of neighbors who are active' })
 let totalTx = new Gauge({ name: 'iota_tangle_total_txs', help: 'Number of total transaction from the whole tangle' })
 let confirmedTx = new Gauge({ name: 'iota_tangle_confirmed_txs', help: 'Number of confirmed transactions from the whole tangle' })
-// let logTotalTransactions = new Gauge({ name: 'iota_tangle_logged_total_txs', help: 'Number of totalTransactions from the java process output' })
 let tradePrice = new Gauge({ name: 'iota_market_trade_price', help: 'Latest price from Bitfinex', labelNames: ['pair'] })
 let tradeVolume = new Gauge({ name: 'iota_market_trade_volume', help: 'Latest volume from Bitfinex', labelNames: ['pair'] })
 // zmq stuff
