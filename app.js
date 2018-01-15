@@ -33,6 +33,11 @@ let tradeVolume = new Gauge({ name: 'iota_market_trade_volume', help: 'Latest vo
 let seenTxs = new Gauge({name: 'iota_zmq_seen_tx_count', help: 'Count of transactions seen by zeroMQ'})
 let txsWithValue = new Gauge({name: 'iota_zmq_txs_with_value_count', help: 'Count of transactions seen by zeroMQ that have a non-zero value'})
 let confirmedTxs = new Gauge({name: 'iota_zmq_confirmed_tx_count', help: 'Count of transactions confirmed by zeroMQ'})
+let toProcess = new Gauge({name: 'iota_zmq_to_process', help: 'toProcess from RSTAT output of ZMQ'})
+let toBroadcast = new Gauge({name: 'iota_zmq_to_broadcast', help: 'toBroadcast from RSTAT output of ZMQ'})
+let toRequest = new Gauge({name: 'iota_zmq_to_request', help: 'toRequest from RSTAT output of ZMQ'})
+let toReply = new Gauge({name: 'iota_zmq_to_reply', help: 'toReply from RSTAT output of ZMQ'})
+let totalTransactionsRs = new Gauge({name: 'iota_zmq_total_transactions', help: 'totalTransactions from RSTAT output of ZMQ'})
 
 app.get('/metrics', (req, res) => {
     // If unsure about whether Prometheus is calling the app
@@ -96,6 +101,13 @@ app.get('/metrics', (req, res) => {
             seenTxs.set(zmqStats.seenTxs || 0)
             txsWithValue.set(zmqStats.txsWithValue || 0)
             confirmedTxs.set(zmqStats.confirmedTxs || 0)
+
+            // Rstats info
+            toProcess.set(Number(zmqStats.rstats.toProcess) || 0)
+            toBroadcast.set(Number(zmqStats.rstats.toBroadcast) || 0)
+            toRequest.set(Number(zmqStats.rstats.toRequest) || 0)
+            toReply.set(Number(zmqStats.rstats.toReply) || 0)
+            totalTransactionsRs.set(Number(zmqStats.rstats.totalTransactions) || 0)
 
             res.end(promclient.register.metrics())
 
