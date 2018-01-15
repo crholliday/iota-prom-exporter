@@ -3,6 +3,7 @@
 const zmq = require('zeromq')
 const config = require('./config')
 const set = require('lodash.set')
+require('timers')
 
 let seenTxs = 0
 let txsWithValue = 0
@@ -16,6 +17,7 @@ module.exports = (zmqStats) => {
 
         // subscribe to all messages
         sock.subscribe('')
+        sock.monitor(10000, 0)
 
         sock.on('message', function (topic) {
             var tp = topic.toString()
@@ -39,6 +41,22 @@ module.exports = (zmqStats) => {
             } else if (arr[0] === 'sn') {
                 set(zmqStats, 'confirmedTxs', confirmedTxs++)
             }
+        })
+
+        sock.on('connect_retry', (eventVal, endPoint, err ) => {
+            console.log('zmq is in "connect_retry" event', eventVal)
+            console.log('zmq is in "connect_retry" endPoint', endPoint)
+            console.log('zmq is in "connect_retry" err', err)
+        })
+
+        sock.on('disconnect', (eventVal, endPoint, err) => {
+            console.log('zmq is in "disconnect" event', eventVal)
+            console.log('zmq is in "disconnect" endPoint', endPoint)
+            console.log('zmq is in "disconnect" err', err)
+            setTimeout(function() {
+                console.log('waiting 5 seconds to reconnect')
+                sock.connect('tcp://' + config.zmq_url)
+            }, 5000)
         })
     } else {
         console.log('ZMQ is not configured')
