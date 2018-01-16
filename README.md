@@ -27,6 +27,8 @@ Finally, I have a template section for all my neighbors:
 
 Nuriel Shem-Tov has a great installer which deploys, among other things, IOTA IRI, [IOTA PM](https://github.com/akashgoswami/ipm), Grafana, Prometheus and this Exporter. Please visit his docs if your intent is to get the whole stack up and running as easily as possible: [IRI-Playbook](http://iri-playbook.readthedocs.io/en/master/introduction.html) 
 
+[IOTA Partners](http://iota.partners/) also has a copy+paste installation playbook that is also great. Check out both and decide which one is right for you. 
+
 ## Current Metrics
 
 * totalTransactions
