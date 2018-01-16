@@ -1,17 +1,24 @@
 # iota-prom-exporter
 Prometheus Exporter for IOTA fullnode metrics
 
+## Latest Changes:
+
+### January 16, 2018
+* added zmq metrics for the local server. These are optional and require the configuration of a `zmq_url` in the config file. If you are upgrading and have zmq enabled on your IRI, add the IP and Port where ZMQ is publishing (default port is 5556). 
+* added the missing `transactions sent` from the getNeighbors() api
+* cleaned up a few things and added some insurance against crashes
+
 ## What does it do?
 
 Works with [Prometheus](https://github.com/prometheus/prometheus) and (optionally) [Grafana](https://grafana.com/) to export instrumentation metrics from an [IOTA full node](https://github.com/iotaledger/iri) as well as pulls metrics from [Bitfinex's webservice API](https://docs.bitfinex.com/v2/docs) for market data and the [IOTA stress table](https://github.com/alon-e/iota-ctps) for TPS statistics.
 
 The following images are from my IOTA dashboard. The top looks like this:
 
-![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/images/top.png)
+![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/images/top_new.png)
 
-The next section contains market pricing data and data from all neighbors:
+The next section contains market pricing data and data from the stresstest node:
 
-![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/images/market_all_neighbors.png)
+![top of dashboard](https://github.com/crholliday/iota-prom-exporter/blob/master/images/zmq.png)
 
 Finally, I have a template section for all my neighbors:
 
@@ -36,6 +43,14 @@ Nuriel Shem-Tov has a great installer which deploys, among other things, IOTA IR
 * confirmedTx
 * tradePrice by trading pair (IOTUSD, IOTBTC, IOTETH, BTCEUR, IOTEUR)
 * tradeVolume by trading pair (IOTUSD, IOTBTC, IOTETH, BTCEUR, IOTEUR)
+* zmq transactions seen
+* zmq transactions seen with value
+* zmq transactions confirmed by milestone
+* zmq rstats (the output log line in IRI) toProcess
+* zmq rstats toBroadcast
+* zmq rstats toRequest
+* zmq rstats toReply
+* zmq rstats totalTransactions
 
 ## Dependencies
 
@@ -44,6 +59,8 @@ Nuriel Shem-Tov has a great installer which deploys, among other things, IOTA IR
 * Grafana should be installed if you want the sexy dashboards
 
 ## Installation
+
+*Do not run `npm install` as root as it the zeroMQ prebuild dependencies will break the install*
 
 ```
 git clone https://github.com/crholliday/iota-prom-exporter.git
