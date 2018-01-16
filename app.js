@@ -24,6 +24,7 @@ let newTransactions = new Gauge({ name: 'iota_neighbors_new_transactions', help:
 let randomTransactions = new Gauge({ name: 'iota_neighbors_random_transactions', help: 'Random transactions by neighbor', labelNames: ['id'] })
 let allTransactions = new Gauge({ name: 'iota_neighbors_all_transactions', help: 'All transactions by neighbor', labelNames: ['id'] })
 let invalidTransactions = new Gauge({ name: 'iota_neighbors_invalid_transactions', help: 'Invalid transactions by neighbor', labelNames: ['id'] })
+let sentTransactions = new Gauge({ name: 'iota_neighbors_sent_transactions', help: 'Transactions sent to neighbor', labelNames: ['id'] })
 let activeNeighbors = new Gauge({ name: 'iota_neighbors_active_neighbors', help: 'Number of neighbors who are active' })
 let totalTx = new Gauge({ name: 'iota_tangle_total_txs', help: 'Number of total transaction from the whole tangle' })
 let confirmedTx = new Gauge({ name: 'iota_tangle_confirmed_txs', help: 'Number of confirmed transactions from the whole tangle' })
@@ -50,6 +51,7 @@ app.get('/metrics', (req, res) => {
         invalidTransactions.reset()
         allTransactions.reset()
         randomTransactions.reset()
+        sentTransactions.reset()
 
         try {
             const [nodeResults, neighborResults, tangleResults] = await Promise.all([nodeInfo(), neighborInfo(), tangleInfo()])
@@ -68,6 +70,7 @@ app.get('/metrics', (req, res) => {
                 invalidTransactions.set({ id: r.address }, r.numberOfInvalidTransactions)
                 allTransactions.set({ id: r.address }, r.numberOfAllTransactions)
                 randomTransactions.set({ id: r.address }, r.numberOfRandomTransactionRequests)
+                sentTransactions.set({ id: r.address }, r.numberOfSentTransactions)
                 if (r.numberOfNewTransactions + r.numberOfInvalidTransactions + r.numberOfAllTransactions + r.numberOfRandomTransactionRequests) {
                     connectedNeighbors += 1
                 }
@@ -77,37 +80,38 @@ app.get('/metrics', (req, res) => {
             // tangle info
             totalTx.set(parseInt(tangleResults.totalTx))
             confirmedTx.set(parseInt(tangleResults.confirmedTx))
-            
-            // the below requires a custom IXI
-            // logTotalTransactions.set(parseInt(tangleResults.totalTransactions))
 
             // market info
-            tradePrice.set({ pair: 'IOTUSD' }, trades.IOTUSD.price)
-            tradeVolume.set({ pair: 'IOTUSD' }, Number(trades.IOTUSD.volume))
-            tradePrice.set({ pair: 'IOTEUR' }, trades.IOTEUR.price)
-            tradeVolume.set({ pair: 'IOTEUR' }, Number(trades.IOTEUR.volume))
-            tradePrice.set({ pair: 'IOTBTC' }, trades.IOTBTC.price)
-            tradeVolume.set({ pair: 'IOTBTC' }, Number(trades.IOTBTC.volume))
-            tradePrice.set({ pair: 'IOTETH' }, trades.IOTETH.price)
-            tradeVolume.set({ pair: 'IOTETH' }, Number(trades.IOTETH.volume))
-            tradePrice.set({ pair: 'BTCUSD' }, trades.BTCUSD.price)
-            tradeVolume.set({ pair: 'BTCUSD' }, Number(trades.BTCUSD.volume))
-            tradePrice.set({ pair: 'BTCEUR' }, trades.BTCEUR.price)
-            tradeVolume.set({ pair: 'BTCEUR' }, Number(trades.BTCEUR.volume))
-            tradePrice.set({ pair: 'ETHUSD' }, trades.ETHUSD.price)
-            tradeVolume.set({ pair: 'ETHUSD' }, Number(trades.ETHUSD.volume))
+            if(trades.IOTBTC) {
+                tradePrice.set({ pair: 'IOTUSD' }, trades.IOTUSD.price)
+                tradeVolume.set({ pair: 'IOTUSD' }, Number(trades.IOTUSD.volume))
+                tradePrice.set({ pair: 'IOTEUR' }, trades.IOTEUR.price)
+                tradeVolume.set({ pair: 'IOTEUR' }, Number(trades.IOTEUR.volume))
+                tradePrice.set({ pair: 'IOTBTC' }, trades.IOTBTC.price)
+                tradeVolume.set({ pair: 'IOTBTC' }, Number(trades.IOTBTC.volume))
+                tradePrice.set({ pair: 'IOTETH' }, trades.IOTETH.price)
+                tradeVolume.set({ pair: 'IOTETH' }, Number(trades.IOTETH.volume))
+                tradePrice.set({ pair: 'BTCUSD' }, trades.BTCUSD.price)
+                tradeVolume.set({ pair: 'BTCUSD' }, Number(trades.BTCUSD.volume))
+                tradePrice.set({ pair: 'BTCEUR' }, trades.BTCEUR.price)
+                tradeVolume.set({ pair: 'BTCEUR' }, Number(trades.BTCEUR.volume))
+                tradePrice.set({ pair: 'ETHUSD' }, trades.ETHUSD.price)
+                tradeVolume.set({ pair: 'ETHUSD' }, Number(trades.ETHUSD.volume))
+            }
 
             // zmq info
             seenTxs.set(zmqStats.seenTxs || 0)
             txsWithValue.set(zmqStats.txsWithValue || 0)
-            confirmedTxs.set(zmqStats.confirmedTxs || 0)
+            confirmedTxs.set(zmqStats.confirmedTxs || 0) 
 
             // Rstats info
-            toProcess.set(Number(zmqStats.rstats.toProcess) || 0)
-            toBroadcast.set(Number(zmqStats.rstats.toBroadcast) || 0)
-            toRequest.set(Number(zmqStats.rstats.toRequest) || 0)
-            toReply.set(Number(zmqStats.rstats.toReply) || 0)
-            totalTransactionsRs.set(Number(zmqStats.rstats.totalTransactions) || 0)
+            if (zmqStats.rstats) {
+                toProcess.set(Number(zmqStats.rstats.toProcess) || 0)
+                toBroadcast.set(Number(zmqStats.rstats.toBroadcast) || 0)
+                toRequest.set(Number(zmqStats.rstats.toRequest) || 0)
+                toReply.set(Number(zmqStats.rstats.toReply) || 0)
+                totalTransactionsRs.set(Number(zmqStats.rstats.totalTransactions) || 0)
+            }
 
             res.end(promclient.register.metrics())
 

@@ -19,7 +19,7 @@ module.exports = (zmqStats) => {
         sock.subscribe('')
         sock.monitor(10000, 0)
 
-        sock.on('message', function (topic) {
+        sock.on('message', (topic) => {
             var tp = topic.toString()
             var arr = tp.split(' ')
 

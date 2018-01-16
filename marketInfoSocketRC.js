@@ -107,11 +107,6 @@ module.exports = (trades) => {
         }
     })
 
-    w.addEventListener('error', (err) => {
-        console.log('Error from Bitfinex websocket: ', err)
-
-    })
-
     w.addEventListener('close', () => {
         console.log('Disconnected from Bitfinex websocket ...')
     })
