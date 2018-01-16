@@ -6,6 +6,7 @@ Prometheus Exporter for IOTA fullnode metrics
 ### January 16, 2018
 * added zmq metrics for the local server. These are optional and require the configuration of a `zmq_url` in the config file. If you are upgrading and have zmq enabled on your IRI, add the IP and Port where ZMQ is publishing (default port is 5556). 
 * added the missing `transactions sent` from the getNeighbors() api
+* added a new dashboard JSON file which includes the latest zmq additions
 * cleaned up a few things and added some insurance against crashes
 
 ## What does it do?
