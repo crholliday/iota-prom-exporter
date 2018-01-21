@@ -57,6 +57,7 @@ Nuriel Shem-Tov has a great installer which deploys, among other things, IOTA IR
 
 ## Dependencies
 
+* Nodejs version > 8.0 (due to async await use)
 * Prometheus should be installed. Here is a [great guide](https://www.digitalocean.com/community/tutorials/how-to-install-prometheus-on-ubuntu-16-04)
 * node_exporter for Prometheus gives you system level metrics (instructions included in the above guide)
 * Grafana should be installed if you want the sexy dashboards

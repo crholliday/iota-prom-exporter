@@ -12,6 +12,8 @@ let confirmedTxs = 0
 module.exports = (zmqStats) => {
     if (config.zmq_url) {
         var sock = zmq.socket('sub')
+        // sets reconnect to 20 seconds
+        sock.setsockopt(zmq.ZMQ_RECONNECT_IVL, 20000)
         sock.connect('tcp://' + config.zmq_url)
         console.log('zmq socket connected')
 
@@ -44,20 +46,13 @@ module.exports = (zmqStats) => {
         })
 
         sock.on('connect_retry', (eventVal, endPoint, err ) => {
-            console.log('zmq is in "connect_retry" event', eventVal)
-            console.log('zmq is in "connect_retry" endPoint', endPoint)
-            console.log('zmq is in "connect_retry" err', err)
+            console.log('zmq is in "connect_retry" eventVal, endPoit, err', eventVal, endPoint, err)
         })
 
         sock.on('disconnect', (eventVal, endPoint, err) => {
-            console.log('zmq is in "disconnect" event', eventVal)
-            console.log('zmq is in "disconnect" endPoint', endPoint)
             console.log('zmq is in "disconnect" err', err)
-            setTimeout(function() {
-                console.log('waiting 5 seconds to reconnect')
-                sock.connect('tcp://' + config.zmq_url)
-            }, 5000)
         })
+        
     } else {
         console.log('ZMQ is not configured')
     }
