@@ -103,16 +103,16 @@ Once the above is done, the metrics will be available to be consume in a Grafana
 
 ## Docker
 The following docker image is available:
-[iota-node-exporter](https://hub.docker.com/r/bambash/iota-prom-exporter/)
+[iota-prom-exporter](https://hub.docker.com/r/bambash/iota-prom-exporter/)
 
 make sure to mount your config file, otherwise the image defaults to conifg.example.js
 
 ```
-docker run -v your.config.js:/exporter/config.js -p 9311:9311 bambash/iota-node-exporter
+docker run -v your.config.js:/exporter/config.js -p 9311:9311 bambash/iota-prom-exporter
 ```
 
 you can also build your own image
 ```
-docker build . -t iota-node-exporter
-docker run -v your.config.js:/exporter/config.js -p 9311:9311 iota-node-exporter
+docker build . -t iota-prom-exporter
+docker run -v your.config.js:/exporter/config.js -p 9311:9311 iota-prom-exporter
 ```
