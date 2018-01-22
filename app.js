@@ -12,8 +12,15 @@ let zmqStats = {}
 const nodeInfo = require('./nodeInfo')
 const neighborInfo = require('./neighborInfo')
 const tangleInfo = require('./tangleInfo')
-const marketInfoSocket = require('./marketInfoSocketRC')(trades) 
-const zmqInfo = require('./zmq')(zmqStats)
+
+if (config.market_info_flag) {
+    const marketInfoSocket = require('./marketInfoSocketRC')(trades) 
+}
+
+if (config.zmq_url) {
+    const zmqInfo = require('./zmq')(zmqStats)
+}
+
 
 let totalTransactions = new Gauge({ name: 'iota_node_info_total_transactions_queued', help: 'Total open txs at the interval' })
 let totalTips = new Gauge({ name: 'iota_node_info_total_tips', help: 'Total tips at the interval' })
@@ -28,8 +35,12 @@ let sentTransactions = new Gauge({ name: 'iota_neighbors_sent_transactions', hel
 let activeNeighbors = new Gauge({ name: 'iota_neighbors_active_neighbors', help: 'Number of neighbors who are active' })
 let totalTx = new Gauge({ name: 'iota_tangle_total_txs', help: 'Number of total transaction from the whole tangle' })
 let confirmedTx = new Gauge({ name: 'iota_tangle_confirmed_txs', help: 'Number of confirmed transactions from the whole tangle' })
+
+// market info stuff
 let tradePrice = new Gauge({ name: 'iota_market_trade_price', help: 'Latest price from Bitfinex', labelNames: ['pair'] })
 let tradeVolume = new Gauge({ name: 'iota_market_trade_volume', help: 'Latest volume from Bitfinex', labelNames: ['pair'] })
+
+
 // zmq stuff
 let seenTxs = new Gauge({name: 'iota_zmq_seen_tx_count', help: 'Count of transactions seen by zeroMQ'})
 let txsWithValue = new Gauge({name: 'iota_zmq_txs_with_value_count', help: 'Count of transactions seen by zeroMQ that have a non-zero value'})
@@ -39,6 +50,7 @@ let toBroadcast = new Gauge({name: 'iota_zmq_to_broadcast', help: 'toBroadcast f
 let toRequest = new Gauge({name: 'iota_zmq_to_request', help: 'toRequest from RSTAT output of ZMQ'})
 let toReply = new Gauge({name: 'iota_zmq_to_reply', help: 'toReply from RSTAT output of ZMQ'})
 let totalTransactionsRs = new Gauge({name: 'iota_zmq_total_transactions', help: 'totalTransactions from RSTAT output of ZMQ'})
+
 
 app.get('/metrics', (req, res) => {
     // If unsure about whether Prometheus is calling the app
@@ -82,36 +94,42 @@ app.get('/metrics', (req, res) => {
             confirmedTx.set(parseInt(tangleResults.confirmedTx))
 
             // market info
-            if(trades.IOTBTC) {
-                tradePrice.set({ pair: 'IOTUSD' }, trades.IOTUSD.price)
-                tradeVolume.set({ pair: 'IOTUSD' }, Number(trades.IOTUSD.volume))
-                tradePrice.set({ pair: 'IOTEUR' }, trades.IOTEUR.price)
-                tradeVolume.set({ pair: 'IOTEUR' }, Number(trades.IOTEUR.volume))
-                tradePrice.set({ pair: 'IOTBTC' }, trades.IOTBTC.price)
-                tradeVolume.set({ pair: 'IOTBTC' }, Number(trades.IOTBTC.volume))
-                tradePrice.set({ pair: 'IOTETH' }, trades.IOTETH.price)
-                tradeVolume.set({ pair: 'IOTETH' }, Number(trades.IOTETH.volume))
-                tradePrice.set({ pair: 'BTCUSD' }, trades.BTCUSD.price)
-                tradeVolume.set({ pair: 'BTCUSD' }, Number(trades.BTCUSD.volume))
-                tradePrice.set({ pair: 'BTCEUR' }, trades.BTCEUR.price)
-                tradeVolume.set({ pair: 'BTCEUR' }, Number(trades.BTCEUR.volume))
-                tradePrice.set({ pair: 'ETHUSD' }, trades.ETHUSD.price)
-                tradeVolume.set({ pair: 'ETHUSD' }, Number(trades.ETHUSD.volume))
+            if (config.market_info_flag) {
+                if(trades.IOTBTC) {
+                    tradePrice.set({ pair: 'IOTUSD' }, trades.IOTUSD.price)
+                    tradeVolume.set({ pair: 'IOTUSD' }, Number(trades.IOTUSD.volume))
+                    tradePrice.set({ pair: 'IOTEUR' }, trades.IOTEUR.price)
+                    tradeVolume.set({ pair: 'IOTEUR' }, Number(trades.IOTEUR.volume))
+                    tradePrice.set({ pair: 'IOTBTC' }, trades.IOTBTC.price)
+                    tradeVolume.set({ pair: 'IOTBTC' }, Number(trades.IOTBTC.volume))
+                    tradePrice.set({ pair: 'IOTETH' }, trades.IOTETH.price)
+                    tradeVolume.set({ pair: 'IOTETH' }, Number(trades.IOTETH.volume))
+                    tradePrice.set({ pair: 'BTCUSD' }, trades.BTCUSD.price)
+                    tradeVolume.set({ pair: 'BTCUSD' }, Number(trades.BTCUSD.volume))
+                    tradePrice.set({ pair: 'BTCEUR' }, trades.BTCEUR.price)
+                    tradeVolume.set({ pair: 'BTCEUR' }, Number(trades.BTCEUR.volume))
+                    tradePrice.set({ pair: 'ETHUSD' }, trades.ETHUSD.price)
+                    tradeVolume.set({ pair: 'ETHUSD' }, Number(trades.ETHUSD.volume))
+                }
+            }
+            
+            if (config.zmq_url) {
+                // zmq info
+                seenTxs.set(zmqStats.seenTxs || 0)
+                txsWithValue.set(zmqStats.txsWithValue || 0)
+                confirmedTxs.set(zmqStats.confirmedTxs || 0) 
+
+                // Rstats info
+                if (zmqStats.rstats) {
+                    toProcess.set(Number(zmqStats.rstats.toProcess) || 0)
+                    toBroadcast.set(Number(zmqStats.rstats.toBroadcast) || 0)
+                    toRequest.set(Number(zmqStats.rstats.toRequest) || 0)
+                    toReply.set(Number(zmqStats.rstats.toReply) || 0)
+                    totalTransactionsRs.set(Number(zmqStats.rstats.totalTransactions) || 0)
+                }
             }
 
-            // zmq info
-            seenTxs.set(zmqStats.seenTxs || 0)
-            txsWithValue.set(zmqStats.txsWithValue || 0)
-            confirmedTxs.set(zmqStats.confirmedTxs || 0) 
-
-            // Rstats info
-            if (zmqStats.rstats) {
-                toProcess.set(Number(zmqStats.rstats.toProcess) || 0)
-                toBroadcast.set(Number(zmqStats.rstats.toBroadcast) || 0)
-                toRequest.set(Number(zmqStats.rstats.toRequest) || 0)
-                toReply.set(Number(zmqStats.rstats.toReply) || 0)
-                totalTransactionsRs.set(Number(zmqStats.rstats.totalTransactions) || 0)
-            }
+            
 
             res.end(promclient.register.metrics())
 

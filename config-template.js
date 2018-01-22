@@ -14,5 +14,9 @@ module.exports = {
 
     // address where zmq is being served (example: '127.0.0.1:5556')
     // *** Leave blank if ZMQ is not enabled on IRI ***
-    zmq_url: ''
+    zmq_url: '',
+
+    // if true, will pull in market info (IOT to USD, IOT to BTC, etc)
+    // *** Leave blank if you do not want market into pulled in ***
+    market_info_flag: ''
 }
