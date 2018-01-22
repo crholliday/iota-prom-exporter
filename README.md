@@ -3,6 +3,12 @@ Prometheus Exporter for IOTA fullnode metrics
 
 ## Latest Changes:
 
+### January 21, 2018
+* added a flag to determine if market info should be pulled. If you don't want IOT to BTC/ETH data pulled in, set this flag to false. 
+* change the reconnect interval for zmq to 20 seconds to give IRI more time to recover. 
+* added nodejs > 8.0 requirement and updated readme
+
+
 ### January 16, 2018
 * added zmq metrics for the local server. These are optional and require the configuration of a `zmq_url` in the config file. If you are upgrading and have zmq enabled on your IRI, add the IP and Port where ZMQ is publishing (default port is 5556). 
 * added the missing `transactions sent` from the getNeighbors() api
