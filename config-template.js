@@ -19,6 +19,14 @@ module.exports = {
     // if true, will pull in market info (IOT to USD, IOT to BTC, etc)
     // *** Leave blank if you do not want market into pulled in ***
     market_info_flag: '',
+
+    // test window for average time to confirm
+    // ex: 20, the metric will return the avg time to confirm over the last 
+    // 20 minutes
     confirmation_time_minutes: 20,
+
+    // how frequently the confirmation stats are gathered
+    // they are currently bound by COO milestones (appx every 2 minutes)
+    // a lower number means a faster refresh and more load on your node
     confirmation_stats_refresh_seconds: 30
 }
