@@ -51,6 +51,10 @@ let toRequest = new Gauge({name: 'iota_zmq_to_request', help: 'toRequest from RS
 let toReply = new Gauge({name: 'iota_zmq_to_reply', help: 'toReply from RSTAT output of ZMQ'})
 let totalTransactionsRs = new Gauge({name: 'iota_zmq_total_transactions', help: 'totalTransactions from RSTAT output of ZMQ'})
 
+// confirmation stats
+let confirmationRate = new Gauge({name: 'iota_zmq_tx_confirmation_rate', help: 'Confirmed Txs / Seen Txs from ZMQ feed'})
+let averageConfirmTime = new Gauge({name: 'iota_zmq_tx_avg_confirm_time', help: 'Average seconds to confirm all Txs confirmed in the last n minutes'})
+
 
 app.get('/metrics', (req, res) => {
     // If unsure about whether Prometheus is calling the app
@@ -127,6 +131,10 @@ app.get('/metrics', (req, res) => {
                     toReply.set(Number(zmqStats.rstats.toReply) || 0)
                     totalTransactionsRs.set(Number(zmqStats.rstats.totalTransactions) || 0)
                 }
+
+                // Confirmation stats
+                confirmationRate.set(zmqStats.confirmationStats.confirmationRate || 0)
+                averageConfirmTime.set(zmqStats.confirmationStats.averageConfirmationTime || 0) 
             }
 
             
