@@ -133,8 +133,10 @@ app.get('/metrics', (req, res) => {
                 }
 
                 // Confirmation stats
-                confirmationRate.set(zmqStats.confirmationStats.confirmationRate || 0)
-                averageConfirmTime.set(zmqStats.confirmationStats.averageConfirmationTime || 0) 
+                if (zmqStats.confirmationStats) {
+                    confirmationRate.set(zmqStats.confirmationStats.confirmationRate || 0)
+                    averageConfirmTime.set(zmqStats.confirmationStats.averageConfirmationTime || 0) 
+                }
             }
 
             
