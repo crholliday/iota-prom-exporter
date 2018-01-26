@@ -3,7 +3,7 @@ global.rootPath = path.normalize(path.join(__dirname, '..', '..'))
 
 module.exports = {
     // url and port of your IRI node
-    iota_node_url: 'http://localhost:14700',
+    iota_node_url: 'http://localhost:14265',
 
     // keep this
     stresstest_table_url: 'http://analytics.iotaledger.net/stresstest.table',
@@ -20,13 +20,7 @@ module.exports = {
     // *** Leave blank if you do not want market into pulled in ***
     market_info_flag: '',
 
-    // test window for average time to confirm
-    // ex: 20, the metric will return the avg time to confirm over the last 
-    // 20 minutes
-    confirmation_time_minutes: 20,
-
-    // how frequently the confirmation stats are gathered
-    // they are currently bound by COO milestones (appx every 2 minutes)
-    // a lower number means a faster refresh and more load on your node
-    confirmation_stats_refresh_seconds: 30
+    // window for bucketing confirmation times by transaction
+    // represents seconds and aggregates a histogram 
+    confirm_time_buckets: [300, 600, 1200, 2400, 3600, 7200, 21600, 43200]
 }

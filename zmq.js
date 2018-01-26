@@ -11,42 +11,8 @@ let seenTxs = 0
 let txsWithValue = 0
 let confirmedTxs = 0
 
-let processNewSeenTransaction = async (tx) => {
-    try {
-        const newSeen = await transactions.get(tx)
-    } catch (error) {
-        if (error.notFound) {
-            await transactions.put(tx, {
-                seenDate: Date.now()
-            })
-        }
-    }
-}
-
-let processNewConfirmedTransaction = async (tx) => {
-    try {
-        const newConfirmed = await transactions.get(tx)
-        let confirmMoment = Date.now()
-        await transactions.put(tx, {
-            'seenDate': newConfirmed.seenDate,
-            'confirmedDate': confirmMoment
-        })
-    } catch (error) {
-        if (error.notFound) {
-            await transactions.put(tx, {
-                confirmedDate: Date.now()
-            })
-        }
-    }
-}
-
-module.exports = (zmqStats) => {
+module.exports = (zmqStats, confirmationTime) => {
     if (config.zmq_url) {
-
-        // run the stats collector
-        setInterval(() => {
-            processCounts(config.confirmation_time_minutes)
-        }, config.confirmation_stats_refresh_seconds * 1000)
 
         let sock = zmq.socket('sub')
         // sets reconnect to 20 seconds
@@ -95,36 +61,33 @@ module.exports = (zmqStats) => {
         console.log('ZMQ is not configured')
     }
 
-    let processCounts = (windowMinutes) => {
-
-        let seenTxs = 0
-        let confirmedTxs = 0
-        let seenAndConfirmedWindow = 0
-        let sumSeconds = 0
-        let offset = Date.now() - (windowMinutes * 60 * 1000)
+    let processNewSeenTransaction = async (tx) => {
+        try {
+            const newSeen = await transactions.get(tx)
+        } catch (error) {
+            if (error.notFound) {
+                await transactions.put(tx, {
+                    seenDate: Date.now()
+                })
+            }
+        }
+    }
     
-        transactions.createReadStream().on('data', (data) => {
-            // every tx increments this counter
-            seenTxs += 1
-            if (data.value.confirmedDate) {
-                // every confirmed tx increments this counter
-                confirmedTxs +=1
-                if (Number(data.value.confirmedDate) > Number(offset) && data.value.seenDate) {
-                    //  every seen and confirmed tx increments this counter 
-                    seenAndConfirmedWindow += 1
-                    sumSeconds += (data.value.confirmedDate - data.value.seenDate) / 1000
-                }
+    let processNewConfirmedTransaction = async (tx) => {
+        try {
+            const newConfirmed = await transactions.get(tx)
+            let confirmMoment = Date.now()
+            await transactions.put(tx, {
+                'seenDate': newConfirmed.seenDate,
+                'confirmedDate': confirmMoment
+            })
+            confirmationTime.observe((confirmMoment - newConfirmed.seenDate) / 1000)
+        } catch (error) {
+            if (error.notFound) {
+                await transactions.put(tx, {
+                    confirmedDate: Date.now()
+                })
             }
-        }).on('end', () => {
-            let confirmationStats = {
-                windowMinutes: windowMinutes,
-                seenTxs: seenTxs,
-                confirmedTxs: confirmedTxs,
-                seenAndConfirmedWindow: seenAndConfirmedWindow,
-                averageConfirmationTime: sumSeconds / seenAndConfirmedWindow,
-                confirmationRate: confirmedTxs / seenTxs
-            }
-            set(zmqStats, 'confirmationStats', confirmationStats)
-        })
+        }
     }
 }
