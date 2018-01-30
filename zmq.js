@@ -1,17 +1,18 @@
 'use strict'
 
 const zmq = require('zeromq')
-const level = require('level')
 const config = require('./config')
 const set = require('lodash.set')
+const level = require('level')
 const transactions = level('./db', {valueEncoding: 'json'})
+
 // require('timers')
 
 let seenTxs = 0
 let txsWithValue = 0
 let confirmedTxs = 0
 
-module.exports = (zmqStats, confirmationTimeHisto) => {
+let processZmq = (zmqStats, confirmationTimeHisto) => {
 
     let processNewSeenTransaction = async (tx) => {
         try {
@@ -91,4 +92,41 @@ module.exports = (zmqStats, confirmationTimeHisto) => {
     } else {
         console.log('ZMQ is not configured')
     }
+}
+
+let getHistogram = (cb) => {
+
+    let buckets = config.confirm_time_buckets
+    let txCount = 0
+    let histo = {}
+
+    for (let le in buckets) {
+        histo[buckets[le]] = 0
+    }
+
+    transactions.createReadStream().on('data', (data) => {
+        if (data.value.confirmedDate && data.value.seenDate) {
+            txCount += 1
+            let seconds = (data.value.confirmedDate - data.value.seenDate) / 1000
+
+            for (let le in buckets) {
+                // console.log(buckets[le])
+                if (seconds <= Number(buckets[le])) {
+                    histo[buckets[le]] += 1
+                    break
+                } else {
+                    histo['inf'] += 1
+                }
+            }
+        }
+    }).on('end', () => {
+        histo['total'] = txCount
+        console.log(histo)
+        cb(histo)
+    })
+}
+
+module.exports = {
+    processZmq: processZmq,
+    getHistogram: getHistogram
 }

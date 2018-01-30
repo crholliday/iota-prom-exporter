@@ -3,8 +3,8 @@
 const express = require('express')
 const app = express()
 const config = require('./config')
-const makeHistogram = require('./makeHistogram')
 const promclient = require('prom-client')
+
 let Gauge = promclient.Gauge
 let Histogram = promclient.Histogram
 
@@ -13,7 +13,7 @@ let zmqStats = {}
 
 const nodeInfo = require('./nodeInfo')
 const neighborInfo = require('./neighborInfo')
-const tangleInfo = require('./tangleInfo')
+// const tangleInfo = require('./tangleInfo')
 
 if (config.market_info_flag) {
     const marketInfoSocket = require('./marketInfoSocketRC')(trades)
@@ -26,7 +26,15 @@ if (config.zmq_url) {
         help: 'Actual seconds it takes to confirm each tx',
         buckets: config.confirm_time_buckets
     })
-    const zmqInfo = require('./zmq')(zmqStats, confirmationTimeHist)
+    let zmqInfo = require('./zmq')
+
+    zmqInfo.processZmq(zmqStats, confirmationTimeHist)
+    
+    app.get('/getHistogram', function (req, res) {
+        zmqInfo.getHisto((data) => {
+            res.send('Histo is: ' + JSON.stringify(data))
+        })
+    })
 }
 
 
@@ -79,14 +87,15 @@ let activeNeighbors = new Gauge({
     name: 'iota_neighbors_active_neighbors',
     help: 'Number of neighbors who are active'
 })
-let totalTx = new Gauge({
-    name: 'iota_tangle_total_txs',
-    help: 'Number of total transaction from the whole tangle'
-})
-let confirmedTx = new Gauge({
-    name: 'iota_tangle_confirmed_txs',
-    help: 'Number of confirmed transactions from the whole tangle'
-})
+
+// let totalTx = new Gauge({
+//     name: 'iota_tangle_total_txs',
+//     help: 'Number of total transaction from the whole tangle'
+// })
+// let confirmedTx = new Gauge({
+//     name: 'iota_tangle_confirmed_txs',
+//     help: 'Number of confirmed transactions from the whole tangle'
+// })
 
 // market info stuff
 let tradePrice = new Gauge({
@@ -135,12 +144,6 @@ let totalTransactionsRs = new Gauge({
     help: 'totalTransactions from RSTAT output of ZMQ'
 })
 
-app.get('/stats', function (req, res) {
-    makeHistogram( (err, data) => {
-        res.send('Histo is: ' + data)
-    })
-})
-
 app.get('/metrics', async(req, res) => {
 
     newTransactions.reset()
@@ -150,7 +153,7 @@ app.get('/metrics', async(req, res) => {
     sentTransactions.reset()
 
     try {
-        const [nodeResults, neighborResults, tangleResults] = await Promise.all([nodeInfo(), neighborInfo(), tangleInfo()])
+        const [nodeResults, neighborResults] = await Promise.all([nodeInfo(), neighborInfo()])
 
         // node info
         totalTransactions.set(nodeResults.transactionsToRequest)
@@ -184,10 +187,10 @@ app.get('/metrics', async(req, res) => {
         activeNeighbors.set(connectedNeighbors)
 
         // tangle info
-        if (tangleResults) {
-            totalTx.set(parseInt(tangleResults.totalTx) || 0)
-            confirmedTx.set(parseInt(tangleResults.confirmedTx) || 0)
-        }
+        // if (tangleResults) {
+        //     totalTx.set(parseInt(tangleResults.totalTx) || 0)
+        //     confirmedTx.set(parseInt(tangleResults.confirmedTx) || 0)
+        // }
 
         // market info
         if (config.market_info_flag) {
