@@ -3,6 +3,7 @@
 const express = require('express')
 const app = express()
 const config = require('./config')
+const makeHistogram = require('./makeHistogram')
 const promclient = require('prom-client')
 let Gauge = promclient.Gauge
 let Histogram = promclient.Histogram
@@ -132,6 +133,12 @@ let toReply = new Gauge({
 let totalTransactionsRs = new Gauge({
     name: 'iota_zmq_total_transactions',
     help: 'totalTransactions from RSTAT output of ZMQ'
+})
+
+app.get('/stats', function (req, res) {
+    makeHistogram( (err, data) => {
+        res.send('Histo is: ' + data)
+    })
 })
 
 app.get('/metrics', async(req, res) => {

@@ -17,8 +17,8 @@ let tangleInfo = async () => {
             .fromStream(request.get(
                 config.stresstest_table_url)
                 .on('error', (error) => {
-                    console.log('Error in request: ', error)
-                    resolve()
+                    console.log(`Unable to connect to : ${config.stresstest_table_url}`)
+                    reject()
                 }
             ))
             .on('end_parsed', (jsonObj) => {
@@ -26,10 +26,10 @@ let tangleInfo = async () => {
             })
             .on('error', (error) => {
                 console.log('Error in request: ', error)
-                resolve()
+                reject()
             })
             .on('done',(error)=>{
-                resolve()
+                reject()
             })
     })
 
