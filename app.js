@@ -20,12 +20,12 @@ if (config.market_info_flag) {
 
 if (config.zmq_url) {
     // confirmation stats
-    let confirmationTime = new Histogram({
+    let confirmationTimeHist = new Histogram({
         name: 'iota_zmq_tx_confirm_time',
         help: 'Actual seconds it takes to confirm each tx',
         buckets: config.confirm_time_buckets
     })
-    const zmqInfo = require('./zmq')(zmqStats, confirmationTime)
+    const zmqInfo = require('./zmq')(zmqStats, confirmationTimeHist)
 }
 
 
@@ -177,8 +177,8 @@ app.get('/metrics', async(req, res) => {
         activeNeighbors.set(connectedNeighbors)
 
         // tangle info
-        totalTx.set(parseInt(tangleResults.totalTx))
-        confirmedTx.set(parseInt(tangleResults.confirmedTx))
+        totalTx.set(parseInt(tangleResults.totalTx || 0))
+        confirmedTx.set(parseInt(tangleResults.confirmedTx || 0))
 
         // market info
         if (config.market_info_flag) {

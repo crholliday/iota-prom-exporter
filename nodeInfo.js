@@ -13,7 +13,6 @@ let nodeInfo = async () => {
     } catch (error) {
         return error
     }
-    
 }
 
 module.exports = nodeInfo

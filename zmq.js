@@ -11,7 +11,38 @@ let seenTxs = 0
 let txsWithValue = 0
 let confirmedTxs = 0
 
-module.exports = (zmqStats, confirmationTime) => {
+module.exports = (zmqStats, confirmationTimeHisto) => {
+
+    let processNewSeenTransaction = async (tx) => {
+        try {
+            const newSeen = await transactions.get(tx)
+        } catch (error) {
+            if (error.notFound) {
+                await transactions.put(tx, {
+                    seenDate: Date.now()
+                })
+            }
+        }
+    }
+
+    let processNewConfirmedTransaction = async (tx) => {
+        try {
+            const newConfirmed = await transactions.get(tx)
+            let confirmMoment = Date.now()
+            await transactions.put(tx, {
+                'seenDate': newConfirmed.seenDate,
+                'confirmedDate': confirmMoment
+            })
+            confirmationTimeHisto.observe((confirmMoment - newConfirmed.seenDate) / 1000)
+        } catch (error) {
+            if (error.notFound) {
+                await transactions.put(tx, {
+                    confirmedDate: Date.now()
+                })
+            }
+        }
+    }
+
     if (config.zmq_url) {
 
         let sock = zmq.socket('sub')
@@ -56,38 +87,8 @@ module.exports = (zmqStats, confirmationTime) => {
         sock.on('disconnect', (eventVal, endPoint, err) => {
             console.log('zmq is in "disconnect" err', err)
         })
-        
+
     } else {
         console.log('ZMQ is not configured')
-    }
-
-    let processNewSeenTransaction = async (tx) => {
-        try {
-            const newSeen = await transactions.get(tx)
-        } catch (error) {
-            if (error.notFound) {
-                await transactions.put(tx, {
-                    seenDate: Date.now()
-                })
-            }
-        }
-    }
-    
-    let processNewConfirmedTransaction = async (tx) => {
-        try {
-            const newConfirmed = await transactions.get(tx)
-            let confirmMoment = Date.now()
-            await transactions.put(tx, {
-                'seenDate': newConfirmed.seenDate,
-                'confirmedDate': confirmMoment
-            })
-            confirmationTime.observe((confirmMoment - newConfirmed.seenDate) / 1000)
-        } catch (error) {
-            if (error.notFound) {
-                await transactions.put(tx, {
-                    confirmedDate: Date.now()
-                })
-            }
-        }
     }
 }

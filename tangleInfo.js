@@ -18,6 +18,9 @@ let tangleInfo = async () => {
             .on('end_parsed', (jsonObj) => {
                 resolve(jsonObj[jsonObj.length - 2])
             })
+            .on('error', (error) => {
+                reject(error)
+            })
             .on('done',(error)=>{
                 reject(error)
             })
