@@ -33,10 +33,13 @@ let tangleInfo = async () => {
             })
     })
 
-    tangleStuff.totalTx = txs.field3 || 0
-    tangleStuff.confirmedTx = txs.field4 || 0
-
-    return tangleStuff
+    if (txs) {
+        tangleStuff.totalTx = txs.field3 || 0
+        tangleStuff.confirmedTx = txs.field4 || 0
+        return tangleStuff
+    } else {
+        return null
+    }
 }
 
 module.exports = tangleInfo
