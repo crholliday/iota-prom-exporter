@@ -177,8 +177,10 @@ app.get('/metrics', async(req, res) => {
         activeNeighbors.set(connectedNeighbors)
 
         // tangle info
-        totalTx.set(parseInt(tangleResults.totalTx || 0))
-        confirmedTx.set(parseInt(tangleResults.confirmedTx || 0))
+        if (tangleResults) {
+            totalTx.set(parseInt(tangleResults.totalTx) || 0)
+            confirmedTx.set(parseInt(tangleResults.confirmedTx) || 0)
+        }
 
         // market info
         if (config.market_info_flag) {
