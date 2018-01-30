@@ -18,22 +18,23 @@ let tangleInfo = async () => {
                 config.stresstest_table_url)
                 .on('error', (error) => {
                     console.log('Error in request: ', error)
-                    reject(error)
+                    resolve()
                 }
             ))
             .on('end_parsed', (jsonObj) => {
                 resolve(jsonObj[jsonObj.length - 2])
             })
             .on('error', (error) => {
-                reject(error)
+                console.log('Error in request: ', error)
+                resolve()
             })
             .on('done',(error)=>{
-                reject(error)
+                resolve()
             })
     })
 
-    tangleStuff.totalTx = txs.field3
-    tangleStuff.confirmedTx = txs.field4
+    tangleStuff.totalTx = txs.field3 || 0
+    tangleStuff.confirmedTx = txs.field4 || 0
 
     return tangleStuff
 }
