@@ -14,7 +14,13 @@ let tangleInfo = async () => {
             trim: true,
             delimiter: '|'
         })
-            .fromStream(request.get(config.stresstest_table_url))
+            .fromStream(request.get(
+                config.stresstest_table_url)
+                .on('error', (error) => {
+                    console.log('Error in request: ', error)
+                    reject(error)
+                }
+            ))
             .on('end_parsed', (jsonObj) => {
                 resolve(jsonObj[jsonObj.length - 2])
             })
