@@ -29,9 +29,9 @@ if (config.zmq_url) {
     let zmqInfo = require('./zmq')
 
     zmqInfo.processZmq(zmqStats, confirmationTimeHist)
-    
+
     app.get('/getHistogram', function (req, res) {
-        zmqInfo.getHisto((data) => {
+        zmqInfo.getHistogram((data) => {
             res.send('Histo is: ' + JSON.stringify(data))
         })
     })
