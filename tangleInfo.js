@@ -6,40 +6,33 @@ const config = require('./config')
 
 let tangleStuff = {}
 
-let tangleInfo = async () => {
-
-    let txs = await new Promise(function (resolve, reject) {
-        csv({
+let tangleInfo = (cb) => {
+    csv({
             noheader: true,
             trim: true,
             delimiter: '|'
         })
-            .fromStream(request.get(
+        .fromStream(request.get(
                 config.stresstest_table_url)
-                .on('error', (error) => {
-                    console.log(`Unable to connect to : ${config.stresstest_table_url}`)
-                    resolve()
-                }
-            ))
-            .on('end_parsed', (jsonObj) => {
-                resolve(jsonObj[jsonObj.length - 2])
-            })
             .on('error', (error) => {
-                console.log('Error in request: ', error)
-                resolve()
-            })
-            .on('done',(error)=>{
-                resolve()
-            })
-    })
-
-    if (txs) {
-        tangleStuff.totalTx = txs.field3 || 0
-        tangleStuff.confirmedTx = txs.field4 || 0
-        return tangleStuff
-    } else {
-        return null
-    }
+                console.log(`Unable to connect to : ${config.stresstest_table_url}`)
+            }))
+        .on('end_parsed', (jsonObj) => {
+            let txs = jsonObj[jsonObj.length - 2]
+            if (txs) {
+                tangleStuff.totalTx = txs.field3 || 0
+                tangleStuff.confirmedTx = txs.field4 || 0
+                cb(tangleStuff)
+            } else {
+                console.log('Something failed on the request to the stresstest table')
+                cb(null)
+            }
+        })
+        .on('error', (error) => {
+            console.log('Error in request: ', error)
+        })
+        // .on('done', (error) => {
+        // })
 }
 
 module.exports = tangleInfo

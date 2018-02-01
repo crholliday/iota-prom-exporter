@@ -110,7 +110,6 @@ let getHistogram = (cb) => {
             let seconds = (data.value.confirmedDate - data.value.seenDate) / 1000
 
             for (let le in buckets) {
-                // console.log(buckets[le])
                 if (seconds <= Number(buckets[le])) {
                     histo[buckets[le]] += 1
                     break
@@ -121,7 +120,6 @@ let getHistogram = (cb) => {
         }
     }).on('end', () => {
         histo['total'] = txCount
-        console.log(histo)
         cb(histo)
     })
 }
