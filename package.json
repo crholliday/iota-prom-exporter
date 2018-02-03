@@ -25,7 +25,6 @@
   "homepage": "https://github.com/crholliday/iota-prom-exporter",
   "dependencies": {
     "axios": "^0.17.1",
-    "csvtojson": "^1.1.9",
     "express": "^4.16.2",
     "html5-websocket": "^2.0.2",
     "iota.lib.js": "^0.4.7",

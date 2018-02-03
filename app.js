@@ -13,7 +13,6 @@ let zmqStats = {}
 
 const nodeInfo = require('./nodeInfo')
 const neighborInfo = require('./neighborInfo')
-const tangleInfo = require('./tangleInfo')
 
 if (config.market_info_flag) {
     const marketInfoSocket = require('./marketInfoSocketRC')(trades)
@@ -85,15 +84,6 @@ let sentTransactions = new Gauge({
 let activeNeighbors = new Gauge({
     name: 'iota_neighbors_active_neighbors',
     help: 'Number of neighbors who are active'
-})
-
-let totalTx = new Gauge({
-    name: 'iota_tangle_total_txs',
-    help: 'Number of total transaction from the whole tangle'
-})
-let confirmedTx = new Gauge({
-    name: 'iota_tangle_confirmed_txs',
-    help: 'Number of confirmed transactions from the whole tangle'
 })
 
 // market info stuff
@@ -248,14 +238,6 @@ app.get('/metrics', async(req, res) => {
                 totalTransactionsRs.set(Number(zmqStats.rstats.totalTransactions) || 0)
             }
         }
-
-        // tangle info
-        tangleInfo( (tangleResults) => {
-            if (tangleResults) {
-                totalTx.set(parseInt(tangleResults.totalTx) || 0)
-                confirmedTx.set(parseInt(tangleResults.confirmedTx) || 0)
-            }
-        })
 
         res.end(promclient.register.metrics())
 

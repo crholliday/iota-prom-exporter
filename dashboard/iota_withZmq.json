@@ -1,15 +1,17 @@
 {
     "dashboard": {
         "annotations": {
-            "list": [{
-                "builtIn": 1,
-                "datasource": "-- Grafana --",
-                "enable": true,
-                "hide": true,
-                "iconColor": "rgba(0, 211, 255, 1)",
-                "name": "Annotations & Alerts",
-                "type": "dashboard"
-            }]
+            "list": [
+                {
+                    "builtIn": 1,
+                    "datasource": "-- Grafana --",
+                    "enable": true,
+                    "hide": true,
+                    "iconColor": "rgba(0, 211, 255, 1)",
+                    "name": "Annotations & Alerts",
+                    "type": "dashboard"
+                }
+            ]
         },
         "description": "",
         "editable": true,
@@ -17,11 +19,14 @@
         "graphTooltip": 1,
         "hideControls": false,
         "id": null,
+        "links": [],
         "refresh": "30s",
-        "rows": [{
+        "rows": [
+            {
                 "collapse": false,
-                "height": 140,
-                "panels": [{
+                "height": 176,
+                "panels": [
+                    {
                         "cacheTimeout": null,
                         "colorBackground": false,
                         "colorValue": false,
@@ -31,6 +36,7 @@
                             "#d44a3a"
                         ],
                         "datasource": null,
+                        "description": "Latest Milestone Index",
                         "format": "none",
                         "gauge": {
                             "maxValue": 100,
@@ -43,7 +49,8 @@
                         "interval": null,
                         "links": [],
                         "mappingType": 1,
-                        "mappingTypes": [{
+                        "mappingTypes": [
+                            {
                                 "name": "value to text",
                                 "value": 1
                             },
@@ -59,12 +66,14 @@
                         "postfixFontSize": "50%",
                         "prefix": "",
                         "prefixFontSize": "50%",
-                        "rangeMaps": [{
-                            "from": "null",
-                            "text": "N/A",
-                            "to": "null"
-                        }],
-                        "span": 2,
+                        "rangeMaps": [
+                            {
+                                "from": "null",
+                                "text": "N/A",
+                                "to": "null"
+                            }
+                        ],
+                        "span": 1,
                         "sparkline": {
                             "fillColor": "rgba(31, 118, 189, 0.18)",
                             "full": false,
@@ -72,23 +81,27 @@
                             "show": false
                         },
                         "tableColumn": "",
-                        "targets": [{
-                            "expr": "iota_node_info_latest_milestone",
-                            "format": "time_series",
-                            "hide": false,
-                            "instant": true,
-                            "intervalFactor": 2,
-                            "refId": "A"
-                        }],
+                        "targets": [
+                            {
+                                "expr": "iota_node_info_latest_milestone",
+                                "format": "time_series",
+                                "hide": false,
+                                "instant": true,
+                                "intervalFactor": 2,
+                                "refId": "A"
+                            }
+                        ],
                         "thresholds": "",
-                        "title": "Latest Milestone",
+                        "title": "LMI",
                         "type": "singlestat",
                         "valueFontSize": "80%",
-                        "valueMaps": [{
-                            "op": "=",
-                            "text": "N/A",
-                            "value": "null"
-                        }],
+                        "valueMaps": [
+                            {
+                                "op": "=",
+                                "text": "N/A",
+                                "value": "null"
+                            }
+                        ],
                         "valueName": "avg"
                     },
                     {
@@ -101,6 +114,7 @@
                             "#d44a3a"
                         ],
                         "datasource": null,
+                        "description": "Latest Subtangle Milestone Index",
                         "format": "none",
                         "gauge": {
                             "maxValue": 100,
@@ -113,7 +127,8 @@
                         "interval": null,
                         "links": [],
                         "mappingType": 1,
-                        "mappingTypes": [{
+                        "mappingTypes": [
+                            {
                                 "name": "value to text",
                                 "value": 1
                             },
@@ -129,12 +144,14 @@
                         "postfixFontSize": "50%",
                         "prefix": "",
                         "prefixFontSize": "50%",
-                        "rangeMaps": [{
-                            "from": "null",
-                            "text": "N/A",
-                            "to": "null"
-                        }],
-                        "span": 2,
+                        "rangeMaps": [
+                            {
+                                "from": "null",
+                                "text": "N/A",
+                                "to": "null"
+                            }
+                        ],
+                        "span": 1,
                         "sparkline": {
                             "fillColor": "rgba(31, 118, 189, 0.18)",
                             "full": false,
@@ -142,23 +159,181 @@
                             "show": false
                         },
                         "tableColumn": "",
-                        "targets": [{
-                            "expr": "iota_node_info_latest_subtangle_milestone",
-                            "format": "time_series",
-                            "hide": false,
-                            "intervalFactor": 2,
-                            "legendFormat": "",
-                            "refId": "A"
-                        }],
+                        "targets": [
+                            {
+                                "expr": "iota_node_info_latest_subtangle_milestone",
+                                "format": "time_series",
+                                "hide": false,
+                                "intervalFactor": 2,
+                                "legendFormat": "",
+                                "refId": "A"
+                            }
+                        ],
                         "thresholds": "",
-                        "title": "Latest Subtangle Milestone",
+                        "title": "LSMI",
                         "type": "singlestat",
                         "valueFontSize": "80%",
-                        "valueMaps": [{
-                            "op": "=",
-                            "text": "N/A",
-                            "value": "null"
-                        }],
+                        "valueMaps": [
+                            {
+                                "op": "=",
+                                "text": "N/A",
+                                "value": "null"
+                            }
+                        ],
+                        "valueName": "current"
+                    },
+                    {
+                        "cacheTimeout": null,
+                        "colorBackground": false,
+                        "colorValue": true,
+                        "colors": [
+                            "#299c46",
+                            "rgba(237, 129, 40, 0.89)",
+                            "#d44a3a"
+                        ],
+                        "datasource": null,
+                        "decimals": null,
+                        "format": "none",
+                        "gauge": {
+                            "maxValue": 11000,
+                            "minValue": 0,
+                            "show": true,
+                            "thresholdLabels": false,
+                            "thresholdMarkers": true
+                        },
+                        "id": 7,
+                        "interval": null,
+                        "links": [],
+                        "mappingType": 1,
+                        "mappingTypes": [
+                            {
+                                "name": "value to text",
+                                "value": 1
+                            },
+                            {
+                                "name": "range to text",
+                                "value": 2
+                            }
+                        ],
+                        "maxDataPoints": 100,
+                        "nullPointMode": "connected",
+                        "nullText": null,
+                        "postfix": "",
+                        "postfixFontSize": "50%",
+                        "prefix": "",
+                        "prefixFontSize": "50%",
+                        "rangeMaps": [
+                            {
+                                "from": "null",
+                                "text": "N/A",
+                                "to": "null"
+                            }
+                        ],
+                        "span": 2,
+                        "sparkline": {
+                            "fillColor": "#cffaff",
+                            "full": false,
+                            "lineColor": "#1f78c1",
+                            "show": false
+                        },
+                        "tableColumn": "",
+                        "targets": [
+                            {
+                                "expr": "iota_node_info_total_tips",
+                                "format": "time_series",
+                                "hide": false,
+                                "instant": false,
+                                "intervalFactor": 2,
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": "7000,9500",
+                        "title": "Open Txs (Tips)",
+                        "type": "singlestat",
+                        "valueFontSize": "80%",
+                        "valueMaps": [
+                            {
+                                "op": "=",
+                                "text": "N/A",
+                                "value": "null"
+                            }
+                        ],
+                        "valueName": "current"
+                    },
+                    {
+                        "cacheTimeout": null,
+                        "colorBackground": false,
+                        "colorValue": false,
+                        "colors": [
+                            "#629e51",
+                            "rgba(237, 129, 40, 0.89)",
+                            "#d44a3a"
+                        ],
+                        "datasource": null,
+                        "format": "none",
+                        "gauge": {
+                            "maxValue": 100,
+                            "minValue": 0,
+                            "show": false,
+                            "thresholdLabels": false,
+                            "thresholdMarkers": true
+                        },
+                        "id": 84,
+                        "interval": null,
+                        "links": [],
+                        "mappingType": 1,
+                        "mappingTypes": [
+                            {
+                                "name": "value to text",
+                                "value": 1
+                            },
+                            {
+                                "name": "range to text",
+                                "value": 2
+                            }
+                        ],
+                        "maxDataPoints": 100,
+                        "nullPointMode": "connected",
+                        "nullText": null,
+                        "postfix": "",
+                        "postfixFontSize": "50%",
+                        "prefix": "",
+                        "prefixFontSize": "50%",
+                        "rangeMaps": [
+                            {
+                                "from": "null",
+                                "text": "N/A",
+                                "to": "null"
+                            }
+                        ],
+                        "span": 1,
+                        "sparkline": {
+                            "fillColor": "rgba(31, 118, 189, 0.18)",
+                            "full": false,
+                            "lineColor": "rgb(31, 120, 193)",
+                            "show": true
+                        },
+                        "tableColumn": "",
+                        "targets": [
+                            {
+                                "expr": "iota_zmq_total_transactions",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": "",
+                        "title": "Total Txs",
+                        "type": "singlestat",
+                        "valueFontSize": "80%",
+                        "valueMaps": [
+                            {
+                                "op": "=",
+                                "text": "N/A",
+                                "value": "null"
+                            }
+                        ],
                         "valueName": "current"
                     },
                     {
@@ -171,6 +346,7 @@
                             "#d44a3a"
                         ],
                         "datasource": null,
+                        "description": "this is the toRequest line from rstats",
                         "format": "none",
                         "gauge": {
                             "maxValue": 100,
@@ -183,7 +359,8 @@
                         "interval": null,
                         "links": [],
                         "mappingType": 1,
-                        "mappingTypes": [{
+                        "mappingTypes": [
+                            {
                                 "name": "value to text",
                                 "value": 1
                             },
@@ -199,12 +376,14 @@
                         "postfixFontSize": "50%",
                         "prefix": "",
                         "prefixFontSize": "50%",
-                        "rangeMaps": [{
-                            "from": "null",
-                            "text": "N/A",
-                            "to": "null"
-                        }],
-                        "span": 2,
+                        "rangeMaps": [
+                            {
+                                "from": "null",
+                                "text": "N/A",
+                                "to": "null"
+                            }
+                        ],
+                        "span": 1,
                         "sparkline": {
                             "fillColor": "#052b51",
                             "full": false,
@@ -212,23 +391,27 @@
                             "show": true
                         },
                         "tableColumn": "",
-                        "targets": [{
-                            "expr": "iota_node_info_total_transactions_queued",
-                            "format": "time_series",
-                            "hide": false,
-                            "instant": false,
-                            "intervalFactor": 1,
-                            "refId": "A"
-                        }],
+                        "targets": [
+                            {
+                                "expr": "iota_node_info_total_transactions_queued",
+                                "format": "time_series",
+                                "hide": false,
+                                "instant": false,
+                                "intervalFactor": 1,
+                                "refId": "A"
+                            }
+                        ],
                         "thresholds": "",
-                        "title": "Total Txs Queued",
+                        "title": "Txs to Request",
                         "type": "singlestat",
                         "valueFontSize": "80%",
-                        "valueMaps": [{
-                            "op": "=",
-                            "text": "N/A",
-                            "value": "null"
-                        }],
+                        "valueMaps": [
+                            {
+                                "op": "=",
+                                "text": "N/A",
+                                "value": "null"
+                            }
+                        ],
                         "valueName": "current"
                     },
                     {
@@ -241,7 +424,7 @@
                             "#d44a3a"
                         ],
                         "datasource": null,
-                        "format": "none",
+                        "format": "s",
                         "gauge": {
                             "maxValue": 100,
                             "minValue": 0,
@@ -249,11 +432,12 @@
                             "thresholdLabels": false,
                             "thresholdMarkers": true
                         },
-                        "id": 7,
+                        "id": 86,
                         "interval": null,
                         "links": [],
                         "mappingType": 1,
-                        "mappingTypes": [{
+                        "mappingTypes": [
+                            {
                                 "name": "value to text",
                                 "value": 1
                             },
@@ -269,36 +453,41 @@
                         "postfixFontSize": "50%",
                         "prefix": "",
                         "prefixFontSize": "50%",
-                        "rangeMaps": [{
-                            "from": "null",
-                            "text": "N/A",
-                            "to": "null"
-                        }],
-                        "span": 2,
+                        "rangeMaps": [
+                            {
+                                "from": "null",
+                                "text": "N/A",
+                                "to": "null"
+                            }
+                        ],
+                        "span": 1,
                         "sparkline": {
-                            "fillColor": "#cffaff",
-                            "full": false,
-                            "lineColor": "#1f78c1",
-                            "show": false
+                            "fillColor": "rgba(31, 118, 189, 0.18)",
+                            "full": true,
+                            "lineColor": "rgb(31, 120, 193)",
+                            "show": true
                         },
                         "tableColumn": "",
-                        "targets": [{
-                            "expr": "iota_node_info_total_tips",
-                            "format": "time_series",
-                            "hide": false,
-                            "instant": false,
-                            "intervalFactor": 2,
-                            "refId": "A"
-                        }],
+                        "targets": [
+                            {
+                                "expr": "delta(iota_zmq_tx_confirm_time_sum[30m])/delta(iota_zmq_tx_confirm_time_count[30m])",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "",
+                                "refId": "A"
+                            }
+                        ],
                         "thresholds": "",
-                        "title": "Open Txs (Tips)",
+                        "title": "Avg Confirm Time",
                         "type": "singlestat",
                         "valueFontSize": "80%",
-                        "valueMaps": [{
-                            "op": "=",
-                            "text": "N/A",
-                            "value": "null"
-                        }],
+                        "valueMaps": [
+                            {
+                                "op": "=",
+                                "text": "N/A",
+                                "value": "null"
+                            }
+                        ],
                         "valueName": "current"
                     },
                     {
@@ -311,9 +500,163 @@
                             "#d44a3a"
                         ],
                         "datasource": null,
-                        "format": "none",
+                        "format": "percentunit",
                         "gauge": {
                             "maxValue": 100,
+                            "minValue": 0,
+                            "show": false,
+                            "thresholdLabels": false,
+                            "thresholdMarkers": true
+                        },
+                        "id": 85,
+                        "interval": null,
+                        "links": [],
+                        "mappingType": 1,
+                        "mappingTypes": [
+                            {
+                                "name": "value to text",
+                                "value": 1
+                            },
+                            {
+                                "name": "range to text",
+                                "value": 2
+                            }
+                        ],
+                        "maxDataPoints": 100,
+                        "nullPointMode": "connected",
+                        "nullText": null,
+                        "postfix": "",
+                        "postfixFontSize": "50%",
+                        "prefix": "",
+                        "prefixFontSize": "50%",
+                        "rangeMaps": [
+                            {
+                                "from": "null",
+                                "text": "N/A",
+                                "to": "null"
+                            }
+                        ],
+                        "span": 1,
+                        "sparkline": {
+                            "fillColor": "rgba(31, 118, 189, 0.18)",
+                            "full": true,
+                            "lineColor": "rgb(31, 120, 193)",
+                            "show": true
+                        },
+                        "tableColumn": "",
+                        "targets": [
+                            {
+                                "expr": "delta(iota_zmq_confirmed_tx_count[30m])/delta(iota_zmq_seen_tx_count[30m])",
+                                "format": "time_series",
+                                "instant": false,
+                                "intervalFactor": 2,
+                                "legendFormat": "",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": "",
+                        "title": "Avg Confirm Rate",
+                        "type": "singlestat",
+                        "valueFontSize": "80%",
+                        "valueMaps": [
+                            {
+                                "op": "=",
+                                "text": "N/A",
+                                "value": "null"
+                            }
+                        ],
+                        "valueName": "current"
+                    },
+                    {
+                        "cacheTimeout": null,
+                        "colorBackground": false,
+                        "colorValue": false,
+                        "colors": [
+                            "#299c46",
+                            "rgba(237, 129, 40, 0.89)",
+                            "#d44a3a"
+                        ],
+                        "datasource": null,
+                        "format": "percentunit",
+                        "gauge": {
+                            "maxValue": 100,
+                            "minValue": 0,
+                            "show": false,
+                            "thresholdLabels": false,
+                            "thresholdMarkers": true
+                        },
+                        "id": 87,
+                        "interval": null,
+                        "links": [],
+                        "mappingType": 1,
+                        "mappingTypes": [
+                            {
+                                "name": "value to text",
+                                "value": 1
+                            },
+                            {
+                                "name": "range to text",
+                                "value": 2
+                            }
+                        ],
+                        "maxDataPoints": 100,
+                        "nullPointMode": "connected",
+                        "nullText": null,
+                        "postfix": "",
+                        "postfixFontSize": "50%",
+                        "prefix": "",
+                        "prefixFontSize": "50%",
+                        "rangeMaps": [
+                            {
+                                "from": "null",
+                                "text": "N/A",
+                                "to": "null"
+                            }
+                        ],
+                        "span": 2,
+                        "sparkline": {
+                            "fillColor": "rgba(31, 118, 189, 0.18)",
+                            "full": false,
+                            "lineColor": "rgb(31, 120, 193)",
+                            "show": true
+                        },
+                        "tableColumn": "",
+                        "targets": [
+                            {
+                                "expr": "iota_zmq_txs_with_value_count/(iota_zmq_seen_tx_count-iota_zmq_txs_with_value_count)",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": "",
+                        "title": "Value to 0-value Txs",
+                        "type": "singlestat",
+                        "valueFontSize": "80%",
+                        "valueMaps": [
+                            {
+                                "op": "=",
+                                "text": "N/A",
+                                "value": "null"
+                            }
+                        ],
+                        "valueName": "avg"
+                    },
+                    {
+                        "cacheTimeout": null,
+                        "colorBackground": true,
+                        "colorValue": false,
+                        "colors": [
+                            "#299c46",
+                            "rgba(237, 129, 40, 0.89)",
+                            "#d44a3a"
+                        ],
+                        "datasource": null,
+                        "decimals": null,
+                        "format": "none",
+                        "gauge": {
+                            "maxValue": 20,
                             "minValue": 0,
                             "show": false,
                             "thresholdLabels": false,
@@ -323,7 +666,8 @@
                         "interval": null,
                         "links": [],
                         "mappingType": 1,
-                        "mappingTypes": [{
+                        "mappingTypes": [
+                            {
                                 "name": "value to text",
                                 "value": 1
                             },
@@ -339,12 +683,14 @@
                         "postfixFontSize": "50%",
                         "prefix": "",
                         "prefixFontSize": "50%",
-                        "rangeMaps": [{
-                            "from": "null",
-                            "text": "N/A",
-                            "to": "null"
-                        }],
-                        "span": 2,
+                        "rangeMaps": [
+                            {
+                                "from": "null",
+                                "text": "N/A",
+                                "to": "null"
+                            }
+                        ],
+                        "span": 1,
                         "sparkline": {
                             "fillColor": "rgba(31, 118, 189, 0.18)",
                             "full": false,
@@ -352,25 +698,29 @@
                             "show": false
                         },
                         "tableColumn": "",
-                        "targets": [{
-                            "expr": "iota_node_info_total_neighbors",
-                            "format": "time_series",
-                            "hide": false,
-                            "instant": false,
-                            "interval": "",
-                            "intervalFactor": 2,
-                            "legendFormat": "Neighbors",
-                            "refId": "A"
-                        }],
-                        "thresholds": "",
+                        "targets": [
+                            {
+                                "expr": "iota_node_info_total_neighbors",
+                                "format": "time_series",
+                                "hide": false,
+                                "instant": false,
+                                "interval": "",
+                                "intervalFactor": 2,
+                                "legendFormat": "Neighbors",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": "10,15",
                         "title": "Total Neighbors",
                         "type": "singlestat",
                         "valueFontSize": "80%",
-                        "valueMaps": [{
-                            "op": "=",
-                            "text": "N/A",
-                            "value": "null"
-                        }],
+                        "valueMaps": [
+                            {
+                                "op": "=",
+                                "text": "N/A",
+                                "value": "null"
+                            }
+                        ],
                         "valueName": "current"
                     },
                     {
@@ -395,7 +745,8 @@
                         "interval": null,
                         "links": [],
                         "mappingType": 1,
-                        "mappingTypes": [{
+                        "mappingTypes": [
+                            {
                                 "name": "value to text",
                                 "value": 1
                             },
@@ -411,12 +762,14 @@
                         "postfixFontSize": "50%",
                         "prefix": "",
                         "prefixFontSize": "50%",
-                        "rangeMaps": [{
-                            "from": "null",
-                            "text": "N/A",
-                            "to": "null"
-                        }],
-                        "span": 2,
+                        "rangeMaps": [
+                            {
+                                "from": "null",
+                                "text": "N/A",
+                                "to": "null"
+                            }
+                        ],
+                        "span": 1,
                         "sparkline": {
                             "fillColor": "rgba(31, 118, 189, 0.18)",
                             "full": false,
@@ -424,23 +777,27 @@
                             "show": false
                         },
                         "tableColumn": "",
-                        "targets": [{
-                            "expr": "iota_neighbors_active_neighbors",
-                            "format": "time_series",
-                            "hide": false,
-                            "instant": false,
-                            "intervalFactor": 2,
-                            "refId": "A"
-                        }],
+                        "targets": [
+                            {
+                                "expr": "iota_neighbors_active_neighbors",
+                                "format": "time_series",
+                                "hide": false,
+                                "instant": false,
+                                "intervalFactor": 2,
+                                "refId": "A"
+                            }
+                        ],
                         "thresholds": "",
                         "title": "Active Neighbors",
                         "type": "singlestat",
                         "valueFontSize": "80%",
-                        "valueMaps": [{
-                            "op": "=",
-                            "text": "N/A",
-                            "value": "null"
-                        }],
+                        "valueMaps": [
+                            {
+                                "op": "=",
+                                "text": "N/A",
+                                "value": "null"
+                            }
+                        ],
                         "valueName": "current"
                     }
                 ],
@@ -454,31 +811,34 @@
             {
                 "collapse": false,
                 "height": 250,
-                "panels": [{
+                "panels": [
+                    {
                         "alert": {
-                            "conditions": [{
-                                "evaluator": {
-                                    "params": [
-                                        90
-                                    ],
-                                    "type": "gt"
-                                },
-                                "operator": {
-                                    "type": "and"
-                                },
-                                "query": {
-                                    "params": [
-                                        "A",
-                                        "5m",
-                                        "now"
-                                    ]
-                                },
-                                "reducer": {
-                                    "params": [],
-                                    "type": "avg"
-                                },
-                                "type": "query"
-                            }],
+                            "conditions": [
+                                {
+                                    "evaluator": {
+                                        "params": [
+                                            90
+                                        ],
+                                        "type": "gt"
+                                    },
+                                    "operator": {
+                                        "type": "and"
+                                    },
+                                    "query": {
+                                        "params": [
+                                            "A",
+                                            "5m",
+                                            "now"
+                                        ]
+                                    },
+                                    "reducer": {
+                                        "params": [],
+                                        "type": "avg"
+                                    },
+                                    "type": "query"
+                                }
+                            ],
                             "executionErrorState": "alerting",
                             "frequency": "60s",
                             "handler": 1,
@@ -515,7 +875,8 @@
                         "span": 4,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "100 - (avg(irate(node_cpu{mode=\"idle\"}[5m])) * 100)",
                                 "format": "time_series",
                                 "hide": false,
@@ -533,13 +894,15 @@
                                 "refId": "B"
                             }
                         ],
-                        "thresholds": [{
-                            "colorMode": "critical",
-                            "fill": true,
-                            "line": true,
-                            "op": "gt",
-                            "value": 90
-                        }],
+                        "thresholds": [
+                            {
+                                "colorMode": "critical",
+                                "fill": true,
+                                "line": true,
+                                "op": "gt",
+                                "value": 90
+                            }
+                        ],
                         "timeFrom": null,
                         "timeShift": null,
                         "title": "CPU Usage",
@@ -556,7 +919,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "decimals": null,
                                 "format": "percent",
                                 "label": "cpu usage",
@@ -577,29 +941,31 @@
                     },
                     {
                         "alert": {
-                            "conditions": [{
-                                "evaluator": {
-                                    "params": [
-                                        6560914004
-                                    ],
-                                    "type": "gt"
-                                },
-                                "operator": {
-                                    "type": "and"
-                                },
-                                "query": {
-                                    "params": [
-                                        "A",
-                                        "5m",
-                                        "now"
-                                    ]
-                                },
-                                "reducer": {
-                                    "params": [],
-                                    "type": "avg"
-                                },
-                                "type": "query"
-                            }],
+                            "conditions": [
+                                {
+                                    "evaluator": {
+                                        "params": [
+                                            6560914004
+                                        ],
+                                        "type": "gt"
+                                    },
+                                    "operator": {
+                                        "type": "and"
+                                    },
+                                    "query": {
+                                        "params": [
+                                            "A",
+                                            "5m",
+                                            "now"
+                                        ]
+                                    },
+                                    "reducer": {
+                                        "params": [],
+                                        "type": "avg"
+                                    },
+                                    "type": "query"
+                                }
+                            ],
                             "executionErrorState": "alerting",
                             "frequency": "60s",
                             "handler": 1,
@@ -636,7 +1002,8 @@
                         "span": 4,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "node_memory_MemTotal - node_memory_MemFree - node_memory_Cached - node_memory_Buffers - node_memory_Slab ",
                                 "format": "time_series",
                                 "hide": false,
@@ -669,13 +1036,15 @@
                                 "refId": "D"
                             }
                         ],
-                        "thresholds": [{
-                            "colorMode": "critical",
-                            "fill": true,
-                            "line": true,
-                            "op": "gt",
-                            "value": 6560914004
-                        }],
+                        "thresholds": [
+                            {
+                                "colorMode": "critical",
+                                "fill": true,
+                                "line": true,
+                                "op": "gt",
+                                "value": 6560914004
+                            }
+                        ],
                         "timeFrom": null,
                         "timeShift": null,
                         "title": "Memory Usage",
@@ -692,7 +1061,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "bytes",
                                 "label": null,
                                 "logBase": 1,
@@ -732,7 +1102,8 @@
                         "interval": null,
                         "links": [],
                         "mappingType": 1,
-                        "mappingTypes": [{
+                        "mappingTypes": [
+                            {
                                 "name": "value to text",
                                 "value": 1
                             },
@@ -748,11 +1119,13 @@
                         "postfixFontSize": "50%",
                         "prefix": "",
                         "prefixFontSize": "50%",
-                        "rangeMaps": [{
-                            "from": "null",
-                            "text": "N/A",
-                            "to": "null"
-                        }],
+                        "rangeMaps": [
+                            {
+                                "from": "null",
+                                "text": "N/A",
+                                "to": "null"
+                            }
+                        ],
                         "span": 2,
                         "sparkline": {
                             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -761,21 +1134,25 @@
                             "show": false
                         },
                         "tableColumn": "",
-                        "targets": [{
-                            "expr": "( (node_memory_MemFree{instance=~\"$server\"} + node_memory_Cached{instance=~\"$server\"} + node_memory_Slab{instance=~\"$server\"} + node_memory_Buffers{instance=~\"$server\"} ) / node_memory_MemTotal{instance=~\"$server\"}) * 100 ",
-                            "format": "time_series",
-                            "intervalFactor": 2,
-                            "refId": "A"
-                        }],
+                        "targets": [
+                            {
+                                "expr": "( (node_memory_MemFree{instance=~\"$server\"} + node_memory_Cached{instance=~\"$server\"} + node_memory_Slab{instance=~\"$server\"} + node_memory_Buffers{instance=~\"$server\"} ) / node_memory_MemTotal{instance=~\"$server\"}) * 100 ",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "refId": "A"
+                            }
+                        ],
                         "thresholds": "10.20",
                         "title": "Available Memory",
                         "type": "singlestat",
                         "valueFontSize": "80%",
-                        "valueMaps": [{
-                            "op": "=",
-                            "text": "N/A",
-                            "value": "null"
-                        }],
+                        "valueMaps": [
+                            {
+                                "op": "=",
+                                "text": "N/A",
+                                "value": "null"
+                            }
+                        ],
                         "valueName": "avg"
                     },
                     {
@@ -800,7 +1177,8 @@
                         "interval": null,
                         "links": [],
                         "mappingType": 1,
-                        "mappingTypes": [{
+                        "mappingTypes": [
+                            {
                                 "name": "value to text",
                                 "value": 1
                             },
@@ -816,11 +1194,13 @@
                         "postfixFontSize": "50%",
                         "prefix": "",
                         "prefixFontSize": "50%",
-                        "rangeMaps": [{
-                            "from": "null",
-                            "text": "N/A",
-                            "to": "null"
-                        }],
+                        "rangeMaps": [
+                            {
+                                "from": "null",
+                                "text": "N/A",
+                                "to": "null"
+                            }
+                        ],
                         "span": 2,
                         "sparkline": {
                             "fillColor": "rgba(31, 118, 189, 0.18)",
@@ -829,22 +1209,26 @@
                             "show": false
                         },
                         "tableColumn": "",
-                        "targets": [{
-                            "expr": "min(node_filesystem_free{fstype=~\"xfs|ext4\",instance=~\"$server\"} / node_filesystem_size{fstype=~\"xfs|ext4\",instance=~\"$server\"})",
-                            "format": "time_series",
-                            "intervalFactor": 2,
-                            "legendFormat": "",
-                            "refId": "A"
-                        }],
+                        "targets": [
+                            {
+                                "expr": "min(node_filesystem_free{fstype=~\"xfs|ext4\",instance=~\"$server\"} / node_filesystem_size{fstype=~\"xfs|ext4\",instance=~\"$server\"})",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "",
+                                "refId": "A"
+                            }
+                        ],
                         "thresholds": ".10, .25",
                         "title": "Free Filesystem",
                         "type": "singlestat",
                         "valueFontSize": "80%",
-                        "valueMaps": [{
-                            "op": "=",
-                            "text": "N/A",
-                            "value": "null"
-                        }],
+                        "valueMaps": [
+                            {
+                                "op": "=",
+                                "text": "N/A",
+                                "value": "null"
+                            }
+                        ],
                         "valueName": "current"
                     }
                 ],
@@ -857,8 +1241,9 @@
             },
             {
                 "collapse": false,
-                "height": 313,
-                "panels": [{
+                "height": 330,
+                "panels": [
+                    {
                         "aliasColors": {},
                         "bars": true,
                         "dashLength": 10,
@@ -867,13 +1252,13 @@
                         "fill": 1,
                         "id": 76,
                         "legend": {
-                            "avg": false,
+                            "avg": true,
                             "current": false,
-                            "max": false,
-                            "min": false,
+                            "max": true,
+                            "min": true,
                             "show": true,
                             "total": false,
-                            "values": false
+                            "values": true
                         },
                         "lines": true,
                         "linewidth": 1,
@@ -885,10 +1270,11 @@
                         "renderer": "flot",
                         "seriesOverrides": [],
                         "spaceLength": 10,
-                        "span": 3,
+                        "span": 4,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "rate(iota_zmq_seen_tx_count[3m])",
                                 "format": "time_series",
                                 "intervalFactor": 2,
@@ -906,7 +1292,7 @@
                         "thresholds": [],
                         "timeFrom": null,
                         "timeShift": null,
-                        "title": "TPS vs CTP",
+                        "title": "TPS vs CTPS",
                         "tooltip": {
                             "shared": true,
                             "sort": 0,
@@ -920,7 +1306,9 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
+                                "decimals": 2,
                                 "format": "short",
                                 "label": null,
                                 "logBase": 1,
@@ -965,10 +1353,11 @@
                         "renderer": "flot",
                         "seriesOverrides": [],
                         "spaceLength": 10,
-                        "span": 3,
+                        "span": 4,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "delta(iota_zmq_seen_tx_count[1m]) - delta(iota_zmq_txs_with_value_count[1m])",
                                 "format": "time_series",
                                 "interval": "",
@@ -1001,7 +1390,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": null,
                                 "logBase": 1,
@@ -1044,7 +1434,8 @@
                         "pointradius": 5,
                         "points": false,
                         "renderer": "flot",
-                        "seriesOverrides": [{
+                        "seriesOverrides": [
+                            {
                                 "alias": "toProcess",
                                 "bars": true,
                                 "lines": false,
@@ -1064,10 +1455,11 @@
                             }
                         ],
                         "spaceLength": 10,
-                        "span": 3,
+                        "span": 4,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "iota_zmq_to_request",
                                 "format": "time_series",
                                 "intervalFactor": 2,
@@ -1113,7 +1505,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": null,
                                 "logBase": 1,
@@ -1131,84 +1524,6 @@
                                 "show": true
                             }
                         ]
-                    },
-                    {
-                        "aliasColors": {
-                            "Total Txs - 3 min": "#f2c96d"
-                        },
-                        "bars": false,
-                        "dashLength": 10,
-                        "dashes": false,
-                        "datasource": null,
-                        "fill": 2,
-                        "id": 78,
-                        "legend": {
-                            "avg": false,
-                            "current": false,
-                            "max": false,
-                            "min": false,
-                            "show": true,
-                            "total": false,
-                            "values": false
-                        },
-                        "lines": true,
-                        "linewidth": 2,
-                        "links": [],
-                        "nullPointMode": "null",
-                        "percentage": false,
-                        "pointradius": 5,
-                        "points": false,
-                        "renderer": "flot",
-                        "seriesOverrides": [{
-                            "alias": "Total Txs - 3 min",
-                            "yaxis": 1
-                        }],
-                        "spaceLength": 10,
-                        "span": 3,
-                        "stack": false,
-                        "steppedLine": false,
-                        "targets": [{
-                            "expr": "iota_zmq_total_transactions ",
-                            "format": "time_series",
-                            "interval": "",
-                            "intervalFactor": 2,
-                            "legendFormat": "Total Txs - 3 min",
-                            "refId": "A"
-                        }],
-                        "thresholds": [],
-                        "timeFrom": null,
-                        "timeShift": null,
-                        "title": "Rstats - totalTransactions",
-                        "tooltip": {
-                            "shared": true,
-                            "sort": 0,
-                            "value_type": "individual"
-                        },
-                        "type": "graph",
-                        "xaxis": {
-                            "buckets": null,
-                            "mode": "time",
-                            "name": null,
-                            "show": true,
-                            "values": []
-                        },
-                        "yaxes": [{
-                                "format": "short",
-                                "label": null,
-                                "logBase": 1,
-                                "max": null,
-                                "min": null,
-                                "show": true
-                            },
-                            {
-                                "format": "short",
-                                "label": null,
-                                "logBase": 1,
-                                "max": null,
-                                "min": null,
-                                "show": true
-                            }
-                        ]
                     }
                 ],
                 "repeat": null,
@@ -1220,95 +1535,24 @@
             },
             {
                 "collapse": false,
-                "height": 315,
-                "panels": [{
-                        "aliasColors": {},
-                        "bars": true,
-                        "dashLength": 10,
-                        "dashes": false,
-                        "datasource": "Prometheus",
-                        "fill": 1,
-                        "id": 37,
-                        "legend": {
-                            "avg": false,
-                            "current": false,
-                            "max": false,
-                            "min": false,
-                            "show": true,
-                            "total": false,
-                            "values": false
-                        },
-                        "lines": true,
-                        "linewidth": 1,
-                        "links": [],
-                        "nullPointMode": "null",
-                        "percentage": false,
-                        "pointradius": 5,
-                        "points": false,
-                        "renderer": "flot",
-                        "seriesOverrides": [],
-                        "spaceLength": 10,
-                        "span": 6,
-                        "stack": false,
-                        "steppedLine": false,
-                        "targets": [{
-                            "expr": "rate(iota_tangle_total_txs[5m])",
-                            "format": "time_series",
-                            "hide": false,
-                            "interval": "",
-                            "intervalFactor": 2,
-                            "legendFormat": "Transactions",
-                            "refId": "A"
-                        }],
-                        "thresholds": [],
-                        "timeFrom": null,
-                        "timeShift": null,
-                        "title": "Transactions per Second",
-                        "tooltip": {
-                            "shared": true,
-                            "sort": 0,
-                            "value_type": "individual"
-                        },
-                        "type": "graph",
-                        "xaxis": {
-                            "buckets": null,
-                            "mode": "time",
-                            "name": null,
-                            "show": true,
-                            "values": []
-                        },
-                        "yaxes": [{
-                                "format": "short",
-                                "label": null,
-                                "logBase": 1,
-                                "max": null,
-                                "min": null,
-                                "show": true
-                            },
-                            {
-                                "format": "short",
-                                "label": null,
-                                "logBase": 1,
-                                "max": null,
-                                "min": null,
-                                "show": true
-                            }
-                        ]
-                    },
+                "height": 314,
+                "panels": [
                     {
-                        "aliasColors": {},
+                        "aliasColors": {
+                            "Confirmation time": "#e24d42"
+                        },
                         "bars": false,
                         "dashLength": 10,
                         "dashes": false,
                         "datasource": null,
-                        "fill": 3,
-                        "id": 48,
+                        "fill": 1,
+                        "id": 80,
                         "legend": {
                             "alignAsTable": true,
                             "avg": true,
                             "current": false,
                             "max": true,
-                            "min": false,
+                            "min": true,
                             "show": true,
                             "total": false,
                             "values": true
@@ -1323,29 +1567,23 @@
                         "renderer": "flot",
                         "seriesOverrides": [],
                         "spaceLength": 10,
-                        "span": 6,
-                        "stack": true,
+                        "span": 4,
+                        "stack": false,
                         "steppedLine": false,
-                        "targets": [{
-                                "expr": "delta(iota_tangle_total_txs[30s])",
-                                "format": "time_series",
-                                "intervalFactor": 4,
-                                "legendFormat": "Total Txs",
-                                "refId": "A"
-                            },
+                        "targets": [
                             {
-                                "expr": "delta(iota_tangle_confirmed_txs[30s])",
+                                "expr": "delta(iota_zmq_tx_confirm_time_sum[30m])/delta(iota_zmq_tx_confirm_time_count[30m])",
                                 "format": "time_series",
                                 "interval": "",
                                 "intervalFactor": 2,
-                                "legendFormat": "Confirmed Txs",
-                                "refId": "B"
+                                "legendFormat": "Avg Time",
+                                "refId": "A"
                             }
                         ],
                         "thresholds": [],
                         "timeFrom": null,
                         "timeShift": null,
-                        "title": "Total vs Confirmed Txs per Minute",
+                        "title": "Avg Confirmation Time",
                         "tooltip": {
                             "shared": true,
                             "sort": 0,
@@ -1359,8 +1597,9 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
-                                "format": "short",
+                        "yaxes": [
+                            {
+                                "format": "s",
                                 "label": null,
                                 "logBase": 1,
                                 "max": null,
@@ -1376,25 +1615,186 @@
                                 "show": true
                             }
                         ]
+                    },
+                    {
+                        "aliasColors": {
+                            "Confirm rate": "#e5a8e2"
+                        },
+                        "bars": false,
+                        "dashLength": 10,
+                        "dashes": false,
+                        "datasource": null,
+                        "fill": 1,
+                        "id": 81,
+                        "legend": {
+                            "alignAsTable": true,
+                            "avg": true,
+                            "current": false,
+                            "max": true,
+                            "min": true,
+                            "show": true,
+                            "total": false,
+                            "values": true
+                        },
+                        "lines": true,
+                        "linewidth": 1,
+                        "links": [],
+                        "nullPointMode": "null",
+                        "percentage": false,
+                        "pointradius": 5,
+                        "points": false,
+                        "renderer": "flot",
+                        "seriesOverrides": [],
+                        "spaceLength": 10,
+                        "span": 4,
+                        "stack": false,
+                        "steppedLine": false,
+                        "targets": [
+                            {
+                                "expr": "delta(iota_zmq_confirmed_tx_count[30m])/delta(iota_zmq_seen_tx_count[30m])",
+                                "format": "time_series",
+                                "interval": "",
+                                "intervalFactor": 2,
+                                "legendFormat": "Confirm rate",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": [],
+                        "timeFrom": null,
+                        "timeShift": null,
+                        "title": "Confirmation Rate",
+                        "tooltip": {
+                            "shared": true,
+                            "sort": 0,
+                            "value_type": "individual"
+                        },
+                        "type": "graph",
+                        "xaxis": {
+                            "buckets": null,
+                            "mode": "time",
+                            "name": null,
+                            "show": true,
+                            "values": []
+                        },
+                        "yaxes": [
+                            {
+                                "format": "percentunit",
+                                "label": "",
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            },
+                            {
+                                "format": "short",
+                                "label": null,
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            }
+                        ]
+                    },
+                    {
+                        "aliasColors": {},
+                        "bars": true,
+                        "dashLength": 10,
+                        "dashes": false,
+                        "datasource": null,
+                        "fill": 1,
+                        "id": 82,
+                        "legend": {
+                            "alignAsTable": true,
+                            "avg": true,
+                            "current": false,
+                            "hideEmpty": false,
+                            "hideZero": false,
+                            "max": true,
+                            "min": true,
+                            "show": true,
+                            "total": false,
+                            "values": true
+                        },
+                        "lines": false,
+                        "linewidth": 1,
+                        "links": [],
+                        "nullPointMode": "null",
+                        "percentage": false,
+                        "pointradius": 5,
+                        "points": false,
+                        "renderer": "flot",
+                        "seriesOverrides": [],
+                        "spaceLength": 10,
+                        "span": 4,
+                        "stack": false,
+                        "steppedLine": false,
+                        "targets": [
+                            {
+                                "expr": "delta(iota_zmq_tx_confirm_time_sum[5m])/delta(iota_zmq_tx_confirm_time_count[5m])/60",
+                                "format": "time_series",
+                                "instant": false,
+                                "interval": "",
+                                "intervalFactor": 2,
+                                "legendFormat": "",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": [],
+                        "timeFrom": null,
+                        "timeShift": null,
+                        "title": "Confirmations by Minute Buckets",
+                        "tooltip": {
+                            "shared": false,
+                            "sort": 0,
+                            "value_type": "individual"
+                        },
+                        "type": "graph",
+                        "xaxis": {
+                            "buckets": 20,
+                            "mode": "histogram",
+                            "name": null,
+                            "show": true,
+                            "values": []
+                        },
+                        "yaxes": [
+                            {
+                                "format": "short",
+                                "label": "Count",
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            },
+                            {
+                                "decimals": null,
+                                "format": "short",
+                                "label": "Seconds",
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": false
+                            }
+                        ]
                     }
                 ],
                 "repeat": null,
                 "repeatIteration": null,
                 "repeatRowId": null,
                 "showTitle": true,
-                "title": "Stresstest Stats (analytics.iotaledger.net)",
+                "title": "Confirmations",
                 "titleSize": "h4"
             },
             {
                 "collapse": false,
-                "height": 306,
-                "panels": [{
+                "height": 253,
+                "panels": [
+                    {
                         "aliasColors": {},
                         "bars": false,
                         "dashLength": 10,
                         "dashes": false,
                         "datasource": null,
-                        "fill": 1,
+                        "fill": 0,
                         "id": 51,
                         "legend": {
                             "alignAsTable": true,
@@ -1407,7 +1807,7 @@
                             "values": true
                         },
                         "lines": true,
-                        "linewidth": 1,
+                        "linewidth": 2,
                         "links": [],
                         "minSpan": 4,
                         "nullPointMode": "null",
@@ -1415,17 +1815,20 @@
                         "pointradius": 5,
                         "points": false,
                         "renderer": "flot",
-                        "seriesOverrides": [{
-                            "alias": "Volume",
-                            "fill": 0,
-                            "linewidth": 2,
-                            "yaxis": 2
-                        }],
+                        "seriesOverrides": [
+                            {
+                                "alias": "Volume",
+                                "fill": 1,
+                                "linewidth": 2,
+                                "yaxis": 2
+                            }
+                        ],
                         "spaceLength": 10,
                         "span": 4,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "iota_market_trade_price{pair=\"IOTUSD\"}",
                                 "format": "time_series",
                                 "interval": "",
@@ -1459,7 +1862,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "decimals": 3,
                                 "format": "none",
                                 "label": "USD per MIOTA",
@@ -1484,7 +1888,7 @@
                         "dashLength": 10,
                         "dashes": false,
                         "datasource": null,
-                        "fill": 1,
+                        "fill": 0,
                         "id": 63,
                         "legend": {
                             "alignAsTable": true,
@@ -1504,16 +1908,20 @@
                         "pointradius": 5,
                         "points": false,
                         "renderer": "flot",
-                        "seriesOverrides": [{
-                            "alias": "Volume",
-                            "fill": 0,
-                            "yaxis": 2
-                        }],
+                        "seriesOverrides": [
+                            {
+                                "alias": "Volume",
+                                "fill": 1,
+                                "linewidth": 2,
+                                "yaxis": 2
+                            }
+                        ],
                         "spaceLength": 10,
                         "span": 4,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "iota_market_trade_price{pair=\"BTCUSD\"}",
                                 "format": "time_series",
                                 "intervalFactor": 2,
@@ -1545,7 +1953,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "decimals": 2,
                                 "format": "none",
                                 "label": "$USD to BTC",
@@ -1570,7 +1979,7 @@
                         "dashLength": 10,
                         "dashes": false,
                         "datasource": null,
-                        "fill": 1,
+                        "fill": 0,
                         "id": 69,
                         "legend": {
                             "alignAsTable": true,
@@ -1583,24 +1992,27 @@
                             "values": true
                         },
                         "lines": true,
-                        "linewidth": 1,
+                        "linewidth": 2,
                         "links": [],
                         "nullPointMode": "null",
                         "percentage": false,
                         "pointradius": 5,
                         "points": false,
                         "renderer": "flot",
-                        "seriesOverrides": [{
-                            "alias": "volume",
-                            "fill": 0,
-                            "linewidth": 2,
-                            "yaxis": 2
-                        }],
+                        "seriesOverrides": [
+                            {
+                                "alias": "volume",
+                                "fill": 1,
+                                "linewidth": 2,
+                                "yaxis": 2
+                            }
+                        ],
                         "spaceLength": 10,
                         "span": 4,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "iota_market_trade_price{pair=\"ETHUSD\"}",
                                 "format": "time_series",
                                 "interval": "",
@@ -1633,9 +2045,190 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "decimals": 2,
                                 "format": "short",
+                                "label": "Price",
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            },
+                            {
+                                "format": "short",
+                                "label": "Volume",
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            }
+                        ]
+                    },
+                    {
+                        "aliasColors": {},
+                        "bars": false,
+                        "dashLength": 10,
+                        "dashes": false,
+                        "datasource": null,
+                        "fill": 0,
+                        "id": 88,
+                        "legend": {
+                            "alignAsTable": true,
+                            "avg": true,
+                            "current": false,
+                            "max": true,
+                            "min": true,
+                            "show": true,
+                            "total": false,
+                            "values": true
+                        },
+                        "lines": true,
+                        "linewidth": 2,
+                        "links": [],
+                        "nullPointMode": "null",
+                        "percentage": false,
+                        "pointradius": 5,
+                        "points": false,
+                        "renderer": "flot",
+                        "seriesOverrides": [
+                            {
+                                "alias": "Volume",
+                                "fill": 1,
+                                "yaxis": 2
+                            }
+                        ],
+                        "spaceLength": 10,
+                        "span": 6,
+                        "stack": false,
+                        "steppedLine": false,
+                        "targets": [
+                            {
+                                "expr": "iota_market_trade_price{pair=\"IOTETH\"}",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Price",
+                                "refId": "A"
+                            },
+                            {
+                                "expr": "iota_market_trade_volume{pair=\"IOTETH\"}",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Volume",
+                                "refId": "B"
+                            }
+                        ],
+                        "thresholds": [],
+                        "timeFrom": null,
+                        "timeShift": null,
+                        "title": "IOTETH Price",
+                        "tooltip": {
+                            "shared": true,
+                            "sort": 0,
+                            "value_type": "individual"
+                        },
+                        "type": "graph",
+                        "xaxis": {
+                            "buckets": null,
+                            "mode": "time",
+                            "name": null,
+                            "show": true,
+                            "values": []
+                        },
+                        "yaxes": [
+                            {
+                                "decimals": 6,
+                                "format": "none",
+                                "label": "Price",
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            },
+                            {
+                                "format": "short",
+                                "label": "Volume",
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            }
+                        ]
+                    },
+                    {
+                        "aliasColors": {},
+                        "bars": false,
+                        "dashLength": 10,
+                        "dashes": false,
+                        "datasource": null,
+                        "fill": 0,
+                        "id": 89,
+                        "legend": {
+                            "alignAsTable": true,
+                            "avg": true,
+                            "current": false,
+                            "max": true,
+                            "min": true,
+                            "show": true,
+                            "total": false,
+                            "values": true
+                        },
+                        "lines": true,
+                        "linewidth": 2,
+                        "links": [],
+                        "nullPointMode": "null",
+                        "percentage": false,
+                        "pointradius": 5,
+                        "points": false,
+                        "renderer": "flot",
+                        "seriesOverrides": [
+                            {
+                                "alias": "Volume",
+                                "fill": 1,
+                                "yaxis": 2
+                            }
+                        ],
+                        "spaceLength": 10,
+                        "span": 6,
+                        "stack": false,
+                        "steppedLine": false,
+                        "targets": [
+                            {
+                                "expr": "iota_market_trade_price{pair=\"IOTBTC\"}",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Price",
+                                "refId": "A"
+                            },
+                            {
+                                "expr": "iota_market_trade_volume{pair=\"IOTBTC\"}",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Volume",
+                                "refId": "B"
+                            }
+                        ],
+                        "thresholds": [],
+                        "timeFrom": null,
+                        "timeShift": null,
+                        "title": "IOTBTC Price",
+                        "tooltip": {
+                            "shared": true,
+                            "sort": 0,
+                            "value_type": "individual"
+                        },
+                        "type": "graph",
+                        "xaxis": {
+                            "buckets": null,
+                            "mode": "time",
+                            "name": null,
+                            "show": true,
+                            "values": []
+                        },
+                        "yaxes": [
+                            {
+                                "decimals": 7,
+                                "format": "none",
                                 "label": "Price",
                                 "logBase": 1,
                                 "max": null,
@@ -1661,202 +2254,10 @@
                 "titleSize": "h4"
             },
             {
-                "collapse": false,
-                "height": 248,
-                "panels": [{
-                        "aliasColors": {},
-                        "bars": false,
-                        "dashLength": 10,
-                        "dashes": false,
-                        "datasource": null,
-                        "fill": 1,
-                        "id": 52,
-                        "legend": {
-                            "alignAsTable": true,
-                            "avg": false,
-                            "current": false,
-                            "max": true,
-                            "min": true,
-                            "show": true,
-                            "total": false,
-                            "values": true
-                        },
-                        "lines": true,
-                        "linewidth": 1,
-                        "links": [],
-                        "minSpan": 4,
-                        "nullPointMode": "null",
-                        "percentage": false,
-                        "pointradius": 5,
-                        "points": false,
-                        "renderer": "flot",
-                        "seriesOverrides": [{
-                            "alias": "Volume",
-                            "fill": 0,
-                            "linewidth": 2,
-                            "yaxis": 2
-                        }],
-                        "spaceLength": 10,
-                        "span": 6,
-                        "stack": false,
-                        "steppedLine": false,
-                        "targets": [{
-                                "expr": "iota_market_trade_price{pair=\"IOTETH\"}",
-                                "format": "time_series",
-                                "interval": "",
-                                "intervalFactor": 2,
-                                "legendFormat": "Price",
-                                "refId": "A"
-                            },
-                            {
-                                "expr": "iota_market_trade_volume{pair=\"IOTETH\"}",
-                                "format": "time_series",
-                                "interval": "",
-                                "intervalFactor": 2,
-                                "legendFormat": "Volume",
-                                "refId": "B"
-                            }
-                        ],
-                        "thresholds": [],
-                        "timeFrom": null,
-                        "timeShift": null,
-                        "title": "IOTETH Price",
-                        "tooltip": {
-                            "shared": true,
-                            "sort": 0,
-                            "value_type": "individual"
-                        },
-                        "type": "graph",
-                        "xaxis": {
-                            "buckets": null,
-                            "mode": "time",
-                            "name": null,
-                            "show": true,
-                            "values": []
-                        },
-                        "yaxes": [{
-                                "decimals": 6,
-                                "format": "none",
-                                "label": "ETH per MIOTA",
-                                "logBase": 1,
-                                "max": null,
-                                "min": null,
-                                "show": true
-                            },
-                            {
-                                "format": "short",
-                                "label": "Volume",
-                                "logBase": 1,
-                                "max": null,
-                                "min": null,
-                                "show": true
-                            }
-                        ]
-                    },
-                    {
-                        "aliasColors": {},
-                        "bars": false,
-                        "dashLength": 10,
-                        "dashes": false,
-                        "datasource": null,
-                        "fill": 1,
-                        "id": 50,
-                        "legend": {
-                            "alignAsTable": true,
-                            "avg": false,
-                            "current": false,
-                            "max": true,
-                            "min": true,
-                            "show": true,
-                            "total": false,
-                            "values": true
-                        },
-                        "lines": true,
-                        "linewidth": 1,
-                        "links": [],
-                        "minSpan": 4,
-                        "nullPointMode": "null",
-                        "percentage": false,
-                        "pointradius": 5,
-                        "points": false,
-                        "renderer": "flot",
-                        "repeat": null,
-                        "seriesOverrides": [{
-                            "alias": "Volume",
-                            "fill": 0,
-                            "linewidth": 2,
-                            "yaxis": 2
-                        }],
-                        "spaceLength": 10,
-                        "span": 6,
-                        "stack": false,
-                        "steppedLine": false,
-                        "targets": [{
-                                "expr": "iota_market_trade_price{pair=\"IOTBTC\"}",
-                                "format": "time_series",
-                                "interval": "",
-                                "intervalFactor": 2,
-                                "legendFormat": "Price",
-                                "refId": "A"
-                            },
-                            {
-                                "expr": "iota_market_trade_volume{pair=\"IOTBTC\"}",
-                                "format": "time_series",
-                                "interval": "",
-                                "intervalFactor": 2,
-                                "legendFormat": "Volume",
-                                "refId": "B"
-                            }
-                        ],
-                        "thresholds": [],
-                        "timeFrom": null,
-                        "timeShift": null,
-                        "title": "IOTBTC Price",
-                        "tooltip": {
-                            "shared": true,
-                            "sort": 0,
-                            "value_type": "individual"
-                        },
-                        "type": "graph",
-                        "xaxis": {
-                            "buckets": null,
-                            "mode": "time",
-                            "name": null,
-                            "show": true,
-                            "values": []
-                        },
-                        "yaxes": [{
-                                "decimals": 7,
-                                "format": "none",
-                                "label": "BTC per MIOTA",
-                                "logBase": 1,
-                                "max": null,
-                                "min": null,
-                                "show": true
-                            },
-                            {
-                                "decimals": null,
-                                "format": "short",
-                                "label": "Volume",
-                                "logBase": 1,
-                                "max": null,
-                                "min": null,
-                                "show": true
-                            }
-                        ]
-                    }
-                ],
-                "repeat": null,
-                "repeatIteration": null,
-                "repeatRowId": null,
-                "showTitle": false,
-                "title": "Dashboard Row",
-                "titleSize": "h6"
-            },
-            {
-                "collapse": false,
+                "collapse": true,
                 "height": 282,
-                "panels": [{
+                "panels": [
+                    {
                         "aliasColors": {},
                         "bars": true,
                         "dashLength": 10,
@@ -1888,14 +2289,16 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
-                            "expr": "delta(iota_neighbors_new_transactions[1m])",
-                            "format": "time_series",
-                            "hide": false,
-                            "intervalFactor": 2,
-                            "legendFormat": "",
-                            "refId": "A"
-                        }],
+                        "targets": [
+                            {
+                                "expr": "delta(iota_neighbors_new_transactions[1m])",
+                                "format": "time_series",
+                                "hide": false,
+                                "intervalFactor": 2,
+                                "legendFormat": "",
+                                "refId": "A"
+                            }
+                        ],
                         "thresholds": [],
                         "timeFrom": null,
                         "timeShift": null,
@@ -1913,7 +2316,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": "Txs",
                                 "logBase": 1,
@@ -1963,14 +2367,16 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
-                            "expr": "delta(iota_neighbors_random_transactions[1m])",
-                            "format": "time_series",
-                            "hide": false,
-                            "intervalFactor": 2,
-                            "legendFormat": "",
-                            "refId": "A"
-                        }],
+                        "targets": [
+                            {
+                                "expr": "delta(iota_neighbors_random_transactions[1m])",
+                                "format": "time_series",
+                                "hide": false,
+                                "intervalFactor": 2,
+                                "legendFormat": "",
+                                "refId": "A"
+                            }
+                        ],
                         "thresholds": [],
                         "timeFrom": null,
                         "timeShift": null,
@@ -1988,7 +2394,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": "Txs",
                                 "logBase": 1,
@@ -2040,14 +2447,16 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
-                            "expr": "delta(iota_neighbors_all_transactions[1m])",
-                            "format": "time_series",
-                            "hide": false,
-                            "intervalFactor": 2,
-                            "legendFormat": "",
-                            "refId": "A"
-                        }],
+                        "targets": [
+                            {
+                                "expr": "delta(iota_neighbors_all_transactions[1m])",
+                                "format": "time_series",
+                                "hide": false,
+                                "intervalFactor": 2,
+                                "legendFormat": "",
+                                "refId": "A"
+                            }
+                        ],
                         "thresholds": [],
                         "timeFrom": null,
                         "timeShift": null,
@@ -2066,7 +2475,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": "Txs",
                                 "logBase": 1,
@@ -2118,15 +2528,17 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
-                            "expr": "delta(iota_neighbors_invalid_transactions[1m])",
-                            "format": "time_series",
-                            "hide": false,
-                            "interval": "",
-                            "intervalFactor": 2,
-                            "legendFormat": "",
-                            "refId": "A"
-                        }],
+                        "targets": [
+                            {
+                                "expr": "delta(iota_neighbors_invalid_transactions[1m])",
+                                "format": "time_series",
+                                "hide": false,
+                                "interval": "",
+                                "intervalFactor": 2,
+                                "legendFormat": "",
+                                "refId": "A"
+                            }
+                        ],
                         "thresholds": [],
                         "timeFrom": null,
                         "timeShift": null,
@@ -2145,7 +2557,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": "Txs",
                                 "logBase": 1,
@@ -2172,9 +2585,10 @@
                 "titleSize": "h4"
             },
             {
-                "collapse": false,
+                "collapse": true,
                 "height": "250",
-                "panels": [{
+                "panels": [
+                    {
                         "aliasColors": {},
                         "bars": false,
                         "dashLength": 10,
@@ -2213,7 +2627,8 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "delta(iota_neighbors_new_transactions{id=~\"$neighbor\"}[1m])",
                                 "format": "time_series",
                                 "hide": false,
@@ -2242,6 +2657,13 @@
                                 "intervalFactor": 2,
                                 "legendFormat": "Invalid",
                                 "refId": "D"
+                            },
+                            {
+                                "expr": "delta(iota_neighbors_sent_transactions{id=~\"$neighbor\"}[1m])",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Sent",
+                                "refId": "E"
                             }
                         ],
                         "thresholds": [],
@@ -2261,7 +2683,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": null,
                                 "logBase": 1,
@@ -2286,7 +2709,7 @@
                         "dashes": false,
                         "datasource": "Prometheus",
                         "fill": 1,
-                        "id": 64,
+                        "id": 90,
                         "legend": {
                             "avg": false,
                             "current": false,
@@ -2306,7 +2729,123 @@
                         "points": false,
                         "renderer": "flot",
                         "repeat": null,
-                        "repeatIteration": 1515853741617,
+                        "repeatIteration": 1517622845356,
+                        "repeatPanelId": 10,
+                        "scopedVars": {
+                            "neighbor": {
+                                "selected": false,
+                                "text": "hotsexcoffee.com:14600",
+                                "value": "hotsexcoffee.com:14600"
+                            }
+                        },
+                        "seriesOverrides": [],
+                        "spaceLength": 10,
+                        "span": 3,
+                        "stack": false,
+                        "steppedLine": false,
+                        "targets": [
+                            {
+                                "expr": "delta(iota_neighbors_new_transactions{id=~\"$neighbor\"}[1m])",
+                                "format": "time_series",
+                                "hide": false,
+                                "intervalFactor": 2,
+                                "legendFormat": "New",
+                                "refId": "A"
+                            },
+                            {
+                                "expr": "delta(iota_neighbors_random_transactions{id=~\"$neighbor\"}[1m])",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Random",
+                                "refId": "B"
+                            },
+                            {
+                                "expr": "delta(iota_neighbors_all_transactions{id=~\"$neighbor\"}[1m])",
+                                "format": "time_series",
+                                "interval": "",
+                                "intervalFactor": 2,
+                                "legendFormat": "All",
+                                "refId": "C"
+                            },
+                            {
+                                "expr": "delta(iota_neighbors_invalid_transactions{id=~\"$neighbor\"}[1m])",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Invalid",
+                                "refId": "D"
+                            },
+                            {
+                                "expr": "delta(iota_neighbors_sent_transactions{id=~\"$neighbor\"}[1m])",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Sent",
+                                "refId": "E"
+                            }
+                        ],
+                        "thresholds": [],
+                        "timeFrom": null,
+                        "timeShift": null,
+                        "title": "$neighbor",
+                        "tooltip": {
+                            "shared": true,
+                            "sort": 0,
+                            "value_type": "individual"
+                        },
+                        "type": "graph",
+                        "xaxis": {
+                            "buckets": null,
+                            "mode": "time",
+                            "name": null,
+                            "show": true,
+                            "values": []
+                        },
+                        "yaxes": [
+                            {
+                                "format": "short",
+                                "label": null,
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            },
+                            {
+                                "format": "short",
+                                "label": null,
+                                "logBase": 1,
+                                "max": null,
+                                "min": null,
+                                "show": true
+                            }
+                        ]
+                    },
+                    {
+                        "aliasColors": {},
+                        "bars": false,
+                        "dashLength": 10,
+                        "dashes": false,
+                        "datasource": "Prometheus",
+                        "fill": 1,
+                        "id": 91,
+                        "legend": {
+                            "avg": false,
+                            "current": false,
+                            "max": false,
+                            "min": false,
+                            "show": false,
+                            "total": false,
+                            "values": false
+                        },
+                        "lines": true,
+                        "linewidth": 1,
+                        "links": [],
+                        "minSpan": 3,
+                        "nullPointMode": "null",
+                        "percentage": false,
+                        "pointradius": 5,
+                        "points": false,
+                        "renderer": "flot",
+                        "repeat": null,
+                        "repeatIteration": 1517622845356,
                         "repeatPanelId": 10,
                         "scopedVars": {
                             "neighbor": {
@@ -2320,7 +2859,8 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "delta(iota_neighbors_new_transactions{id=~\"$neighbor\"}[1m])",
                                 "format": "time_series",
                                 "hide": false,
@@ -2349,6 +2889,13 @@
                                 "intervalFactor": 2,
                                 "legendFormat": "Invalid",
                                 "refId": "D"
+                            },
+                            {
+                                "expr": "delta(iota_neighbors_sent_transactions{id=~\"$neighbor\"}[1m])",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Sent",
+                                "refId": "E"
                             }
                         ],
                         "thresholds": [],
@@ -2368,7 +2915,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": null,
                                 "logBase": 1,
@@ -2393,7 +2941,7 @@
                         "dashes": false,
                         "datasource": "Prometheus",
                         "fill": 1,
-                        "id": 65,
+                        "id": 92,
                         "legend": {
                             "avg": false,
                             "current": false,
@@ -2413,7 +2961,7 @@
                         "points": false,
                         "renderer": "flot",
                         "repeat": null,
-                        "repeatIteration": 1515853741617,
+                        "repeatIteration": 1517622845356,
                         "repeatPanelId": 10,
                         "scopedVars": {
                             "neighbor": {
@@ -2427,7 +2975,8 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "delta(iota_neighbors_new_transactions{id=~\"$neighbor\"}[1m])",
                                 "format": "time_series",
                                 "hide": false,
@@ -2456,6 +3005,13 @@
                                 "intervalFactor": 2,
                                 "legendFormat": "Invalid",
                                 "refId": "D"
+                            },
+                            {
+                                "expr": "delta(iota_neighbors_sent_transactions{id=~\"$neighbor\"}[1m])",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Sent",
+                                "refId": "E"
                             }
                         ],
                         "thresholds": [],
@@ -2475,7 +3031,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": null,
                                 "logBase": 1,
@@ -2500,7 +3057,7 @@
                         "dashes": false,
                         "datasource": "Prometheus",
                         "fill": 1,
-                        "id": 66,
+                        "id": 93,
                         "legend": {
                             "avg": false,
                             "current": false,
@@ -2520,7 +3077,7 @@
                         "points": false,
                         "renderer": "flot",
                         "repeat": null,
-                        "repeatIteration": 1515853741617,
+                        "repeatIteration": 1517622845356,
                         "repeatPanelId": 10,
                         "scopedVars": {
                             "neighbor": {
@@ -2534,7 +3091,8 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "delta(iota_neighbors_new_transactions{id=~\"$neighbor\"}[1m])",
                                 "format": "time_series",
                                 "hide": false,
@@ -2563,6 +3121,13 @@
                                 "intervalFactor": 2,
                                 "legendFormat": "Invalid",
                                 "refId": "D"
+                            },
+                            {
+                                "expr": "delta(iota_neighbors_sent_transactions{id=~\"$neighbor\"}[1m])",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Sent",
+                                "refId": "E"
                             }
                         ],
                         "thresholds": [],
@@ -2582,7 +3147,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": null,
                                 "logBase": 1,
@@ -2607,7 +3173,7 @@
                         "dashes": false,
                         "datasource": "Prometheus",
                         "fill": 1,
-                        "id": 67,
+                        "id": 94,
                         "legend": {
                             "avg": false,
                             "current": false,
@@ -2627,7 +3193,7 @@
                         "points": false,
                         "renderer": "flot",
                         "repeat": null,
-                        "repeatIteration": 1515853741617,
+                        "repeatIteration": 1517622845356,
                         "repeatPanelId": 10,
                         "scopedVars": {
                             "neighbor": {
@@ -2641,7 +3207,8 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "delta(iota_neighbors_new_transactions{id=~\"$neighbor\"}[1m])",
                                 "format": "time_series",
                                 "hide": false,
@@ -2670,6 +3237,13 @@
                                 "intervalFactor": 2,
                                 "legendFormat": "Invalid",
                                 "refId": "D"
+                            },
+                            {
+                                "expr": "delta(iota_neighbors_sent_transactions{id=~\"$neighbor\"}[1m])",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Sent",
+                                "refId": "E"
                             }
                         ],
                         "thresholds": [],
@@ -2689,7 +3263,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": null,
                                 "logBase": 1,
@@ -2714,7 +3289,7 @@
                         "dashes": false,
                         "datasource": "Prometheus",
                         "fill": 1,
-                        "id": 74,
+                        "id": 95,
                         "legend": {
                             "avg": false,
                             "current": false,
@@ -2734,7 +3309,7 @@
                         "points": false,
                         "renderer": "flot",
                         "repeat": null,
-                        "repeatIteration": 1515853741617,
+                        "repeatIteration": 1517622845356,
                         "repeatPanelId": 10,
                         "scopedVars": {
                             "neighbor": {
@@ -2748,7 +3323,8 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
+                        "targets": [
+                            {
                                 "expr": "delta(iota_neighbors_new_transactions{id=~\"$neighbor\"}[1m])",
                                 "format": "time_series",
                                 "hide": false,
@@ -2777,6 +3353,13 @@
                                 "intervalFactor": 2,
                                 "legendFormat": "Invalid",
                                 "refId": "D"
+                            },
+                            {
+                                "expr": "delta(iota_neighbors_sent_transactions{id=~\"$neighbor\"}[1m])",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Sent",
+                                "refId": "E"
                             }
                         ],
                         "thresholds": [],
@@ -2796,7 +3379,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": null,
                                 "logBase": 1,
@@ -2825,31 +3409,34 @@
             {
                 "collapse": true,
                 "height": 254,
-                "panels": [{
+                "panels": [
+                    {
                         "alert": {
-                            "conditions": [{
-                                "evaluator": {
-                                    "params": [
-                                        15
-                                    ],
-                                    "type": "gt"
-                                },
-                                "operator": {
-                                    "type": "and"
-                                },
-                                "query": {
-                                    "params": [
-                                        "A",
-                                        "1m",
-                                        "now"
-                                    ]
-                                },
-                                "reducer": {
-                                    "params": [],
-                                    "type": "avg"
-                                },
-                                "type": "query"
-                            }],
+                            "conditions": [
+                                {
+                                    "evaluator": {
+                                        "params": [
+                                            15
+                                        ],
+                                        "type": "gt"
+                                    },
+                                    "operator": {
+                                        "type": "and"
+                                    },
+                                    "query": {
+                                        "params": [
+                                            "A",
+                                            "1m",
+                                            "now"
+                                        ]
+                                    },
+                                    "reducer": {
+                                        "params": [],
+                                        "type": "avg"
+                                    },
+                                    "type": "query"
+                                }
+                            ],
                             "executionErrorState": "alerting",
                             "frequency": "60s",
                             "handler": 1,
@@ -2887,21 +3474,25 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
-                            "expr": "iota_node_info_total_neighbors",
-                            "format": "time_series",
-                            "interval": "",
-                            "intervalFactor": 2,
-                            "legendFormat": "Neighbors",
-                            "refId": "A"
-                        }],
-                        "thresholds": [{
-                            "colorMode": "critical",
-                            "fill": true,
-                            "line": true,
-                            "op": "gt",
-                            "value": 15
-                        }],
+                        "targets": [
+                            {
+                                "expr": "iota_node_info_total_neighbors",
+                                "format": "time_series",
+                                "interval": "",
+                                "intervalFactor": 2,
+                                "legendFormat": "Neighbors",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": [
+                            {
+                                "colorMode": "critical",
+                                "fill": true,
+                                "line": true,
+                                "op": "gt",
+                                "value": 15
+                            }
+                        ],
                         "timeFrom": null,
                         "timeShift": null,
                         "title": "Neighbor Count",
@@ -2918,7 +3509,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": null,
                                 "logBase": 1,
@@ -2938,29 +3530,31 @@
                     },
                     {
                         "alert": {
-                            "conditions": [{
-                                "evaluator": {
-                                    "params": [
-                                        1
-                                    ],
-                                    "type": "gt"
-                                },
-                                "operator": {
-                                    "type": "and"
-                                },
-                                "query": {
-                                    "params": [
-                                        "A",
-                                        "1h",
-                                        "now"
-                                    ]
-                                },
-                                "reducer": {
-                                    "params": [],
-                                    "type": "avg"
-                                },
-                                "type": "query"
-                            }],
+                            "conditions": [
+                                {
+                                    "evaluator": {
+                                        "params": [
+                                            1
+                                        ],
+                                        "type": "gt"
+                                    },
+                                    "operator": {
+                                        "type": "and"
+                                    },
+                                    "query": {
+                                        "params": [
+                                            "A",
+                                            "1h",
+                                            "now"
+                                        ]
+                                    },
+                                    "reducer": {
+                                        "params": [],
+                                        "type": "avg"
+                                    },
+                                    "type": "query"
+                                }
+                            ],
                             "executionErrorState": "alerting",
                             "frequency": "60s",
                             "handler": 1,
@@ -2998,20 +3592,24 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
-                            "expr": "(iota_node_info_total_neighbors - iota_neighbors_active_neighbors)  ",
-                            "format": "time_series",
-                            "intervalFactor": 2,
-                            "legendFormat": "Dead neighbors",
-                            "refId": "A"
-                        }],
-                        "thresholds": [{
-                            "colorMode": "critical",
-                            "fill": true,
-                            "line": true,
-                            "op": "gt",
-                            "value": 1
-                        }],
+                        "targets": [
+                            {
+                                "expr": "(iota_node_info_total_neighbors - iota_neighbors_active_neighbors)  ",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Dead neighbors",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": [
+                            {
+                                "colorMode": "critical",
+                                "fill": true,
+                                "line": true,
+                                "op": "gt",
+                                "value": 1
+                            }
+                        ],
                         "timeFrom": null,
                         "timeShift": null,
                         "title": "Dead Neighbor Count",
@@ -3028,7 +3626,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": null,
                                 "logBase": 1,
@@ -3048,29 +3647,31 @@
                     },
                     {
                         "alert": {
-                            "conditions": [{
-                                "evaluator": {
-                                    "params": [
-                                        2
-                                    ],
-                                    "type": "gt"
-                                },
-                                "operator": {
-                                    "type": "and"
-                                },
-                                "query": {
-                                    "params": [
-                                        "A",
-                                        "5m",
-                                        "now"
-                                    ]
-                                },
-                                "reducer": {
-                                    "params": [],
-                                    "type": "max"
-                                },
-                                "type": "query"
-                            }],
+                            "conditions": [
+                                {
+                                    "evaluator": {
+                                        "params": [
+                                            2
+                                        ],
+                                        "type": "gt"
+                                    },
+                                    "operator": {
+                                        "type": "and"
+                                    },
+                                    "query": {
+                                        "params": [
+                                            "A",
+                                            "5m",
+                                            "now"
+                                        ]
+                                    },
+                                    "reducer": {
+                                        "params": [],
+                                        "type": "max"
+                                    },
+                                    "type": "query"
+                                }
+                            ],
                             "executionErrorState": "alerting",
                             "frequency": "60s",
                             "handler": 1,
@@ -3107,20 +3708,24 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
-                            "expr": "iota_node_info_latest_milestone - iota_node_info_latest_subtangle_milestone",
-                            "format": "time_series",
-                            "intervalFactor": 2,
-                            "legendFormat": "Milestone Delta",
-                            "refId": "A"
-                        }],
-                        "thresholds": [{
-                            "colorMode": "critical",
-                            "fill": true,
-                            "line": true,
-                            "op": "gt",
-                            "value": 2
-                        }],
+                        "targets": [
+                            {
+                                "expr": "iota_node_info_latest_milestone - iota_node_info_latest_subtangle_milestone",
+                                "format": "time_series",
+                                "intervalFactor": 2,
+                                "legendFormat": "Milestone Delta",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": [
+                            {
+                                "colorMode": "critical",
+                                "fill": true,
+                                "line": true,
+                                "op": "gt",
+                                "value": 2
+                            }
+                        ],
                         "timeFrom": null,
                         "timeShift": null,
                         "title": "Milestone",
@@ -3137,7 +3742,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "format": "short",
                                 "label": null,
                                 "logBase": 1,
@@ -3157,29 +3763,31 @@
                     },
                     {
                         "alert": {
-                            "conditions": [{
-                                "evaluator": {
-                                    "params": [
-                                        0.2
-                                    ],
-                                    "type": "lt"
-                                },
-                                "operator": {
-                                    "type": "and"
-                                },
-                                "query": {
-                                    "params": [
-                                        "A",
-                                        "1m",
-                                        "now"
-                                    ]
-                                },
-                                "reducer": {
-                                    "params": [],
-                                    "type": "avg"
-                                },
-                                "type": "query"
-                            }],
+                            "conditions": [
+                                {
+                                    "evaluator": {
+                                        "params": [
+                                            0.2
+                                        ],
+                                        "type": "lt"
+                                    },
+                                    "operator": {
+                                        "type": "and"
+                                    },
+                                    "query": {
+                                        "params": [
+                                            "A",
+                                            "1m",
+                                            "now"
+                                        ]
+                                    },
+                                    "reducer": {
+                                        "params": [],
+                                        "type": "avg"
+                                    },
+                                    "type": "query"
+                                }
+                            ],
                             "executionErrorState": "alerting",
                             "frequency": "60s",
                             "handler": 1,
@@ -3216,21 +3824,25 @@
                         "span": 3,
                         "stack": false,
                         "steppedLine": false,
-                        "targets": [{
-                            "expr": "(node_filesystem_free{fstype=~\"xfs|ext4\"} / node_filesystem_size{fstype=~\"xfs|ext4\"})",
-                            "format": "time_series",
-                            "interval": "",
-                            "intervalFactor": 2,
-                            "legendFormat": "Free Filesystem",
-                            "refId": "A"
-                        }],
-                        "thresholds": [{
-                            "colorMode": "critical",
-                            "fill": true,
-                            "line": true,
-                            "op": "lt",
-                            "value": 0.2
-                        }],
+                        "targets": [
+                            {
+                                "expr": "(node_filesystem_free{fstype=~\"xfs|ext4\"} / node_filesystem_size{fstype=~\"xfs|ext4\"})",
+                                "format": "time_series",
+                                "interval": "",
+                                "intervalFactor": 2,
+                                "legendFormat": "Free Filesystem",
+                                "refId": "A"
+                            }
+                        ],
+                        "thresholds": [
+                            {
+                                "colorMode": "critical",
+                                "fill": true,
+                                "line": true,
+                                "op": "lt",
+                                "value": 0.2
+                            }
+                        ],
                         "timeFrom": null,
                         "timeShift": null,
                         "title": "Free Filesystem Space",
@@ -3247,7 +3859,8 @@
                             "show": true,
                             "values": []
                         },
-                        "yaxes": [{
+                        "yaxes": [
+                            {
                                 "decimals": 2,
                                 "format": "percentunit",
                                 "label": "",
@@ -3271,7 +3884,7 @@
                 "repeatIteration": null,
                 "repeatRowId": null,
                 "showTitle": false,
-                "title": "Dashboard Row",
+                "title": "alerts",
                 "titleSize": "h6"
             }
         ],
@@ -3282,7 +3895,8 @@
             "IOTA"
         ],
         "templating": {
-            "list": [{
+            "list": [
+                {
                     "allValue": null,
                     "current": {
                         "text": "All",
@@ -3356,7 +3970,7 @@
             ]
         },
         "time": {
-            "from": "now-1h",
+            "from": "now-3h",
             "to": "now"
         },
         "timepicker": {
@@ -3386,6 +4000,7 @@
         },
         "timezone": "browser",
         "title": "IOTA",
-        "version": 54
+        "version": 72
     }
 }
+
