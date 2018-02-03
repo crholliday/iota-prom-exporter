@@ -8,6 +8,7 @@ Prometheus Exporter for IOTA fullnode metrics
 * Added confirmation time and confirmation rate tracking. This is accomplished by storing firstSeen and confirmed dates for txs in a [LevelDB](https://github.com/level/level) that resides in a folder /db. A Prometheus histogram is collected on confirmation times and provides bucketing results in the new dashboard. This facilitate other future enhancements but I want to test the LevelDB for a while before adding more to it. There is also a pruning routine added to remove txs older than X days. The config flags for this are in the new config-template.js file.
 * Fixed some bugs and added some minor error handling enhancements
 * Major changes to the dashboard to include relevenat stats from the Confirmation Time/Rate collection
+* Added 3 new API calls: getHistogram() which returns the histogram based on the buckets in the config file. getSeenButNotConfirmed() returns a count of all txs that have a seenDate but no confirmedDate as well as the avg time ago of all of these txs. pruneDB() which prunes the db based on the config values. These are all found at http://localhost:9311/[apiCall]
 
 ### January 21, 2018
 * added a flag to determine if market info should be pulled. If you don't want IOT to BTC/ETH data pulled in, set this flag to false. 
