@@ -26,7 +26,7 @@ if (config.zmq_url) {
     // pruning routine
     if (config.retention_days) {
         const cron = require('node-cron')
-        cron.schedule(`* * */${config.prune_interval_days} * *`, function () {
+        cron.schedule(`0 0 */${config.prune_interval_days} * *`, function () {
             zmqInfo.pruneDB((data) => {
                 return
             })
