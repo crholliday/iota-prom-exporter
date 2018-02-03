@@ -3,6 +3,12 @@ Prometheus Exporter for IOTA fullnode metrics
 
 ## Latest Changes:
 
+### February 3, 2018
+* Removed the stresstest table metrics collector and dashboard row. ZMQ is available on every node and is the recommended approach for tracking those metrics.
+* Added confirmation time and confirmation rate tracking. This is accomplished by storing firstSeen and confirmed dates for txs in a [LevelDB](https://github.com/level/level) that resides in a folder /db. A Prometheus histogram is collected on confirmation times and provides bucketing results in the new dashboard. This facilitate other future enhancements but I want to test the LevelDB for a while before adding more to it. There is also a pruning routine added to remove txs older than X days. The config flags for this are in the new config-template.js file.
+* Fixed some bugs and added some minor error handling enhancements
+* Major changes to the dashboard to include relevenat stats from the Confirmation Time/Rate collection
+
 ### January 21, 2018
 * added a flag to determine if market info should be pulled. If you don't want IOT to BTC/ETH data pulled in, set this flag to false. 
 * change the reconnect interval for zmq to 20 seconds to give IRI more time to recover. 
@@ -60,6 +66,9 @@ Nuriel Shem-Tov has a great installer which deploys, among other things, IOTA IR
 * zmq rstats toRequest
 * zmq rstats toReply
 * zmq rstats totalTransactions
+* avg transaction confirmation time
+* avg transaction confirmation rate
+* transaction confirmation histogram (buckets)
 
 ## Dependencies
 
@@ -70,7 +79,7 @@ Nuriel Shem-Tov has a great installer which deploys, among other things, IOTA IR
 
 ## Installation
 
-*Do not run `npm install` as root as it the zeroMQ prebuild dependencies will break the install*
+*Do not run `npm install` as root as it the zeroMQ and levelDB prebuild dependencies will break the install*
 
 ```
 git clone https://github.com/crholliday/iota-prom-exporter.git
@@ -99,7 +108,7 @@ Test by navigating to http://localhost:9311/metrics
 
 ## Grafana
 
-Once the above is done, the metrics will be available to be consume in a Grafana dashboard. 
+Once the above is done, the metrics will be available to be consumed in a Grafana dashboard. 
 
 ## Docker
 The following docker image is available:

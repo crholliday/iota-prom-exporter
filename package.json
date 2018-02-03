@@ -31,6 +31,7 @@
     "iotap": "^2.0.0",
     "level": "^2.1.2",
     "lodash.set": "^4.3.2",
+    "node-cron": "^1.2.1",
     "prom-client": "^10.2.1",
     "reconnecting-websocket": "^3.2.2",
     "request": "^2.83.0",

@@ -5,6 +5,7 @@ const app = express()
 const config = require('./config')
 const promclient = require('prom-client')
 
+
 let Gauge = promclient.Gauge
 let Histogram = promclient.Histogram
 
@@ -18,20 +19,43 @@ if (config.market_info_flag) {
     const marketInfoSocket = require('./marketInfoSocketRC')(trades)
 }
 
+// confirmation stats
 if (config.zmq_url) {
-    // confirmation stats
+    let zmqInfo = require('./zmq')
+
+    // pruning routine
+    if (config.retention_days) {
+        const cron = require('node-cron')
+        cron.schedule(`* * */${config.prune_interval_days} * *`, function () {
+            zmqInfo.pruneDB((data) => {
+                return
+            })
+        })
+    }
+
     let confirmationTimeHist = new Histogram({
         name: 'iota_zmq_tx_confirm_time',
         help: 'Actual seconds it takes to confirm each tx',
         buckets: config.confirm_time_buckets
     })
-    let zmqInfo = require('./zmq')
 
     zmqInfo.processZmq(zmqStats, confirmationTimeHist)
 
     app.get('/getHistogram', function (req, res) {
         zmqInfo.getHistogram((data) => {
-            res.send('Histo is: ' + JSON.stringify(data))
+            res.send((data))
+        })
+    })
+
+    app.get('/getSeenButNotConfirmed', function (req, res) {
+        zmqInfo.getSeenButNotConfirmed((data) => {
+            res.send((data))
+        })
+    })
+
+    app.get('/pruneDb', function (req, res) {
+        zmqInfo.pruneDB((data) => {
+            res.send((data))
         })
     })
 }
@@ -133,7 +157,7 @@ let totalTransactionsRs = new Gauge({
     help: 'totalTransactions from RSTAT output of ZMQ'
 })
 
-app.get('/metrics', async(req, res) => {
+app.get('/metrics', async (req, res) => {
 
     newTransactions.reset()
     invalidTransactions.reset()
