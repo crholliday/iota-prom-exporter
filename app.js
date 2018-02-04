@@ -58,6 +58,12 @@ if (config.zmq_url) {
             res.send((data))
         })
     })
+
+    app.get('/getUnconfirmed', function (req, res) {
+        zmqInfo.getUnconfirmed(10, 5, (data) => {
+            res.send((data))
+        })
+    })
 }
 
 let totalTransactions = new Gauge({
