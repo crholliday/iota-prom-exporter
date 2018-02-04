@@ -145,14 +145,18 @@ let getSeenButNotConfirmed = (cb) => {
     })
 }
 
-let getUnconfirmed = (minutesOld, cb) => {
+let getUnconfirmed = (numTxs, minutesOld, cb) => {
+    let counter = 0
     let txs = []
     let now = Date.now()
     let checkDate = now - (minutesOld * 60 * 1000)
+    numTxs && numTxs > 0 ? numTxs : numTxs = 10
+    numTxs > 10000 ? numTxs = 10000 : numTxs
 
     transactions.createReadStream().on('data', (data) => {
-        if (data.value.seenDate >=  checkDate && !data.value.confirmedDate) {
+        if (counter < numTxs && data.value.seenDate >=  checkDate && !data.value.confirmedDate) {
             txs.push(data.key)
+            counter += 1
         }
     }).on('end', () => {
         cb(txs)

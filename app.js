@@ -60,7 +60,9 @@ if (config.zmq_url) {
     })
 
     app.get('/getUnconfirmed', function (req, res) {
-        zmqInfo.getUnconfirmed(5, (data) => {
+        let numTxs = req.query.numberTxs || 100
+        let minOld = req.query.minutesOld || 5
+        zmqInfo.getUnconfirmed(numTxs, minOld, (data) => {
             res.send((data))
         })
     })
