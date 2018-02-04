@@ -63,7 +63,7 @@ if (config.zmq_url) {
         let numTxs = req.query.numberTxs || 100
         let minOld = req.query.minutesOld || 5
         zmqInfo.getUnconfirmed(numTxs, minOld, (data) => {
-            res.send((data))
+            res.send(data)
         })
     })
 }
