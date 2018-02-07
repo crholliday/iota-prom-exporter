@@ -177,35 +177,39 @@ app.get('/metrics', async (req, res) => {
         const [nodeResults, neighborResults] = await Promise.all([nodeInfo(), neighborInfo()])
 
         // node info
-        totalTransactions.set(nodeResults.transactionsToRequest)
-        totalTips.set(nodeResults.tips)
-        totalNeighbors.set(nodeResults.neighbors)
-        latestMilestone.set(nodeResults.latestMilestoneIndex)
-        latestSolidSubtangleMilestone.set(nodeResults.latestSolidSubtangleMilestoneIndex)
+        if (nodeResults) {
+            totalTransactions.set(nodeResults.transactionsToRequest)
+            totalTips.set(nodeResults.tips)
+            totalNeighbors.set(nodeResults.neighbors)
+            latestMilestone.set(nodeResults.latestMilestoneIndex)
+            latestSolidSubtangleMilestone.set(nodeResults.latestSolidSubtangleMilestoneIndex)
+        }
 
         // neighbor info
-        let connectedNeighbors = 0
-        neighborResults.forEach((r) => {
-            newTransactions.set({
-                id: r.address
-            }, r.numberOfNewTransactions)
-            invalidTransactions.set({
-                id: r.address
-            }, r.numberOfInvalidTransactions)
-            allTransactions.set({
-                id: r.address
-            }, r.numberOfAllTransactions)
-            randomTransactions.set({
-                id: r.address
-            }, r.numberOfRandomTransactionRequests)
-            sentTransactions.set({
-                id: r.address
-            }, r.numberOfSentTransactions)
-            if (r.numberOfNewTransactions + r.numberOfInvalidTransactions + r.numberOfAllTransactions + r.numberOfRandomTransactionRequests) {
-                connectedNeighbors += 1
-            }
-        })
-        activeNeighbors.set(connectedNeighbors)
+        if (neighborResults) {
+            let connectedNeighbors = 0
+            neighborResults.forEach((r) => {
+                newTransactions.set({
+                    id: r.address
+                }, r.numberOfNewTransactions)
+                invalidTransactions.set({
+                    id: r.address
+                }, r.numberOfInvalidTransactions)
+                allTransactions.set({
+                    id: r.address
+                }, r.numberOfAllTransactions)
+                randomTransactions.set({
+                    id: r.address
+                }, r.numberOfRandomTransactionRequests)
+                sentTransactions.set({
+                    id: r.address
+                }, r.numberOfSentTransactions)
+                if (r.numberOfNewTransactions + r.numberOfInvalidTransactions + r.numberOfAllTransactions + r.numberOfRandomTransactionRequests) {
+                    connectedNeighbors += 1
+                }
+            })
+            activeNeighbors.set(connectedNeighbors)
+        }
 
         // market info
         if (config.market_info_flag) {
