@@ -169,7 +169,7 @@ app.get('/metrics', async (req, res) => {
         const [nodeResults, neighborResults] = await Promise.all([nodeInfo(), neighborInfo()])
 
         // node info
-        if (nodeResults) {
+        if (nodeResults && typeof nodeResults.transactionsToRequest !== 'undefined') {
             totalTransactions.set(nodeResults.transactionsToRequest)
             totalTips.set(nodeResults.tips)
             totalNeighbors.set(nodeResults.neighbors)
@@ -178,7 +178,7 @@ app.get('/metrics', async (req, res) => {
         }
 
         // neighbor info
-        if (neighborResults) {
+        if (neighborResults && neighborResults.length > 0) {
             let connectedNeighbors = 0
             neighborResults.forEach((r) => {
                 newTransactions.set({
