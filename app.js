@@ -48,8 +48,12 @@ if (config.zmq_url) {
     })
 
     app.get('/getSeenButNotConfirmed', function (req, res) {
-        zmqInfo.getSeenButNotConfirmed((data) => {
-            res.send((data))
+        zmqInfo.getSeenButNotConfirmed((err, data) => {
+            if (err) {
+                res.send((err))
+            } else {
+                res.send((data))
+            }
         })
     })
 
