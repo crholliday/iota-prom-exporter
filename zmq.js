@@ -48,9 +48,9 @@ let processZmq = (zmqStats, confirmationTimeHisto) => {
 
         let sock = zmq.socket('sub')
         // sets reconnect to 20 seconds
-        sock.setsockopt(zmq.ZMQ_RECONNECT_IVL, 20000)
+        // sock.setsockopt(zmq.ZMQ_RECONNECT_IVL, 20000)
         // sets max reconnect interval to 3 minutes
-        sock.setsockopt(zmq.ZMQ_RECONNECT_IVL_MAX, 150000)
+        // sock.setsockopt(zmq.ZMQ_RECONNECT_IVL_MAX, 150000)
         // ZMQ_RECONNECT_IVL_MAX
         sock.connect('tcp://' + config.zmq_url)
         console.log('zmq socket connected')
