@@ -22,6 +22,8 @@ let processZmq = (zmqStats, confirmationTimeHisto) => {
                 await transactions.put(tx, {
                     seenDate: Date.now()
                 })
+            } else {
+                console.log('Something is wrong with LevelDB - the error is: ', error)
             }
         }
     }
@@ -40,6 +42,8 @@ let processZmq = (zmqStats, confirmationTimeHisto) => {
                 await transactions.put(tx, {
                     confirmedDate: Date.now()
                 })
+            } else {
+                console.log('Something is wrong with LevelDB - the error is: ', error)
             }
         }
     }
@@ -130,22 +134,26 @@ let getHistogram = (cb) => {
     })
 }
 
-let getSeenButNotConfirmed = (cb) => {
+let getSeenButNotConfirmed = (err, cb) => {
     let counter = 0
     let stats = {}
     let now = Date.now()
     let seconds = 0
 
-    transactions.createReadStream().on('data', (data) => {
-        if (data.value.seenDate && !data.value.confirmedDate) {
-            counter += 1
-            seconds += (now - data.value.seenDate) / 1000
-        }
-    }).on('end', () => {
-        stats['count'] = counter
-        stats['avgSecondsAgo'] = seconds/counter
-        cb(stats)
-    })
+    try {
+        transactions.createReadStream().on('data', (data) => {
+            if (data.value.seenDate && !data.value.confirmedDate) {
+                counter += 1
+                seconds += (now - data.value.seenDate) / 1000
+            }
+        }).on('end', () => {
+            stats['count'] = counter
+            stats['avgSecondsAgo'] = seconds / counter
+            cb(stats)
+        })
+    } catch (err) {
+        err(err)
+    }
 }
 
 let pruneDB = (cb) => {
