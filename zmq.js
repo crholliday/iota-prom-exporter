@@ -134,26 +134,24 @@ let getHistogram = (cb) => {
     })
 }
 
-let getSeenButNotConfirmed = (err, cb) => {
+let getSeenButNotConfirmed = (cb) => {
     let counter = 0
     let stats = {}
     let now = Date.now()
     let seconds = 0
 
-    try {
-        transactions.createReadStream().on('data', (data) => {
-            if (data.value.seenDate && !data.value.confirmedDate) {
-                counter += 1
-                seconds += (now - data.value.seenDate) / 1000
-            }
-        }).on('end', () => {
-            stats['count'] = counter
-            stats['avgSecondsAgo'] = seconds / counter
-            cb(stats)
-        })
-    } catch (err) {
-        err(err)
-    }
+    transactions.createReadStream().on('data', (data) => {
+        if (data.value.seenDate && !data.value.confirmedDate) {
+            counter += 1
+            seconds += (now - data.value.seenDate) / 1000
+        }
+    }).on('end', () => {
+        stats['count'] = counter
+        stats['avgSecondsAgo'] = seconds / counter
+        cb(stats)
+    }).on('error', (err) => {
+        cb('An error occured in the stream...', err)
+    })
 }
 
 let pruneDB = (cb) => {
