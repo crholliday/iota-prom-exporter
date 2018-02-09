@@ -57,7 +57,7 @@ let processZmq = (zmqStats, confirmationTimeHisto) => {
 
         // subscribe to all messages
         sock.subscribe('')
-        sock.monitor(10000, 0)
+        // sock.monitor(10000, 0)
 
         sock.on('message', (topic) => {
             let arr = topic.toString().split(' ')
