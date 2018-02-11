@@ -14,8 +14,8 @@ app.get('/metrics', async (req, res) => {
 
     const [nodeResults, neighborResults] = await Promise.all([nodeInfo.getNodeInfo(), neighborInfo.getNeighborInfo()])
 
-    console.log(nodeResults)
-    console.log(neighborResults)
+    // console.log(nodeResults)
+    // console.log(neighborResults)
 
     res.end(promclient.register.metrics())
 })
