@@ -4,7 +4,22 @@ const options = {connectionTimeout: 1000, constructor: Html5WebSocket}
 const w = new ReconnectingWebSocket('wss://api.bitfinex.com/ws/2', undefined, options)
 const set = require('lodash.set')
 
-module.exports = (trades) => {
+module.exports = (promclient) => {
+
+    let trades = {}
+
+    let Gauge = promclient.Gauge
+
+    let tradePrice = new Gauge({
+        name: 'iota_market_trade_price',
+        help: 'Latest price from Bitfinex',
+        labelNames: ['pair']
+    })
+    let tradeVolume = new Gauge({
+        name: 'iota_market_trade_volume',
+        help: 'Latest volume from Bitfinex',
+        labelNames: ['pair']
+    })
 
     let btcUsdMsg = ({
         event: 'subscribe',
@@ -83,26 +98,54 @@ module.exports = (trades) => {
         }
         if (data.length === 2 && data[1] !== 'hb') {
             if (data[0] === trades.BTCUSD.channelID) {
-                trades.BTCUSD.price = data[1][6]
-                trades.BTCUSD.volume = data[1][7]
+                tradePrice.set({
+                    pair: 'BTCUSD'
+                }, data[1][6])
+                tradeVolume.set({
+                    pair: 'BTCUSD'
+                }, Number(data[1][7]))
             } else if (data[0] === trades.BTCEUR.channelID) {
-                trades.BTCEUR.price = data[1][6]
-                trades.BTCEUR.volume = data[1][7]
+                tradePrice.set({
+                    pair: 'BTCEUR'
+                }, data[1][6])
+                tradeVolume.set({
+                    pair: 'BTCEUR'
+                }, Number(data[1][7]))
             } else if (data[0] === trades.IOTBTC.channelID) {
-                trades.IOTBTC.price = data[1][6]
-                trades.IOTBTC.volume = data[1][7]
+                tradePrice.set({
+                    pair: 'IOTBTC'
+                }, data[1][6])
+                tradeVolume.set({
+                    pair: 'IOTBTC'
+                }, Number(data[1][7]))
             } else if (data[0] === trades.IOTUSD.channelID) {
-                trades.IOTUSD.price = data[1][6]
-                trades.IOTUSD.volume = data[1][7]
+                tradePrice.set({
+                    pair: 'IOTUSD'
+                }, data[1][6])
+                tradeVolume.set({
+                    pair: 'IOTUSD'
+                }, Number(data[1][7]))
             } else if (data[0] === trades.IOTEUR.channelID) {
-                trades.IOTEUR.price = data[1][6]
-                trades.IOTEUR.volume = data[1][7]
+                tradePrice.set({
+                    pair: 'IOTEUR'
+                }, data[1][6])
+                tradeVolume.set({
+                    pair: 'IOTEUR'
+                }, Number(data[1][7]))
             } else if (data[0] === trades.IOTETH.channelID) {
-                trades.IOTETH.price = data[1][6]
-                trades.IOTETH.volume = data[1][7]
+                tradePrice.set({
+                    pair: 'IOTETH'
+                }, data[1][6])
+                tradeVolume.set({
+                    pair: 'IOTETH'
+                }, Number(data[1][7]))
             } else if (data[0] === trades.ETHUSD.channelID) {
-                trades.ETHUSD.price = data[1][6]
-                trades.ETHUSD.volume = data[1][7]
+                tradePrice.set({
+                    pair: 'ETHUSD'
+                }, data[1][6])
+                tradeVolume.set({
+                    pair: 'ETHUSD'
+                }, Number(data[1][7]))
             }
         }
     })
