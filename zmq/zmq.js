@@ -121,6 +121,7 @@ module.exports = (promclient, config) => {
             toRequest.set(Number(rs.toRequest) || 0)
             toReply.set(Number(rs.toReply) || 0)
             totalTransactionsRs.set(Number(rs.totalTransactions) || 0)
+            console.log('rstats just came through')
 
         } else if (arr[0] === 'sn') {
             processNewConfirmedTransaction(arr[2])
