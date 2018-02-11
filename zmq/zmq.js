@@ -87,45 +87,44 @@ module.exports = (promclient, config) => {
     }
 
     let sock = zmq.socket('sub')
-    // sets reconnect to 20 seconds
-    // sock.setsockopt(zmq.ZMQ_RECONNECT_IVL, 20000)
-    // sets max reconnect interval to 3 minutes
-    // sock.setsockopt(zmq.ZMQ_RECONNECT_IVL_MAX, 150000)
+    // sets reconnect to 3 seconds
+    sock.setsockopt(zmq.ZMQ_RECONNECT_IVL, 3000)
+    // sets max reconnect interval to 30 seconds
+    sock.setsockopt(zmq.ZMQ_RECONNECT_IVL_MAX, 30000)
     // ZMQ_RECONNECT_IVL_MAX
     sock.connect('tcp://' + config.zmq_url)
-    console.log('zmq socket connected')
-
     // subscribe to all messages
     sock.subscribe('')
-    sock.monitor(2000, 0)
-
+    // set monitoring to fire every half second
+    sock.monitor(500, 0)
+    // process every message
     sock.on('message', (topic) => {
-        let arr = topic.toString().split(' ')
 
-        if (arr[0] === 'tx') {
-            processNewSeenTransaction(arr[1])
-            seenTxs.inc(1)
-            if (arr[3] !== '0') {
-                txsWithValue.inc(1)
-            }
-        } else if (arr[0] === 'rstat') {
-            let rs = {
-                'toProcess': arr[1],
-                'toBroadcast': arr[2],
-                'toRequest': arr[3],
-                'toReply': arr[4],
-                'totalTransactions': arr[5]
-            }
-            toProcess.set(Number(rs.toProcess) || 0)
-            toBroadcast.set(Number(rs.toBroadcast) || 0)
-            toRequest.set(Number(rs.toRequest) || 0)
-            toReply.set(Number(rs.toReply) || 0)
-            totalTransactionsRs.set(Number(rs.totalTransactions) || 0)
-            console.log('rstats just came through')
+        try {
+            let arr = topic.toString().split(' ')
 
-        } else if (arr[0] === 'sn') {
-            processNewConfirmedTransaction(arr[2])
-            confirmedTxs.inc(1)
+            if (arr[0] === 'tx') {
+                processNewSeenTransaction(arr[1])
+                seenTxs.inc(1)
+                if (arr[3] !== '0') {
+                    txsWithValue.inc(1)
+                }
+
+            } else if (arr[0] === 'rstat') {
+                toProcess.set(Number(arr[1]) || 0)
+                toBroadcast.set(Number(arr[2]) || 0)
+                toRequest.set(Number(arr[3]) || 0)
+                toReply.set(Number(arr[4]) || 0)
+                totalTransactionsRs.set(Number(arr[5]) || 0)
+                // console.log('rstats just came through')
+
+            } else if (arr[0] === 'sn') {
+                processNewConfirmedTransaction(arr[2])
+                confirmedTxs.inc(1)
+            }
+
+        } catch (e) {
+            console.log('error in the on.message event in ZMQ: ', e)
         }
     })
 
