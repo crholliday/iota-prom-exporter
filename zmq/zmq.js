@@ -97,7 +97,7 @@ module.exports = (promclient, config) => {
 
     // subscribe to all messages
     sock.subscribe('')
-    sock.monitor(2000, 1)
+    sock.monitor(2000, 0)
 
     sock.on('message', (topic) => {
         let arr = topic.toString().split(' ')
