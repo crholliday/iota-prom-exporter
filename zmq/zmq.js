@@ -45,16 +45,18 @@ module.exports = (promclient, config) => {
     let confirmationTimeHisto = new Histogram({
         name: 'iota_zmq_tx_confirm_time',
         help: 'Actual seconds it takes to confirm each tx',
+        labelNames: ['hasValue'],
         buckets: config.confirm_time_buckets
     })
 
-    let processNewSeenTransaction = async (tx) => {
+    let processNewSeenTransaction = async (tx, val) => {
         try {
             const newSeen = await transactions.get(tx)
         } catch (error) {
             if (error.notFound) {
                 await transactions.put(tx, {
-                    seenDate: Date.now()
+                    seenDate: Date.now(),
+                    val: val
                 })
             } else {
                 console.log('Something is wrong with LevelDB - the error is: ', error)
@@ -68,9 +70,11 @@ module.exports = (promclient, config) => {
             let confirmMoment = Date.now()
             await transactions.put(tx, {
                 'seenDate': newConfirmed.seenDate,
-                'confirmedDate': confirmMoment
+                'confirmedDate': confirmMoment,
+                'val': newConfirmed.val || 0
             })
-            confirmationTimeHisto.observe((confirmMoment - newConfirmed.seenDate) / 1000)
+            let hasVal = Number(newConfirmed.val) > 0 ? 'true' : 'false'
+            confirmationTimeHisto.labels(hasVal).observe((confirmMoment - newConfirmed.seenDate) / 1000)
         } catch (error) {
             if (error.notFound) {
                 await transactions.put(tx, {
@@ -100,7 +104,7 @@ module.exports = (promclient, config) => {
             let arr = topic.toString().split(' ')
 
             if (arr[0] === 'tx') {
-                processNewSeenTransaction(arr[1])
+                processNewSeenTransaction(arr[1], arr[3])
                 seenTxs.inc(1)
                 if (arr[3] !== '0') {
                     txsWithValue.inc(1)

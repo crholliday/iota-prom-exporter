@@ -2,7 +2,7 @@
 
 const express = require('express')
 const app = express()
-const config = require('./config/config.js')
+const config = require('./config')
 const promclient = require('prom-client')
 
 let zmqInfo = require('./zmq/zmq.js')(promclient, config)
@@ -12,7 +12,11 @@ let nodeInfo = require('./nodeInfo/nodeInfo.js')(promclient, config)
 let neighborInfo = require('./neighborInfo/neighborInfo.js')(promclient, config)
 
 app.get('/metrics', async (req, res) => {
-    const [nodeResults, neighborResults] = await Promise.all([nodeInfo.getNodeInfo(), neighborInfo.getNeighborInfo()])
+    const [nodeResults,
+           neighborResults] = await Promise.all([
+        nodeInfo.getNodeInfo(),
+        neighborInfo.getNeighborInfo()
+    ])
     res.end(promclient.register.metrics())
 })
 
