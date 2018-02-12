@@ -11,7 +11,8 @@ module.exports = (promclient, config) => {
     // zmq stuff
     let seenTxs = new Gauge({
         name: 'iota_zmq_seen_tx_count',
-        help: 'Count of transactions seen by zeroMQ'
+        help: 'Count of transactions seen by zeroMQ',
+        labelNames: ['hasValue']
     })
     let txsWithValue = new Gauge({
         name: 'iota_zmq_txs_with_value_count',
@@ -19,7 +20,8 @@ module.exports = (promclient, config) => {
     })
     let confirmedTxs = new Gauge({
         name: 'iota_zmq_confirmed_tx_count',
-        help: 'Count of transactions confirmed by zeroMQ'
+        help: 'Count of transactions confirmed by zeroMQ',
+        labelNames: ['hasValue']
     })
     let toProcess = new Gauge({
         name: 'iota_zmq_to_process',
@@ -50,21 +52,26 @@ module.exports = (promclient, config) => {
     })
 
     let processNewSeenTransaction = async (tx, val) => {
+
+        if (Number(val) > 0) {
+            txsWithValue.inc(1)
+            seenTxs.inc({'hasValue': 'true'}, 1)
+        } else {
+            seenTxs.inc({'hasValue': 'false'}, 1)
+        }
+
         try {
-            const newSeen = await transactions.get(tx)
+            await transactions.put(tx, {
+                seenDate: Date.now(),
+                val: val
+            })
         } catch (error) {
-            if (error.notFound) {
-                await transactions.put(tx, {
-                    seenDate: Date.now(),
-                    val: val
-                })
-            } else {
-                console.log('Something is wrong with LevelDB - the error is: ', error)
-            }
+            console.log('Something is wrong with putting to LevelDB - the error is: ', error)
         }
     }
 
     let processNewConfirmedTransaction = async (tx) => {
+        let hasVal = 'false'
         try {
             const newConfirmed = await transactions.get(tx)
             let confirmMoment = Date.now()
@@ -73,7 +80,7 @@ module.exports = (promclient, config) => {
                 'confirmedDate': confirmMoment,
                 'val': newConfirmed.val || 0
             })
-            let hasVal = Number(newConfirmed.val) > 0 ? 'true' : 'false'
+            hasVal = Number(newConfirmed.val) > 0 ? 'true' : 'false'
             confirmationTimeHisto.labels(hasVal).observe((confirmMoment - newConfirmed.seenDate) / 1000)
         } catch (error) {
             if (error.notFound) {
@@ -84,6 +91,7 @@ module.exports = (promclient, config) => {
                 console.log('Something is wrong with LevelDB - the error is: ', error)
             }
         }
+        confirmedTxs.inc({'hasValue': hasVal}, 1)
     }
 
     let sock = zmq.socket('sub')
@@ -105,11 +113,6 @@ module.exports = (promclient, config) => {
 
             if (arr[0] === 'tx') {
                 processNewSeenTransaction(arr[1], arr[3])
-                seenTxs.inc(1)
-                if (arr[3] !== '0') {
-                    txsWithValue.inc(1)
-                }
-
             } else if (arr[0] === 'rstat') {
                 toProcess.set(Number(arr[1]) || 0)
                 toBroadcast.set(Number(arr[2]) || 0)
@@ -120,7 +123,6 @@ module.exports = (promclient, config) => {
 
             } else if (arr[0] === 'sn') {
                 processNewConfirmedTransaction(arr[2])
-                confirmedTxs.inc(1)
             }
 
         } catch (e) {
