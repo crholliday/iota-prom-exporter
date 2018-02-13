@@ -53,11 +53,11 @@ module.exports = (promclient, config) => {
 
     let processNewSeenTransaction = async (tx, val) => {
 
-        if (Number(val) > 0) {
+        if (Number(val) !== 0) {
             txsWithValue.inc(1)
-            seenTxs.inc({'hasValue': 'true'}, 1)
+            seenTxs.inc({'hasValue': '<> 0'}, 1)
         } else {
-            seenTxs.inc({'hasValue': 'false'}, 1)
+            seenTxs.inc({'hasValue': '0'}, 1)
         }
 
         try {
@@ -71,7 +71,7 @@ module.exports = (promclient, config) => {
     }
 
     let processNewConfirmedTransaction = async (tx) => {
-        let hasVal = 'false'
+        let hasVal = '0'
         try {
             const newConfirmed = await transactions.get(tx)
             let confirmMoment = Date.now()
@@ -80,7 +80,7 @@ module.exports = (promclient, config) => {
                 'confirmedDate': confirmMoment,
                 'val': newConfirmed.val || 0
             })
-            hasVal = Number(newConfirmed.val) > 0 ? 'true' : 'false'
+            hasVal = Number(newConfirmed.val) !== 0 ? '<> 0' : '0'
             confirmationTimeHisto.labels(hasVal).observe((confirmMoment - newConfirmed.seenDate) / 1000)
         } catch (error) {
             if (error.notFound) {
