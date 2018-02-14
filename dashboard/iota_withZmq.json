@@ -1,5 +1,4 @@
 {
-    "dashboard": {
         "annotations": {
             "list": [{
                 "builtIn": 1,
@@ -3731,4 +3730,4 @@
         "title": "IOTA",
         "version": 75
     }
-}
+    
