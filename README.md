@@ -3,6 +3,12 @@ Prometheus Exporter for IOTA fullnode metrics
 
 ## Latest Changes:
 
+### February 19, 2018
+* Added a "hasValue" label to Confirmation and Confirm Time metrics to enable comparison of transactions with and without value.
+* Updated ZMQ processing to provide more verbose event handling 
+* Fixed some bugs and added some minor error handling enhancements
+* Added a new Dashboard file with improved look and feel and incorporation of the `hasValue` label. 
+
 ### February 3, 2018
 * Removed the stresstest table metrics collector and dashboard row. ZMQ is available on every node and is the recommended approach for tracking those metrics.
 * Added confirmation time and confirmation rate tracking. This is accomplished by storing firstSeen and confirmed dates for txs in a [LevelDB](https://github.com/level/level) that resides in a folder /db. A Prometheus histogram is collected on confirmation times and provides bucketing results in the new dashboard. This facilitate other future enhancements but I want to test the LevelDB for a while before adding more to it. There is also a pruning routine added to remove txs older than X days. The config flags for this are in the new config-template.js file.
