@@ -1,6 +1,6 @@
 'use strict'
 
-const zmq = require('zeromq')
+const zmq = require('zeromq-ng/compat')
 const transactions = require('../db').connect()
 
 module.exports = (promclient, config) => {
