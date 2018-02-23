@@ -106,7 +106,14 @@ module.exports = (promclient, config) => {
     // set monitoring to fire every half second
     sock.monitor(500, 0)
     // process every message
+
+    let txCounter = 0
+
     sock.on('message', (topic) => {
+        txCounter++
+        if (txCounter % 30 === 0) {
+            console.log('ZMQ Tx Count = ', txCounter)
+        }
 
         try {
             let arr = topic.toString().split(' ')
@@ -119,7 +126,7 @@ module.exports = (promclient, config) => {
                 toRequest.set(Number(arr[3]) || 0)
                 toReply.set(Number(arr[4]) || 0)
                 totalTransactionsRs.set(Number(arr[5]) || 0)
-                // console.log('rstats just came through')
+                console.log('rstats just came through')
 
             } else if (arr[0] === 'sn') {
                 processNewConfirmedTransaction(arr[2])
