@@ -1,7 +1,7 @@
 'use strict'
 
 const zmq = require('zeromq-ng/compat')
-const config = require('../config')
+const config = require('./config')
 
 let sock = zmq.socket('sub')
 // sets reconnect to 3 seconds
