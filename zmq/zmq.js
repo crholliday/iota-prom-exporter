@@ -110,15 +110,14 @@ module.exports = (promclient, config) => {
     let txCounter = 0
 
     sock.on('message', (topic) => {
-        txCounter++
-        if (txCounter % 30 === 0) {
-            console.log('ZMQ Tx Count = ', txCounter)
-        }
-
         try {
             let arr = topic.toString().split(' ')
 
             if (arr[0] === 'tx') {
+                txCounter++
+                if (txCounter % 30 === 0) {
+                    console.log('ZMQ Tx Count = ', txCounter)
+                }
                 processNewSeenTransaction(arr[1], arr[3])
             } else if (arr[0] === 'rstat') {
                 toProcess.set(Number(arr[1]) || 0)
