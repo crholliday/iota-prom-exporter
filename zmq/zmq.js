@@ -110,29 +110,24 @@ module.exports = (promclient, config) => {
     let txCounter = 0
 
     sock.on('message', (topic) => {
-        try {
-            let arr = topic.toString().split(' ')
+        let arr = topic.toString().split(' ')
 
-            if (arr[0] === 'tx') {
-                txCounter++
-                if (txCounter % 30 === 0) {
-                    console.log('ZMQ Tx Count = ', txCounter)
-                }
-                processNewSeenTransaction(arr[1], arr[3])
-            } else if (arr[0] === 'rstat') {
-                toProcess.set(Number(arr[1]) || 0)
-                toBroadcast.set(Number(arr[2]) || 0)
-                toRequest.set(Number(arr[3]) || 0)
-                toReply.set(Number(arr[4]) || 0)
-                totalTransactionsRs.set(Number(arr[5]) || 0)
-                console.log('rstats just came through')
-
-            } else if (arr[0] === 'sn') {
-                processNewConfirmedTransaction(arr[2])
+        if (arr[0] === 'tx') {
+            txCounter++
+            if (txCounter % 30 === 0) {
+                console.log('ZMQ Tx Count = ', txCounter)
             }
+            processNewSeenTransaction(arr[1], arr[3])
+        } else if (arr[0] === 'rstat') {
+            toProcess.set(Number(arr[1]) || 0)
+            toBroadcast.set(Number(arr[2]) || 0)
+            toRequest.set(Number(arr[3]) || 0)
+            toReply.set(Number(arr[4]) || 0)
+            totalTransactionsRs.set(Number(arr[5]) || 0)
+            console.log('rstats just came through')
 
-        } catch (e) {
-            console.log('error in the on.message event in ZMQ: ', e)
+        } else if (arr[0] === 'sn') {
+            processNewConfirmedTransaction(arr[2])
         }
     })
 
