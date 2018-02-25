@@ -9,9 +9,9 @@ module.exports = {
     bind_address: '127.0.0.1',
     bind_port: 9311,
 
-    // address where zmq is being served (example: '127.0.0.1:5556')
+    // address where iota-zmq-socket is being served (example: 'localhost:8091')
     // *** Leave blank if ZMQ is not enabled on IRI ***
-    zmq_url: '',
+    zmq_socket_url: 'localhost:8091',
 
     // if true, will pull in market info (IOT to USD, IOT to BTC, etc)
     // *** Leave blank if you do not want market into pulled in ***

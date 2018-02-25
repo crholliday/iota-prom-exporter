@@ -6,7 +6,7 @@ const config = require('./config')
 const promclient = require('prom-client')
 
 if (config.zmq_url !== '') {
-    let zmqInfo = require('./zmq/zmq.js')(promclient, config)
+    let zmqInfo = require('./zmq/zmqSocket.js')(promclient, config)
     let api = require('./zmq/api.js')(config)
 
     app.get('/getSeenButNotConfirmed', function (req, res) {
