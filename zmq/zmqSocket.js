@@ -100,7 +100,7 @@ module.exports = (promclient, config) => {
     socket.on('msg', function(arr){
         if (arr[0] === 'tx') {
             txCounter++
-            if (txCounter % 30 === 0) {
+            if (txCounter % 100 === 0) {
                 console.log('ZMQ Tx Count = ', txCounter)
             }
             processNewSeenTransaction(arr[1], arr[3])
