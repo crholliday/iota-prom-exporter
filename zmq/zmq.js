@@ -108,13 +108,15 @@ module.exports = (promclient, config) => {
     // process every message
 
     let txCounter = 0
+    let interval = 0
+    let attempts = 0
 
     sock.on('message', (topic) => {
         let arr = topic.toString().split(' ')
 
         if (arr[0] === 'tx') {
             txCounter++
-            if (txCounter % 30 === 0) {
+            if (txCounter % 100 === 0) {
                 console.log('ZMQ Tx Count = ', txCounter)
             }
             processNewSeenTransaction(arr[1], arr[3])
@@ -130,6 +132,20 @@ module.exports = (promclient, config) => {
             processNewConfirmedTransaction(arr[2])
         }
     })
+
+    setInterval(() => {
+        if (interval === txCounter) {
+            attempts++
+            console.log('Closing the sockets due to inactivity for ', config.zmq_restart_interval, ' seconds')
+            console.log('Attempt #: ', attempts)
+            sock.disconnect('tcp://' + config.zmq_url)
+            sock.connect('tcp://' + config.zmq_url)
+            sock.subscribe('')
+
+        } else {
+            interval = txCounter
+        }
+    }, config.zmq_restart_interval * 1000)
 
     sock.on('connect_retry', (eventVal, endPoint, err) => {
         console.log('zmq is in "connect_retry". The eventVal, endPoint, err are: ', eventVal, endPoint, err)
