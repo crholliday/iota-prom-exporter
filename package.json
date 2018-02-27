@@ -35,6 +35,6 @@
     "prom-client": "^10.2.1",
     "reconnecting-websocket": "^3.2.2",
     "request": "^2.83.0",
-    "zeromq-ng": "^5.0.0-beta.9"
+    "zeromq": "^4.6.0"
   }
 }
