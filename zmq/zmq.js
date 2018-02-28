@@ -123,7 +123,7 @@ module.exports = (promclient, config) => {
 
     const sock = new zmq.Subscriber
     sock.receiveTimeout = config.zmq_restart_interval * 1000
-    
+
     sock.connect('tcp://' + config.zmq_url)
     sock.subscribe('')
     console.log('Subscriber connected to port 5556')
