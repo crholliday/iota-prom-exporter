@@ -1,6 +1,6 @@
 'use strict'
 
-const zmq = require('zeromq')
+const zmq = require('zeromq-ng')
 const transactions = require('../db').connect()
 
 module.exports = (promclient, config) => {
@@ -51,6 +51,10 @@ module.exports = (promclient, config) => {
         buckets: config.confirm_time_buckets
     })
 
+    let txCounter = 0
+    let interval = 0
+    let attempts = 0
+
     let processNewSeenTransaction = async (tx, val) => {
 
         if (Number(val) !== 0) {
@@ -94,25 +98,8 @@ module.exports = (promclient, config) => {
         confirmedTxs.inc({'hasValue': hasVal}, 1)
     }
 
-    let sock = zmq.socket('sub')
-    // sets reconnect to 3 seconds
-    sock.setsockopt(zmq.ZMQ_RECONNECT_IVL, 3000)
-    // sets max reconnect interval to 30 seconds
-    sock.setsockopt(zmq.ZMQ_RECONNECT_IVL_MAX, 30000)
-    // ZMQ_RECONNECT_IVL_MAX
-    sock.connect('tcp://' + config.zmq_url)
-    // subscribe to all messages
-    sock.subscribe('')
-    // set monitoring to fire every half second
-    sock.monitor(500, 0)
-    // process every message
-
-    let txCounter = 0
-    let interval = 0
-    let attempts = 0
-
-    sock.on('message', (topic) => {
-        let arr = topic.toString().split(' ')
+    let processMessage = (msg) => {
+        let arr = msg.toString().split(' ')
 
         if (arr[0] === 'tx') {
             txCounter++
@@ -126,56 +113,39 @@ module.exports = (promclient, config) => {
             toRequest.set(Number(arr[3]) || 0)
             toReply.set(Number(arr[4]) || 0)
             totalTransactionsRs.set(Number(arr[5]) || 0)
-            console.log('rstats just came through')
+            // console.log('rstats just came through')
 
         } else if (arr[0] === 'sn') {
             processNewConfirmedTransaction(arr[2])
         }
-    })
+    }
 
-    setInterval(() => {
-        if (interval === txCounter) {
-            attempts++
-            console.log('Closing the sockets due to inactivity for ', config.zmq_restart_interval, ' seconds')
-            console.log('Attempt #: ', attempts)
-            sock.disconnect('tcp://' + config.zmq_url)
-            sock.connect('tcp://' + config.zmq_url)
-            sock.subscribe('')
 
-        } else {
-            interval = txCounter
+    const sock = new zmq.Subscriber
+    sock.receiveTimeout = config.zmq_restart_interval * 1000
+    
+    sock.connect('tcp://' + config.zmq_url)
+    sock.subscribe('')
+    console.log('Subscriber connected to port 5556')
+
+    async function run() {
+        while (!sock.closed) {
+            try {
+                const [topic, msg] = await sock.receive()
+                processMessage(topic)
+            } catch (e) {
+                if (e.code === 'EAGAIN') {
+                    console.log('ZMQ messaging timed out. Attempting to reconnect')
+                    sock.disconnect('tcp://' + config.zmq_url)
+                    sock.connect('tcp://' + config.zmq_url)
+                    sock.subscribe
+                } else {
+                    console.log('An unhandled exception has occurred: ', e)
+                }
+            }
         }
-    }, config.zmq_restart_interval * 1000)
+      }
 
-    sock.on('connect_retry', (eventVal, endPoint, err) => {
-        console.log('zmq is in "connect_retry". The eventVal, endPoint, err are: ', eventVal, endPoint, err)
-    })
-
-    sock.on('disconnect', (eventVal, endPoint, err) => {
-        console.log('zmq is in "disconnect". the error is: ', err)
-    })
-
-    sock.on('connect', () => {
-        console.log('zmq is in a "connected" state.')
-    })
-
-    sock.on('connect_delay', (eventVal, endPoint, err) => {
-        console.log('zmq is in a "connect_delay" state.', eventVal, endPoint, err)
-    })
-
-    sock.on('close', (eventVal, endPoint, err) => {
-        console.log('zmq is in a "closed" state.', eventVal, endPoint, err)
-    })
-
-    sock.on('close_error', (eventVal, endPoint, err) => {
-        console.log('zmq is in a "close_error" state.', eventVal, endPoint, err)
-    })
-
-    sock.on('bind_error', (eventVal, endPoint, err) => {
-        console.log('zmq is in a "bind_error" state.', eventVal, endPoint, err)
-    })
-
-    sock.on('accept_error', (eventVal, endPoint, err) => {
-        console.log('zmq is in a "accept_error" state.', eventVal, endPoint, err)
-    })
+      run()
 }
+
