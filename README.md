@@ -3,6 +3,11 @@ Prometheus Exporter for IOTA fullnode metrics
 
 ## Latest Changes:
 
+### March 6, 2018
+* Changed ZM library to a new promise-based library that bubbles up low level errors 
+* Minor dashboard changes
+* Fixed some bugs and added some minor error handling enhancements
+
 ### February 19, 2018
 * Added a "hasValue" label to Confirmation and Confirm Time metrics to enable comparison of transactions with and without value.
 * Updated ZMQ processing to provide more verbose event handling 

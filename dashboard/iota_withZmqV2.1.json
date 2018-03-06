@@ -808,7 +808,8 @@
                     "seriesOverrides": [{
                         "alias": "AVG",
                         "fill": 0,
-                        "linewidth": 2
+                        "linewidth": 2,
+                        "steppedLine": true
                     }],
                     "spaceLength": 10,
                     "span": 4,
@@ -1172,7 +1173,7 @@
                             "query": {
                                 "params": [
                                     "A",
-                                    "2m",
+                                    "3m",
                                     "now"
                                 ]
                             },
@@ -1185,7 +1186,7 @@
                         "executionErrorState": "alerting",
                         "frequency": "60s",
                         "handler": 1,
-                        "message": "173.249.11.181 zmq is malfunctioning",
+                        "message": "hotsexcoffee.com  zmq is malfunctioning",
                         "name": "TPS vs CTPS alert",
                         "noDataState": "no_data",
                         "notifications": []
@@ -1195,7 +1196,7 @@
                     "dashLength": 10,
                     "dashes": false,
                     "datasource": null,
-                    "fill": 1,
+                    "fill": 0,
                     "id": 76,
                     "legend": {
                         "alignAsTable": false,
@@ -1208,15 +1209,31 @@
                         "total": false,
                         "values": true
                     },
-                    "lines": true,
-                    "linewidth": 1,
+                    "lines": false,
+                    "linewidth": 0,
                     "links": [],
                     "nullPointMode": "null",
                     "percentage": false,
                     "pointradius": 5,
                     "points": false,
                     "renderer": "flot",
-                    "seriesOverrides": [],
+                    "seriesOverrides": [{
+                            "alias": "TPS Avg",
+                            "bars": false,
+                            "legend": false,
+                            "lines": true,
+                            "linewidth": 2,
+                            "stack": false
+                        },
+                        {
+                            "alias": "CTPS Avg",
+                            "bars": false,
+                            "legend": false,
+                            "lines": true,
+                            "linewidth": 2,
+                            "stack": false
+                        }
+                    ],
                     "spaceLength": 10,
                     "span": 4,
                     "stack": true,
@@ -1234,6 +1251,20 @@
                             "intervalFactor": 2,
                             "legendFormat": "CTPS - val: {{hasValue}}",
                             "refId": "B"
+                        },
+                        {
+                            "expr": "sum(rate(iota_zmq_seen_tx_count[10m]))",
+                            "format": "time_series",
+                            "intervalFactor": 2,
+                            "legendFormat": "TPS Avg",
+                            "refId": "C"
+                        },
+                        {
+                            "expr": "sum(rate(iota_zmq_confirmed_tx_count[10m]))",
+                            "format": "time_series",
+                            "intervalFactor": 2,
+                            "legendFormat": "CTPS Avg",
+                            "refId": "D"
                         }
                     ],
                     "thresholds": [{
@@ -1368,6 +1399,7 @@
                     "fill": 1,
                     "id": 77,
                     "legend": {
+                        "alignAsTable": false,
                         "avg": false,
                         "current": false,
                         "max": false,
@@ -2162,7 +2194,7 @@
             "titleSize": "h4"
         },
         {
-            "collapse": true,
+            "collapse": false,
             "height": 282,
             "panels": [{
                     "aliasColors": {},
@@ -2621,7 +2653,7 @@
                     "points": false,
                     "renderer": "flot",
                     "repeat": null,
-                    "repeatIteration": 1518633260458,
+                    "repeatIteration": 1520205718971,
                     "repeatPanelId": 10,
                     "scopedVars": {
                         "neighbor": {
@@ -2735,7 +2767,7 @@
                     "points": false,
                     "renderer": "flot",
                     "repeat": null,
-                    "repeatIteration": 1518633260458,
+                    "repeatIteration": 1520205718971,
                     "repeatPanelId": 10,
                     "scopedVars": {
                         "neighbor": {
@@ -2849,7 +2881,7 @@
                     "points": false,
                     "renderer": "flot",
                     "repeat": null,
-                    "repeatIteration": 1518633260458,
+                    "repeatIteration": 1520205718971,
                     "repeatPanelId": 10,
                     "scopedVars": {
                         "neighbor": {
@@ -3508,5 +3540,5 @@
     },
     "timezone": "browser",
     "title": "IOTA",
-    "version": 87
+    "version": 98
 }
