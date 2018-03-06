@@ -13,6 +13,11 @@ module.exports = {
     // *** Leave blank if ZMQ is not enabled on IRI ***
     zmq_url: '',
 
+    // the frequency that this application will seek for new messages
+    // and force a reconnect to the zmq queue if one is not found
+    // 5 seconds seems to be a good fit so far
+    zmq_restart_interval: 5,
+
     // if true, will pull in market info (IOT to USD, IOT to BTC, etc)
     // *** Leave blank if you do not want market into pulled in ***
     market_info_flag: '',
