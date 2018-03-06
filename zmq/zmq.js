@@ -52,8 +52,6 @@ module.exports = (promclient, config) => {
     })
 
     let txCounter = 0
-    let interval = 0
-    let attempts = 0
 
     let processNewSeenTransaction = async (tx, val) => {
 
@@ -102,10 +100,11 @@ module.exports = (promclient, config) => {
         let arr = msg.toString().split(' ')
 
         if (arr[0] === 'tx') {
-            txCounter++
-            if (txCounter % 100 === 0) {
-                console.log('ZMQ Tx Count = ', txCounter)
-            }
+            // txCounter++
+            // uncomment to debug
+            // if (txCounter % 100 === 0) {
+            //     console.log('ZMQ Tx Count = ', txCounter)
+            // }
             processNewSeenTransaction(arr[1], arr[3])
         } else if (arr[0] === 'rstat') {
             toProcess.set(Number(arr[1]) || 0)
@@ -113,6 +112,7 @@ module.exports = (promclient, config) => {
             toRequest.set(Number(arr[3]) || 0)
             toReply.set(Number(arr[4]) || 0)
             totalTransactionsRs.set(Number(arr[5]) || 0)
+            // uncomment to debug
             // console.log('rstats just came through')
 
         } else if (arr[0] === 'sn') {
