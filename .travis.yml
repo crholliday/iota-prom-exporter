@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "lts/*"
+
+sudo: required
+
+services:
+  - docker
+
+script:
+  - npm start
+
+after_script:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker build -t crholliday/iota-prom-exporter:latest .
+  - docker push crholliday/iota-prom-exporter:latest
