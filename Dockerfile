@@ -5,9 +5,9 @@ ENV npm_config_zmq_external="true"
 
 WORKDIR /exporter
 
-COPY . /exporter
+COPY . .
 
-RUN cd /exporter && npm install
+RUN npm install
 
 RUN apk del python gcc make g++ git
 
