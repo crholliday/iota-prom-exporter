@@ -11,7 +11,7 @@ module.exports = {
 
     // address where zmq is being served (example: '127.0.0.1:5556')
     // *** Leave blank if ZMQ is not enabled on IRI ***
-    zmq_url: '',
+    zmq_url: '127.0.0.1:5556',
 
     // the frequency that this application will seek for new messages
     // and force a reconnect to the zmq queue if one is not found
@@ -20,7 +20,7 @@ module.exports = {
 
     // if true, will pull in market info (IOT to USD, IOT to BTC, etc)
     // *** Leave blank if you do not want market into pulled in ***
-    market_info_flag: '',
+    market_info_flag: 'true',
 
     // window for bucketing confirmation times by transaction
     // represents seconds and aggregates a histogram
