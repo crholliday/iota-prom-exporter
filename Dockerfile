@@ -1,6 +1,6 @@
 FROM node:alpine
 
-RUN apk add --no-cache git python zeromq-dev gcc make g++ zlib-dev libzmq
+RUN apk add --no-cache git python zeromq-dev gcc make g++ zlib-dev libzmq curl
 ENV npm_config_zmq_external="true"
 
 WORKDIR /exporter
@@ -11,7 +11,7 @@ RUN npm i level --build-from-source --production --silent
 
 RUN npm install
 
-RUN apk del python gcc make g++ git
+RUN apk del python gcc make g++ git curl
 
 COPY config-template.js config.js
 
