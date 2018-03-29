@@ -3,11 +3,11 @@ FROM node:alpine
 RUN apk add --no-cache git python zeromq-dev gcc make g++ zlib-dev libzmq
 ENV npm_config_zmq_external="true"
 
-RUN npm i -g level --build-from-source --production --silent
-
 WORKDIR /exporter
 
 COPY . .
+
+RUN npm i level --build-from-source --production --silent
 
 RUN npm install
 
