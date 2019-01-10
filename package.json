@@ -25,16 +25,16 @@
   "license": "MIT",
   "homepage": "https://github.com/crholliday/iota-prom-exporter",
   "dependencies": {
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "html5-websocket": "^2.0.2",
     "iota.lib.js": "^0.4.7",
     "iotap": "^2.0.0",
-    "level": "^2.1.2",
+    "level": "*",
     "lodash.set": "^4.3.2",
     "node-cron": "^1.2.1",
-    "prom-client": "^10.2.1",
+    "prom-client": "^10.2.3",
     "reconnecting-websocket": "^3.2.2",
-    "request": "^2.83.0",
-    "zeromq-ng": "^5.0.0-beta.9"
+    "request": "^2.85.0",
+    "zeromq-ng": "^5.0.0-beta.15"
   }
 }
